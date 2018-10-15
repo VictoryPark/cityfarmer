@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+<configuration>
+	<!-- 루트태크 : 하나만 존재할 수 있다. xml 시작을 알리는 태그  -->
+
+	<!-- 설정파일에서 사용할 프로퍼티의 파일의 경로 지정: classpath -->
+	<properties resource="config/mybatis/db.properties"/>
+	
+	<!-- SQL의 결과를 담을 VO 객체들의 별칭을 설정하여 사용의 편의를 도모  -->
+	<typeAliases>
+		<typeAlias alias="ExchangeB" type="com.cityfarmer.repository.domain.ExchangeBoard" />
+		<typeAlias alias="GalleryB" type="com.cityfarmer.repository.domain.GalleryBoard" />
+		<typeAlias alias="TipB" type="com.cityfarmer.repository.domain.TipBoard" />
+		<typeAlias alias="GroupBuyB" type="com.cityfarmer.repository.domain.GroupBuyBoard" />
+		<typeAlias alias="DiaryB" type="com.cityfarmer.repository.domain.DiaryBoard" />
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<!-- Content 주석문
+		사용자가 직접 작성한 SQL 문장들이 들어있는 xml 파일의 위치를 알려준다.
+	 -->
+	<mappers>
+		<mapper resource="config/sqlmap/exchange.xml"/>
+		
+	</mappers>
+</configuration>
