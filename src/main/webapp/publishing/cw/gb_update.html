@@ -1,0 +1,294 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>City Farmer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+    <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.3.0/tui-code-snippet.min.js"></script>
+    <!-- timepicker-->
+    <link href="./tui-time-picker.css" rel="stylesheet">
+    <script src="./tui-time-picker.js"></script>
+    <!-- datepicker-->
+    <link href="./tui-date-picker.css" rel="stylesheet">
+    <script src="./tui-code-snippet.js"></script>
+    <script src="./tui-date-picker.js"></script>
+
+       <style>
+        body {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-family: Montserrat, Helvetica, Arial, sans-serif;
+        }
+
+        h1,
+        h3,
+        h4 {
+            color: black;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 30px;
+            text-align: left;
+            width: auto;
+            float: left;
+            padding: 15px 0;
+        }
+
+        h3 {
+            font-size: 18px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        h4 {
+            font-size: 12px;
+        }
+
+        .main-title h1 {
+            text-align: left;
+            padding: 5px 0px;
+            text-transform: uppercase;
+            color: #77a466;
+        }
+
+        p {
+            padding: 0px 30px;
+            line-height: 21px;
+            font-size: 14px;
+        }
+
+        /*The widths are in a percentage!*/
+        header {
+            width: 100%;
+            height: 110px;
+            border-bottom: 3px solid #77a466;
+            margin: 0 auto;
+        }
+
+        header span {
+            color: #77a466;
+        }
+
+        header nav {
+            float: right;
+            padding: 45px 0px;
+        }
+
+        header nav a {
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 0 10px;
+            color: #77a466;
+        }
+
+        /*The widths are in a percentage!*/
+        .top-section,
+        .bottom-section {
+            width: 100%;
+            margin: 0 auto;
+            clear: both;
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            float: left;
+        }
+
+        .main-image img {
+            width: 100%;
+            border-bottom: 3px solid #77a466;
+        }
+
+        .main-title {
+            width: 100%;
+            height: auto;
+            float: left;
+        }
+
+        .main-title p {
+            padding: 0px;
+            line-height: 25px;
+            font-size: 16px;
+        }
+
+        .section-one {
+            width: 25%;
+            height: auto;
+            float: left;
+            border-top: 1px solid #eee;
+        }
+
+        .section-two {
+            width: 75%;
+            height: auto;
+            float: left;
+            border-top: 1px solid #eee;
+        }
+
+        .section-one,
+        .section-two {
+            border-right: 1px solid #eee;
+        }
+
+        .section-one h4 {
+            padding: 10px 0px;
+        }
+
+        .section-two h4,
+        .section-three h4 {
+            padding: 10px 30px;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0px;
+        }
+
+        .menu li {
+            padding: 10px 0;
+            color: #77a466;
+        }
+
+        /*The widths are in a percentage!*/
+        footer {
+            width: 100%;
+            height: 50px;
+            border-top: 3px solid #eee;
+            margin: 0 auto;
+            clear: both;
+            text-align: center;
+        }
+
+        footer span {
+            font-family: "Wisdom Script", script;
+            text-transform: lowercase;
+            color: #77a466;
+            font-size: 14px;
+        }
+
+        #paging {
+            text-align: center;
+        }
+
+        #search {
+            text-align: center;
+        }
+
+        #writebtn {
+            text-align: right;
+            margin-right: 30px;
+        }
+
+        #title {
+            margin-top:10px;
+        }
+
+        #writer {
+            padding: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+      
+    <header>
+        <h1><span>City</span>Farmer</h1>
+        <nav>
+            <a href="">About</a>
+            <a href="">물물교환</a>
+            <a href="">공동구매</a>
+            <a href="">꿀팁</a>
+            <a href="">갤러리</a>
+            <a href="">나만의 일기</a>
+        </nav>
+    </header>
+  
+    <div class="top-section">
+        <div class="main-image"><img src="https://res.cloudinary.com/bigboydesign1/image/upload/v1476647899/download_schjib.jpg" /></span>
+    </div>
+    <div class="main-title">
+        <h1>공동구매 게시판</h1>
+    </div>
+   
+    </div>
+    <div class="bottom-section">
+        <div class="section-one">
+        <h3>공동구매 마감일 선택</h3>
+        <div id="datepicker">
+            <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                    <input type="text" id="datepicker-input-2" aria-label="Date-Time">
+                    <span class="tui-ico-date"></span>
+            </div>
+            <div id="wrapper-2" style="margin-top: -1px;"></div>
+        </div>
+    </div>
+    
+        <div class="section-two">
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <div id="title"><input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" style="margin-bottom: 10px;"> </div>
+                                <div id="writer">작성자</div>
+                        </div>
+                        <div class="panel-body">
+                                <div id="smnt-area"> <textarea name="content" id="summernote" value=""></textarea> </div>
+                        </div>
+                      </div>
+            
+            <div id="writebtn">
+                    <button type="submit" class="btn btn-default">수정</button>
+                    &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-default">취소</button>
+            </div>
+            <br>
+            <br>
+        </div> 
+    </div>
+    
+        <footer>
+            <h4>Copyright ⓒ<span>낭만코양이</span> All rights reserved.</h4>
+
+            <h4>with AR, CW, HK, SY, BG</h4>
+        </footer>
+        <script>
+            $(document).ready(function () {
+                $('#summernote').summernote({
+                    height: 330,                 // set editor height
+                    minHeight: null,             // set minimum height of editor
+                    maxHeight: null,             // set maximum height of editor
+                    focus: true                  // set focus to editable area after initializing summernote
+                });
+            });
+        </script>
+
+        <script>
+        var datepicker2 = new tui.DatePicker('#wrapper-2', {
+            date: new Date(),
+            input: {
+                element: '#datepicker-input-2',
+                format: 'yyyy-MM-dd HH:mm A'
+            },
+            timepicker: {
+                layoutType: 'tab',
+                inputType: 'spinbox'
+            },
+            showAlways: true
+        });
+        </script>
+</body>
+</html>
