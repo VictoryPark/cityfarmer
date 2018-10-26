@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc 
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+      <!-- 빈 객체 생성(@Component, @Controller, @Service, @Repository...) + 객체 자동 주입 처리(@Autowired, @Resource, @Inject)
+			//어노테이션이 붙어있는 클래스만 객체 생성한다..
+			//아래 패키지 안에 있는 클래스 중..
+		 -->                     
+      <context:component-scan base-package="com.cityfarmer"/>
+      <!-- aop 관련 태그 추가 : @Aspect, @Pointcut, @Before...어노테이션 사용 가능..-->
+	  <aop:aspectj-autoproxy proxy-target-class="true"/>
+      
+      <!-- mvc annotation 처리 해주는 bean 객체 만드는중..dispatcherservlet 같은것..?.. -->
+      <mvc:annotation-driven>
+      	<mvc:message-converters>
+      	<!-- 한글로 인코딩해주는 bean 객체 -->
+      		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+      			<!-- 인코딩할 mediatype을 가지는 List를 setter 하는 메소드에 UTF-8 넣어준다. -->
+      			<property name="supportedMediaTypes">
+      				<list>
+      					<value>text/plain; charset=UTF-8</value>
+      					<value>text/html; charset=UTF-8</value>
+      				</list>
+      			</property>
+      		</bean>
+      	</mvc:message-converters>
+      </mvc:annotation-driven>
+      
+     <!-- 인터셉터 기능 등록 -->
+      <mvc:interceptors>
+      	<mvc:interceptor>
+      		<!-- 인터셉터를 어느 url에 등록해야 할지 설정한다. -->
+      		<mvc:mapping path="/09interceptor/**"/>
+      		<!-- 특정한 url은 제외해야 하는 것..loginform 같은 경우..계속 redirect 한다. -->
+      		<mvc:exclude-mapping path="/login*.do"/>
+      		<!-- <mvc:exclude-mapping path="/loginform.do"/>
+      		<mvc:exclude-mapping path="/login.do"/> -->
+      		<!-- 어느 interceptor 클래스를 사용할지 빈 객체 설정 -->
+      		<bean class="com.cityfarmer.common.Interceptor"/>
+      	</mvc:interceptor>
+      </mvc:interceptors>
+      <!-- 파일업로드 할 수 있는 라이브러리 다운로드 후..
+      그 라이브러리를 실제 사용하는 spring jar 클래스를 빈객체로 만든다..
+      id는 고정으로 사용하여야 한다.. -->
+      <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      	<property name="maxUploadSize" value="10485760"/>
+      									<!-- value값은 파일 사이즈 1024*1024*10 메가 -->
+      </bean>
+      
+      <!-- 컨트롤러에 메소드 거치지 않고 페이지 이동 
+			url path로 올경우에는...prefix + viewname + suffix 의 jsp로 이동해라!-->
+     <!--  <mvc:view-controller path="/09interceptor/loginform.do"
+      						view-name="09interceptor/loginform"/> -->
+      
+      <!-- 웹 자원중에 스프링을 거치지 않아도 되는 것들 : image..Css..Javascript 등등.. 
+      		이런것들은 바로 페이지를 변경해줌-->
+      <!-- mapping으로 들어오는 것들은..mapping으로 돌려보내라~~ -->
+      <mvc:resources location="/resources/**" mapping="/resources/**"/>
+      
+      <mvc:default-servlet-handler/>
+      <mvc:view-resolvers>
+      	<!-- 모델 정보 추출하고 view에 어떻게 보내줄지 결정.. -->
+      	<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+      </mvc:view-resolvers>
+</beans>

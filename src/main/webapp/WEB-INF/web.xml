@@ -2,33 +2,52 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>cityFarmer</display-name>
   
+  <!-- Root Context 개념 사용 : 공통으로 쓰는 xml을 묶어놓는다.-->
+  	<context-param><!-- listener가 사용하는 param -->
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:config/spring/repository-context.xml</param-value>
+  	</context-param>
+	<listener>
+		<!-- listener 태그에 있는 클래스가 메모리에 자동 올라간다.
+			contextparam 정보를 읽어오는 기능이 있다 Listener 클래스 안에.. 
+			listener가 repository-context.xml 을 읽어오면서 설정한다..-->
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	
+	</listener>  
+  
   	<filter>
-		<filter-name>encoding</filter-name>
-		<filter-class>com.cityfarmer.filter.EncodingFilter</filter-class>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
-			<param-name>charset</param-name>
-			<param-value>utf-8</param-value>
-		</init-param>
-	</filter>
-
-  	<filter>
-		<filter-name>login</filter-name>
-		<filter-class>com.cityfarmer.filter.LoginCheckFilter</filter-class>
-		<init-param>
-			<param-name>charset</param-name>
+			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
 
 	<filter-mapping>
-		<filter-name>encoding</filter-name>
+		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<filter-mapping>
-		<filter-name>login</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<!-- 스프링에서 제공해주는 dispatcher 쓰는것... -->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<!--이 xml이 구동될때 설정파일들 같이 구동할 수 있도록 링크 걸어놓음..
+				Dispatcher가 링크에 있는 정보들을 로딩하면서 spring-mvc.xml 파일을 읽음..-->
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:config/spring/servlet-context.xml</param-value>
+		</init-param>
+		
+		<load-on-startup>1</load-on-startup>
+		<!-- 톰캣이 로딩될때 dispatcher 서블릿을 같이 실행하겠다... -->
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.cf</url-pattern>
+	</servlet-mapping>
 	
 	
   <welcome-file-list>

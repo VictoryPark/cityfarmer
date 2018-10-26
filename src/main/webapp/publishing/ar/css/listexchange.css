@@ -136,6 +136,9 @@ div#search {
 	height: 34px;
 	margin-right: 5px;
 }
+div.col-md-12 {
+	position : relative;
+}
 
 /* page 추가 */
 .pagination {

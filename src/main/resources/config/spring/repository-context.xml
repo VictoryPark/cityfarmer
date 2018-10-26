@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx.xsd">
+                           
+     <!--  <context:component-scan base-package="kr.co.mlec.db"/> -->
+      
+      <!-- 마이바티스를 사용하기 위해 스프링한테 알려주기위해  properties 파일 로딩.. -->
+      <context:property-placeholder location="classpath:config/mybatis/db.properties"/>
+      
+      <!-- db.properties에 있는 내용을 적용하여 db연결하기 위해 라이브러리 다운받고 선언해줘야 함.. 
+      		commons dbcp 라이브러리 -> db 연결정보 적용-->
+      <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" 
+      		destroy-method="close"
+      		p:driverClassName="${jdbc.oracle.driver}"
+		    p:url="${jdbc.oracle.url}"
+		    p:username="${jdbc.oracle.username}"
+		    p:password="${jdbc.oracle.password}"
+      />		
+      
+      <!-- 스프링이 위의 설정파일을 가져다 쓸 수 있게 
+      		Sqlsession을 얻을 수 있게 bean 객체 생성
+      		MyAppSqlConfig에 있는 내용을 할수 있게 한다. -->
+      <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      	<!-- setDataSource 메소드에 위의 설정 내용을 ref로 가져왔다. -->
+      	<property name="dataSource" ref="dataSource"/>
+      	<!-- domain으로 쓰는 클래스에 alias를 주는 set 메소드 
+      			value 안에 들어간 패키지 명 아래에 있는 클래스를 alias를 해준다.-->
+      	<property name="typeAliasesPackage" value="com.cityfarmer.repository.domain"/>
+      	<!-- mapper xml에 등록하는 것도 location 설정하면 저절로 인식됨 -->
+      	<property name="mapperLocations" value="classpath:config/sqlmap/*.xml"/>
+      	
+      </bean>
+      
+      <!-- 스프링에게 Mapper 인터페이스 위치를 알려주고 인터페이스를 구현하는 구현객체를 얻어오는 설정 
+      		@Autowired 어노테이션을 붙일 수 있다..이 작업을 통해서..-->
+      <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+      	<property name="basePackage" value="com.cityfarmer.repository.mapper"/>
+      </bean>
+      
+      <!-- 트랜잭션 처리 파트..aop 사용 -->
+      <!-- 트랜잭션 해주는 클래스를 bean 객체 -->
+      <bean id="transactionManager" 
+      		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+      	<property name="dataSource" ref="dataSource"/>
+      </bean>
+      
+      <!-- 트랜잭션 advice로 만들기 위해 transaction-manager 선언해준다. -->
+      <tx:advice id="txAdvice" transaction-manager="transactionManager">
+      	<tx:attributes>
+      		<!-- *Impl 클래스 안에 있는 모든 메소드라고 선언했지만 여기서 또 거를 수 있다. -->
+      		<!-- sql에만 트랜잭션이 적용되는데..Exceotion 말고는 모두 rollback 처리 하지 말라고 선언 -->
+      		<tx:method name="*" rollback-for="Exception"/>
+      	</tx:attributes>
+      </tx:advice>
+      
+      <aop:config>
+      	<aop:pointcut id="tranPct" 
+      		expression="execution(public * com.cityfarmer..service.*Impl.*(..))" />
+      	<!-- 공통 기능 클래스와 메소드를 알수 없는 경우에는 aspect를 이용할 수 없다... -->
+      	<!-- <aop:aspect ref="공통기능 클래스">
+      		<aop:around method="공통기능 메소드" pointcut-ref="tranPct"/>
+      	</aop:aspect> -->
+      	<aop:advisor advice-ref="txAdvice" pointcut-ref="tranPct"/>
+      </aop:config>
+</beans>
