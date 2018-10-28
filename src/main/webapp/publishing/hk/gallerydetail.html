@@ -224,7 +224,54 @@
                       border-bottom: none; 
                       line-height: 0; }
                     div#carousel ~ span:hover { color: #888; cursor: pointer; }
+                /* 댓글 */
 
+                        .heading {
+                      color: #666666;
+                       text-align: center;
+                    }   
+                    .container {
+                      width: 100%;
+                      margin-top: 20px;
+                      padding-right: 20px;
+                    }
+                    .button-group {
+                      margin-bottom: 20px;
+                    }
+                    .counter {
+                      display: inline;
+                      margin-top: 0;
+                      margin-bottom: 0;
+                      margin-right: 10px;
+                    }
+                    .posts {
+                      clear: both;
+                      list-style: none;
+                      padding-left: 0;
+                      width: 100%;
+                      text-align: left;
+                    }
+                    .posts li {
+                      background-color: #fff;
+                      border: 1.5px solid #d8d8d8;
+                      border-radius: 10px;
+                      padding-top: 10px;
+                      padding-left: 20px;
+                      padding-right: 20px;
+                      padding-bottom: 10px;
+                      margin-bottom: 10px;
+                      word-wrap: break-word;
+                      min-height: 42px;
+                      box-shadow:8px 8px 5px #888888;
+                    }
+                    .btn-primary {
+                        color: #fff;
+                        background-color: #337ab7;
+                        border-color: #2e6da4;
+                    }
+                    .glyphicon{
+                        background-color: transparent;
+                    }
                     
 
         </style>
@@ -254,39 +301,52 @@
             </div>
             <div class="main-title">
                 <h2>상세페이지</h2>
-                <h3>글제목</h3><br>
-                <h3>작성자 : </h3>
-                <base href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/wanaka-tree.jpg">
+                <h3>글제목 : <button class="glyphicon glyphicon-heart" aria-hidden="true" style="float: right;"></button></h3><br>
+                <span>작성자 :</span>
                 <div id="carousel">
                     <figure id="spinner">
-                        <img src="wanaka-tree.jpg" alt>
-                        <img src="still-lake.jpg" alt>
-                        <img src="pink-milford-sound.jpg" alt>
-                        <img src="paradise.jpg" alt>
-                        <img src="morekai.jpg" alt>
-                        <img src="milky-blue-lagoon.jpg" alt>
-                        <img src="lake-tekapo.jpg" alt>
-                        <img src="milford-sound.jpg" alt>
+                        <img src="/07_slide/Desert.jpg" alt>
+                        <img src="/07_slide/Hydrangeas.jpg" alt>
+                        <img src="/07_slide/Jellyfish.jpg" alt>
+                        <img src="/07_slide/Koala.jpg" alt>
+                        <img src="/07_slide/Lighthouse.jpg" alt>
+                        <img src="/07_slide/Desert.jpg" alt>
+                        <img src="/07_slide/Lighthouse.jpg" alt>
+                        <img src="/07_slide/Koala.jpg" alt>
+
                     </figure>
                 </div>
                 <span style="float:left" class="ss-icon" onclick="galleryspin('-')">&lt;</span>
                 <span style="float:right" class="ss-icon" onclick="galleryspin('')">&gt;</span>
                 
-                <textarea class="form-control" rows="10" readonly>본문</textarea>
+                <textarea class="form-control" rows="10" readonly>본문</textarea><br>
                 
 
             </div>
-            <hr>
             <div>
-                <h1>댓글</h1>
+                <h3 class="heading">Comment</h3>
+                  <div class="container">
+                    <form>
+                      <div class="form-group">
+                        <textarea class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
+                      </div>
+                    </form>
+                    <div class="button-group pull-right">
+                      <p class="counter">250</p>
+                      <a href="#" class="btn btn-primary">Post</a>
+                    </div>
+                    <ul class="posts">
+                    </ul>
+                  </div>
+              
             </div>
             
             </div>
         </div><br>
         <script>
                        var angle = 0;
-            function galleryspin(sign) {
-              spinner = document.querySelector("#spinner");
+               function galleryspin(sign) {
+                spinner = document.querySelector("#spinner");
               if (!sign) {
                 angle = angle + 45;
               } else {
@@ -303,6 +363,32 @@
                   "deg);"
               );
             }
+            // 댓글
+                        var main = function() {
+              $('.btn').click(function() {
+                var post = $('.status-box').val();
+                $('<li class="comment">').text(post).prependTo('.posts');
+                $('<a>').text('수정').appendTo('.comment')
+                $('<a>').text('삭제').appendTo('.comment')
+                $('.status-box').val('');
+                $('.counter').text('250');
+                $('.btn').addClass('disabled');
+              });
+              $('.status-box').keyup(function() {
+                var postLength = $(this).val().length;
+                var charactersLeft = 200 - postLength;
+                $('.counter').text(charactersLeft);
+                if (charactersLeft < 0) {
+                  $('.btn').addClass('disabled');
+                } else if (charactersLeft === 200) {
+                  $('.btn').addClass('disabled');
+                } else {
+                  $('.btn').removeClass('disabled');
+                }
+              });
+            }
+            $('.btn').addClass('disabled');
+            $(document).ready(main)
 
 
         
