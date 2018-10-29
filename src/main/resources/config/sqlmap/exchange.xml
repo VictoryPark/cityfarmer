@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cityfarmer.repository.mapper.ExchangeMapper"> <!-- 루트태그 -->
-	<resultMap id="exchangeMap" type="Exchange">
-		
+<mapper namespace="com.cityfarmer.repository.mapper.ExchangeMapper">
+
+	<resultMap id="exchangeMap" type="ExchangeBoard">
+		<result column="ex_no" property="exNo"/>
+		<result column="ex_title" property="exTitle"/>
+		<result column="ex_content" property="exContent"/>
+		<result column="ex_reg_date" property="exRegDate"/>
+		<result column="ex_complete" property="exComplete"/>
+		<result column="ex_view_cnt" property="exViewCnt"/>
 	</resultMap>
 	
+	<insert id="insertNewExchange" parameterType="ExchangeBoard">
+		insert into cf_exchange (
+			ex_no, writer, ex_title, ex_content
+		) values (
+			cf_s_exchange_no.nextval, #{writer}, #{exTitle}, #{exContent} 
+		)
+	</insert>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

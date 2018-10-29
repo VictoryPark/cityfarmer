@@ -68,108 +68,7 @@ header nav a {
 	color:#77a466;
 }
 
-/* 게시글 화면 추가 */
-header nav a:hover {
-	text-decoration: none; 
-	text-transform: uppercase; 
-	font-weight: bold; 
-	font-size: 14px; 
-	padding: 0 10px; 
-	color:#77a466;
-}
-/* span#title {
-	float: right;
-} */
-div#image {
-	overflow: hidden;
-	height: 300px;
-}
-div.col-md-4 {
-	margin-top: 30px;
-}
-div.col-md-12 {
-	min-height: 400px;
-	margin-top: 20px;
-}
 
-hr {
-	border: 0.5px solid gray;
-}
-
-span#title {
-	font-size: 18px;
-}
-div#writer {
-	margin-top : 10px;
-}
-img#item {
-	width: 100%;
-}
-div#image:hover {
-	opacity: 0.7;
-}
-div.main-image {
-	margin-bottom: 20px;
-}
-div.form-inline {
-	margin-left: 30px;
-}
-a.btn {
-	margin-left: 45px;
-}
-span#title a {
-	text-decoration: none;
-	color: #333;
-}
-span#title a:hover {
-	color : #77a466;
-}
-div#search {
-	width: 360px;
-	/* margin-left: 900px; */
-	float: right;
-}
-#searchsel {
-	height: 34px;
-	margin-right: 5px;
-}
-div.col-md-4 {
-	position : relative;
-	text-align: center;
-}
-div#blur {
-	position : absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.hide {
-	display: none;
-}
-.show {
-	display: block;
-}
-
-/* page 추가 */
-.pagination {
-	display : inline-block;
-}
-.pagination a {
-	color : black;
-	float: left;
-	padding : 8px 16px;
-	text-decoration: none;
-	position: relative;
-	text-align: center;
-}
-.pagination a.active {
-	background-color : #4caf50;
-	color : white;
-}
-.pagination a:hover:not(.active) {
-	background-color : #ddd;
-}
 /*The widths are in a percentage!*/
 .top-section, 
 .bottom-section {
@@ -186,7 +85,8 @@ div#blur {
 
 .main-image img {
 	width: 100%; 
-	border-bottom: 3px solid #77a466;
+    border-bottom: 3px solid #77a466;
+    margin-bottom: 30px;
 }
 
 .main-title {
@@ -260,4 +160,88 @@ footer span {
 	text-transform: lowercase; 
 	color: #77a466; 
 	font-size: 14px;
+}
+
+/*글 디테일 추가*/
+header nav a:hover {
+	text-decoration: none; 
+	text-transform: uppercase; 
+	font-weight: bold; 
+	font-size: 14px; 
+	padding: 0 10px; 
+	color:#77a466;
+}
+div#buttonbox {
+    width: 90%;
+    height: 50px;
+    margin : 20px auto;
+}
+button.btn {
+    float: right;
+    margin-left: 10px;
+    /* margin-bottom : 10px; */
+}
+span#check {
+    float: right;
+}
+table {
+	border-top : 2px solid rgb(128, 128, 128, 0.5);
+    width: 90%;
+    margin: 0 auto 40px;
+}
+th {
+    background: rgb(161, 211, 142, 0.3);
+	width: 80px;
+	font-size: 14px;
+    color: rgb(51, 51, 51, 0.8);
+    padding-left: 20px;
+}
+tr {
+    border-bottom : 0.5px solid rgb(128, 128, 128, 0.5);
+    height: 50px;
+}
+table#detail td {
+    padding-left: 15px;
+}
+td#write {
+    padding: 20px;
+}
+textarea {
+    place-content: #333;
+}
+div#submitbutton {
+    margin-top: 20px;
+    float: right;
+}
+table#reply {
+    width: 90%;
+    margin: 0 auto 40px;
+    padding: 10px;
+}
+tr#head {
+    border-top : 2px solid rgb(128, 128, 128);
+    height: 40px;
+    padding: 10px;
+}
+td#regDate {
+    text-align: right;
+}
+tr#content {
+    min-height: 100px;
+    max-height: 300px;
+}
+td#content {
+    padding: 20px;
+}
+tr#blank {
+    height: 10px;
+}
+td#buttons {
+    text-align: right;
+	padding: 0 0 0 0;
+	line-height: 100%
+}
+button[id^='repl'] {
+    margin: 5px;
+	display: inline;
 }
