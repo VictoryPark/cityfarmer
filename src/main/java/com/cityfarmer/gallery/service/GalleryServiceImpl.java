@@ -12,12 +12,21 @@ import com.cityfarmer.repository.mapper.GalleryMapper;
 public class GalleryServiceImpl implements GalleryService {
 	
 	@Autowired
-	private GalleryMapper gamapper;
+	private GalleryMapper gaMapper;
 
 	@Override
 	public List<GalleryBoard> list() {
 		
-		return gamapper.selectGalleryBoard();
+		return gaMapper.selectGalleryBoard();
+	}
+	@Override
+	public void write(GalleryBoard galleryboard) {
+		gaMapper.insertGalleryBoard(galleryboard);
+	}
+	
+	@Override
+	public int count() {
+		return gaMapper.seLectGalleryBoardCount();
 	}
 	
 	

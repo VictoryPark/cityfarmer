@@ -19,6 +19,20 @@
 		  from cf_gallery
 		 order by ga_no desc 
 	</select>
+	
+	<!-- 전페 게시물의 수 -->
+    <select id = "seLectGalleryBoardCount" resultType ="int">
+   		    select count(*) 
+			from cf_gallery    
+    </select>
+	
+	<!-- 게시물 등록하기  -->
+	<insert id="insertGalleryBoard" parameterType="GalleryBoard">
+		insert into cf_gallery
+		(ga_no,ga_title,writer) 
+		values(cf_s_gallery_no.nextval, #{gaTitle},#{writer})
+
+	</insert>
 
 
 

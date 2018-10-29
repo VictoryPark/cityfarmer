@@ -3,6 +3,7 @@ package com.cityfarmer.repository.domain;
 import java.util.Date;
 
 public class GalleryBoard {
+	private int count;
 	private int gaNo;
 	private String writer;
 	private String gaTitle;
@@ -11,6 +12,12 @@ public class GalleryBoard {
 	private int gaViewCnt;
 	private Date gaRegDate;
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getGaNo() {
 		return gaNo;
 	}

@@ -131,7 +131,7 @@
                 </ul>
                 <div id="wirte"> 
                     <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button type="button" class="btn btn-primary">글작성</button>
+                    <button type="button" class="btn btn-primary" id="write">글작성</button>
                   </div>
                 </nav>
             </div>
@@ -155,6 +155,11 @@
                  $("#myModal").modal();
                  });
                 });
+             
+             $("#write").click(function(){
+            	 location.href="/cityFarmer/gallery/gallerywrite.cf";
+             })
+            
     </script>
 </body>
 </html>
