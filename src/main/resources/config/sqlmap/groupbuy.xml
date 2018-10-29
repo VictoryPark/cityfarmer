@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cityfarmer.repository.mapper.GroupBuyMapper">
+	<resultMap id="memberMap" type="Member">
+		<result column="member_no" property="memberNo" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="pass" property="pass" />
+		<result column="file_path" property="filePath" />
+		<result column="file_name" property="fileName" />
+	</resultMap>
+	
+	<resultMap id="gbMap" type="GroupBuyBoard">
+		<result column="gb_no" property="gbNo" />
+		<result column="writer" property="writer" />
+		<result column="gb_title" property="gbTitle" />
+		<result column="gb_content" property="gbContent" />
+		<result column="gb_reg_date" property="gbRegDate" />
+		<result column="gb_view_cnt" property="gbViewCnt" />
+		<result column="gb_start_day" property="gbStartDay" />
+		<result column="gb_end_day" property="gbEndDay" />
+		<result column="gb_start_time" property="gbStartTime" />
+		<result column="gb_end_time" property="gbEndTime" />
+	</resultMap>
+	
+	<insert id="gbInsertBoard" parameterType="GroupBuyBoard">
+		insert into cf_group_buy(gb_no, writer, gb_title, gb_content, gb_start_day, gb_end_day, gb_start_time, gb_end_time)
+		  	 values(CF_S_GB_NO.nextval, #{writer}, #{gbTitle}, #{gbContent}, #{gbStartDay}, #{gbEndDay}, #{gbStartTime}, #{gbEndTime})
+	</insert>
+	
+	<select id="gbSeletListBoard" resultMap="gbMap">
+		select *
+		  from cf_group_buy
+		 order by gb_no desc 
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

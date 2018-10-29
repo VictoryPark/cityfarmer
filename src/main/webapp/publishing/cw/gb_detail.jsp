@@ -1,248 +1,21 @@
-﻿<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>City Farmer</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
     </script>
-        <style>
-        body {
-            max-width: 80%;
-            margin: 0 auto; 
-            font-family: Montserrat, Helvetica, Arial, sans-serif;
-        }
-        
-        h1, 
-        h3, 
-        h4 {
-            color: black; 
-            text-transform: uppercase; 
-        }
-        
-        h1 {
-            font-size: 30px; 
-            text-align: left; 
-            width: auto; 
-            float: left; 
-            padding: 15px 0;
-        }
-        
-        h3 {
-            font-size: 18px; 
-            text-align: center; 
-            padding: 15px;
-        }
-        
-        h4 {
-            font-size: 12px;
-        }
-        
-        .main-title h1 {
-            text-align: left; 
-            padding: 5px 0px; 
-            text-transform: uppercase; 
-            color: #77a466; 
-        }
-        
-        p {
-            padding: 0px 30px; 
-            line-height: 21px; 
-            font-size: 14px;
-        }
-        
-        /*The widths are in a percentage!*/
-        header {
-            width: 80%; 
-            height: 110px; 
-            /* border-bottom: 3px solid #77a466;  */
-            margin: 0 auto;
-            position: fixed;
-            background-color: white;
-        }
-
-        
-        
-        header span {
-            color: #77a466;
-        }
-        
-        header nav {
-            float: right; 
-            padding: 45px 0px;
-        }
-        
-        header nav a {
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 14px; 
-            padding: 0 10px; 
-            color:#77a466;
-        }
-        
-        /*The widths are in a percentage!*/
-        .top-section, 
-        .bottom-section {
-            width: 100%; 
-            margin: 0 auto; 
-            clear: both;
-        }
-        
-        .main-image {
-            margin-top: 110px;
-            width: 100%; 
-            height: auto; 
-            float: left;
-        }
-        
-        .main-image img {
-            width: 100%; 
-            border-bottom: 3px solid #77a466;
-            border-top: 3px solid #77a466;
-        }
-        
-        .main-title {
-            width: 100%; 
-            height: auto; 
-            float: left;
-        }
-        
-        .main-title p {
-            padding: 0px; 
-            line-height: 25px; 
-            font-size: 16px;
-        }
-        
-        .section-one {
-            width: 100%; 
-            height: auto; 
-            float: left; 
-            border-top: 1px solid #eee;
-            text-align: center;
-        }
-        
-        .section-one, 
-        .section-two {
-            border-right: 1px solid #eee;
-        }
-        
-        .section-one h4 {
-            padding: 10px 0px;
-        }
-        
-        .section-two h4, 
-        .section-three h4 {
-            padding: 10px 30px;
-        }
-        
-        .menu {
-            list-style: none; 
-            padding: 0px;
-        }
-        
-        .menu li {
-            padding: 10px 0; 
-            color:#77a466;
-        }
-        
-        .reviews {
-            color: #333; 
-            line-height: 21px; 
-            font-size: 16px;
-        }
-        
-        .address {
-            font-size: 16px; 
-            line-height: 24px;
-        }
-        
-        /*The widths are in a percentage!*/
-        footer {
-            width: 100%; 
-            height: 50px; 
-            border-top: 3px solid #eee; 
-            margin: 0 auto; 
-            clear: both; 
-            text-align: center;
-        }
-        
-        footer span {
-            font-family: "Wisdom Script", script; 
-            text-transform: lowercase; 
-            color: #77a466; 
-            font-size: 14px;
-        }
-
-        #paging {
-            text-align: center;
-        }
-
-        #writebtn{
-            text-align: right;
-            margin-right: 30px;
-        }
-
-      
-        /* 코멘트 */
-        ul {
-            list-style: none;
-        }
-
-        .cmt_nickbox {
-            float: left; 
-            width:15%; 
-            margin-bottom: 20px;
-        }
-
-        .cmt_txtbox {
-            float: left; 
-            width: 70%; 
-            margin-bottom: 20px;
-        }
-
-        .cmt_reg {
-            float: left; 
-            width: 15%; 
-            margin-bottom: 20px;
-        }
-
-        #cmt_writer {
-            float: left; width:15%; padding: 30px;
-        }
-
-        textarea {
-            float: left; width:75%; height: 100px;
-        }
-        
-        #cmt_regbtn {
-            float: left; width: 10%; padding: 30px;
-        }
-
-        #timeLimit {
-            font-size: 30px;
-            font-weight: bold;
-        }
-
-        #detail_info {
-            float:right;
-        }
-
-        #writebtn {
-            margin-bottom: 20px;
-        }
-
-
-    </style>
-    </head>
-    <body>
-    
-        <header>
+    <c:import url="/resources/css/groupbuy/gb_detail.css" />
+</head>
+<body>
+   <header>
             <h1><span>City</span>Farmer</h1>
             <nav>
                 <a href="">About</a>
@@ -369,5 +142,5 @@
            }
 
         </script>
-    </body>
+</body>
 </html>
