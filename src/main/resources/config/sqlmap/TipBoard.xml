@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cityfarmer.repository.mapper.TipMapper">
+	<resultMap id="tipMap" type="tipBoard">
+		<result column="tip_no" property="tipNo" />
+		<result column="writer" property="writer" />
+		<result column="tip_title" property="tipTitle" />
+		<result column="tip_content" property="tipContent" />
+		<result column="tip_view_cnt" property="tipViewCnt" />
+		<result column="tip_reg_date" property="tipRegDate" />
+
+	</resultMap>
+	<!-- 전체목록 가져오기 -->
+	<select id="selectBoard" resultMap="tipMap">
+		select *
+		from cf_tip
+		order by tip_no desc
+	</select>
+
+
+	<!-- 글 등록 -->
+	<!-- <insert id="insertBoard" parameterType="board"> insert into cf_tip( 
+		tip_no, writer, tip_title, tip_content ) values( cf_s_tip_no.nextval,#{writer},#{tipTitle},#{tipContent} 
+		) </insert> -->
+
+
+	<!-- 글 상세보기 -->
+	<!-- <select id="selectBoardByNo" parameterType="int" resultMap="tipMap"> 
+		select* from cf_tip where no = #{tipNo} </select> -->
+
+
+	<!-- 글 삭제 -->
+	<!-- <delete id="deleteBoard" parameterType="int"> delete from cf_tip where 
+		no = #{tipNo} </delete> -->
+
+	<!-- 글 수정 -->
+	<!-- <update id="updateBoard" parameterType="board"> update tb_board set 
+		title = #{tipTitle}, content = #{tipContent} where no = #{tipNo} </update> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
