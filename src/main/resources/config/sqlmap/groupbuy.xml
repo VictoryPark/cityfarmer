@@ -29,10 +29,20 @@
 		  	 values(CF_S_GB_NO.nextval, #{writer}, #{gbTitle}, #{gbContent}, #{gbStartDay}, #{gbEndDay}, #{gbStartTime}, #{gbEndTime})
 	</insert>
 	
-	<select id="gbSeletListBoard" resultMap="gbMap">
+	<select id="gbSeletListBoard" parameterType="Page" resultMap="gbMap">
 		select *
+		  from (select rownum rnum, a.* 	
+			      from (select *
+				    	  from cf_group_buy
+					     order by gb_no desc) a
+			     where rownum &lt;= #{end})
+		 where rnum &gt;= #{begin}			     
+	</select>
+	
+	<!-- 전체 게시물의 수(조건에 맞는) -->
+	<select id="gbSelectBoardCount" resultType="int">
+		select count(*)
 		  from cf_group_buy
-		 order by gb_no desc 
 	</select>
 
 </mapper>

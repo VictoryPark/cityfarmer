@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import com.cityfarmer.common.PageResult;
 import com.cityfarmer.groupbuy.service.GroupBuyService;
 import com.cityfarmer.repository.domain.GroupBuyBoard;
+import com.cityfarmer.repository.domain.Page;
 
 @Controller
 @RequestMapping("/groupbuy")
@@ -23,8 +26,15 @@ public class GroupBuyController {
 	public void mainForm() {}
 	
 	@RequestMapping("/gb_board.cf")
-	public void list(Model model) {
-		model.addAttribute("list", service.list());
+	public void list(Model model, @RequestParam(value="pageNo", defaultValue="1") int pageNo) {
+		Page page = new Page();
+		page.setPageNo(pageNo);
+		
+		System.out.println(service.listCount());
+		System.out.println(pageNo);
+		
+		model.addAttribute("list", service.list(page));
+		model.addAttribute("pageResult", new PageResult(pageNo, service.listCount()));
 	}
 	
 	@RequestMapping("/gb_writeForm.cf")

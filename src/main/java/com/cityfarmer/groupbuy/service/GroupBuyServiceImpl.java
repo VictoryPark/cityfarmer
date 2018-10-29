@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cityfarmer.repository.domain.GroupBuyBoard;
+import com.cityfarmer.repository.domain.Page;
 import com.cityfarmer.repository.mapper.GroupBuyMapper;
 
 @Service
@@ -20,8 +21,13 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	}
 	
 	@Override
-	public List<GroupBuyBoard> list() {
-		return mapper.gbSeletListBoard();
+	public List<GroupBuyBoard> list(Page page) {
+		return mapper.gbSeletListBoard(page);
+	}
+	
+	@Override
+	public int listCount() {
+		return mapper.gbSelectBoardCount();
 	}
 	
 }

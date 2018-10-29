@@ -3,10 +3,13 @@ package com.cityfarmer.groupbuy.service;
 import java.util.List;
 
 import com.cityfarmer.repository.domain.GroupBuyBoard;
+import com.cityfarmer.repository.domain.Page;
 
 
 public interface GroupBuyService {
 	
 	void write(GroupBuyBoard gbb);
-	List<GroupBuyBoard> list();
+	List<GroupBuyBoard> list(Page page);
+	int listCount();
+	
 }
