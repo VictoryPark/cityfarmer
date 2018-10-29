@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>∞∂∑Ø∏Æ ∞‘Ω√∆«</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css"></script>
-    	<link rel="stylesheet" href="./css/gallerylist.css">
-        
-    </head>
-    <body>
-        
-    </body>
-    </html>
-    <html>
-        <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-            <title>Brush Up Those Skills!</title>
-            <meta name="description" content="">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        
-        <header id="header">
+    	<link href="<c:url value="/resources/css/gallery/gallerylist.css" />" rel="stylesheet">
+</head>
+<body>
+       <header id="header">
             <h1><span>City</span>Farmer</h1>
             <nav>
                 <a href="">About</a>
-                <a href="">Î¨ºÎ¨ºÍµêÌôò</a>
-                <a href="">ÍøÄÌåÅ</a>
-                <a href="">Í≥µÎèôÍµ¨Îß§</a>
-                <a href="">Í∞§Îü¨Î¶¨</a>
-                <a href="">ÎÇòÎßåÏùò Í∞§Îü¨Î¶¨</a>
+                <a href="">π∞π∞±≥»Ø</a>
+                <a href="">≤‹∆¡</a>
+                <a href="">∞¯µø±∏∏≈</a>
+                <a href="">∞∂∑Ø∏Æ</a>
+                <a href="">≥™∏∏¿« ∞∂∑Ø∏Æ</a>
             </nav>
         </header>
         <div class="top-section">
             <div class="main-image">
                 <div class="main-title">
-                    <h2>ÏãùÎ¨º ÏûêÎûë Í∞§Îü¨Î¶¨</h2>
+                    <h2>Ωƒπ∞ ¿⁄∂˚ ∞∂∑Ø∏Æ</h2>
                 </div>
             </div>
                                 <div class="row">
@@ -52,12 +40,12 @@
                     
                     <div class="content">
                         <!--  <ol class="breadcrumb" S>
-                    <li><a href="#1">Home</a></li>
-                    <li class="active">ÏûêÏú†Í≤åÏãúÌåê</li>
-                </ol> -->
+                    	<li><a href="#1">Home</a></li>
+                    	<li class="active">¿⁄¿Ø∞‘Ω√∆«</li>
+                		</ol> -->
                 <hr>		
                     <div class="col-md-2" style="text-align: left">
-                        Ï†ÑÏ≤¥ ${count}Í∞ú
+                        		¿¸√º ${count}∞≥
                     </div>
                 </div>
                 <div class="table-responsive" style="width:100%;">
@@ -88,83 +76,22 @@
                 <table class="table table-hover" style="width: 50%;" >
                             <thead>
                     <tr>
-                        <th>Î≤àÌò∏</th>
-                        <th>Ï†úÎ™©</th>
-                        <th>Í∏ÄÏì¥Ïù¥</th>
-                        <th>Îì±Î°ùÏùº</th>
+                        <th>π¯»£</th>
+                        <th>¡¶∏Ò</th>
+                        <th>±€æ¥¿Ã</th>
+                        <th>µÓ∑œ¿œ</th>
                     </tr>
                     </thead>
+                    
                     <tbody>
+                   	<c:forEach var="b" items="${list}">
                         <tr>
-                            <td>131072</td>
-                            <td>title131072</td>
-                            <td>writer131072</td>
-                            <td>2018-10-08 09:56:28</td>
+                            <td>${b.gaNo}</td>
+                            <td>${b.gaTitle}</td>
+                            <td>${b.writer}</td>
+                            <td><fmt:formatDate value="${b.gaRegDate}" pattern="yyyy-MM-dd" /></td>
                         </tr>
-                    
-                        <tr>
-                            <td>131071</td>
-                            <td>title131071</td>
-                            <td>writer131071</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131070</td>
-                            <td>title131070</td>
-                            <td>writer131070</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131069</td>
-                            <td>title131069</td>
-                            <td>writer131069</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131068</td>
-                            <td>title131068</td>
-                            <td>writer131068</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131067</td>
-                            <td>title131067</td>
-                            <td>writer131067</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131066</td>
-                            <td>title131066</td>
-                            <td>writer131066</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131065</td>
-                            <td>title131065</td>
-                            <td>writer131065</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131064</td>
-                            <td>title131064</td>
-                            <td>writer131064</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
-                        <tr>
-                            <td>131063</td>
-                            <td>title131063</td>
-                            <td>writer131063</td>
-                            <td>2018-10-08 09:56:28</td>
-                        </tr>
-                    
+                    </c:forEach>
                     
                     </tbody>
                 </table>
@@ -174,9 +101,9 @@
                 <form class="navbar-form" role="search" style="margin-right: 70px">
                     
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Í∏ÄÏ†úÎ™©ÏùÑ Í≤ÄÏÉâÌïòÏÑ∏Ïöî" style="font-size: 15px ;" >
+                        <input type="text" class="form-control" placeholder="±€¡¶∏Ò¿ª ∞Àªˆ«œººø‰" style="font-size: 15px ;" >
                     </div>
-                    <button type="submit" class="btn btn-default">Í≤ÄÏÉâ</button>
+                    <button type="submit" class="btn btn-default">∞Àªˆ</button>
                 </form>          
                 
                 <nav>
@@ -204,7 +131,7 @@
                 </ul>
                 <div id="wirte"> 
                     <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button type="button" class="btn btn-primary">Í∏ÄÏûëÏÑ±</button>
+                    <button type="button" class="btn btn-primary">±€¿€º∫</button>
                   </div>
                 </nav>
             </div>
@@ -229,5 +156,5 @@
                  });
                 });
     </script>
-    </body>
+</body>
 </html>

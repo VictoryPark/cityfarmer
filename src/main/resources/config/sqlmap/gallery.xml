@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cityfarmer.repository.mapper.GalleryMapper">
+	
+	<resultMap id="galleryMap" type="GalleryBoard">
+		<result column="ga_no" property="gaNo" />
+		<result column="ga_title" property="gaTitle" />
+		<result column="writer" property="writer"/>
+		<result column="ga_content" property="gaContent" />
+		<result column="ga_rec_cnt" property="gaRecCnt" />
+		<result column="ga_view_cnt" property="gaViewCnt" />
+		<result column="ga_reg_date" property="gaRegDate" />
+	</resultMap>
+
+	<!-- 게시물 조회 -->
+	<select id="selectGalleryBoard" resultMap="galleryMap">
+		select *
+		  from cf_gallery
+		 order by ga_no desc 
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
