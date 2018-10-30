@@ -14,10 +14,17 @@
 	</resultMap>
 
 	<!-- 게시물 조회 -->
-	<select id="selectGalleryBoard" resultMap="galleryMap">
-		select *
-		  from cf_gallery
-		 order by ga_no desc 
+	<select id="selectGalleryBoard" parameterType="GalleryBoard" resultMap="galleryMap">
+<!-- 		select * -->
+<!-- 		  from cf_gallery -->
+<!-- 		 order by ga_no desc  -->
+		 select *
+   		    from(select rownum rnum, a.*
+   		    		from(select * 
+							from cf_gallery 
+							order by ga_no desc ) a  
+					where rownum &lt;= #{end})
+		where rnum &gt;= #{begin}
 	</select>
 	
 	<!-- 전페 게시물의 수 -->

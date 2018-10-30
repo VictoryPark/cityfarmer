@@ -6,7 +6,7 @@ import com.cityfarmer.repository.domain.GalleryBoard;
 
 public interface GalleryService {
 
-	List<GalleryBoard> list();
+	List<GalleryBoard> list(GalleryBoard galleryboard);
 	void write(GalleryBoard galleryboard);
 	int count();
 

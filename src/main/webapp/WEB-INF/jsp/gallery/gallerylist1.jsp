@@ -2,6 +2,8 @@
     pageEncoding="EUC-KR"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,9 +45,9 @@
                     	<li><a href="#1">Home</a></li>
                     	<li class="active">자유게시판</li>
                 		</ol> -->
-                <hr>		
+                		<hr>		
                     <div class="col-md-2" style="text-align: left">
-                        		전체 ${count}개
+                        		전체 ${pageResult.count}개
                     </div>
                 </div>
                 <div class="table-responsive" style="width:100%;">
@@ -101,39 +103,33 @@
                 <form class="navbar-form" role="search" style="margin-right: 70px">
                     
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="글제목을 검색하세요" style="font-size: 15px ;" >
+                        <input type="text" class="form-control" placeholder="글제목을 검색하세요" style="font-size: 15px ;">
                     </div>
                     <button type="submit" class="btn btn-default">검색</button>
                 </form>          
                 
-                <nav>
-                    <ul class="pagination">
-                      <li class="disabled">
-                        <a href="#0"aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                          <li class="active"><a href="list1.do?pageNo=1">1</a></li>
-                          <li><a href="list2.do?pageNo=2">2</a></li>			        	
-                          <li><a href="list2.do?pageNo=3">3</a></li>			        	
-                          <li><a href="list2.do?pageNo=4">4</a></li>			        	
-                          <li><a href="list2.do?pageNo=5">5</a></li>			        	
-                          <li><a href="list2.do?pageNo=6">6</a></li>			        	
-                          <li><a href="list2.do?pageNo=7">7</a></li>			        	
-                          <li><a href="list2.do?pageNo=8">8</a></li>			        	
-                          <li><a href="list2.do?pageNo=9">9</a></li>			        	
-                          <li><a href="list2.do?pageNo=10">10</a></li>			        	
-                      <li >
-                        <a href="list2.do?pageNo=11"aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-                <div id="wirte"> 
-                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button type="button" class="btn btn-primary" id="write">글작성</button>
-                  </div>
-                </nav>
+		<c:if test="${pageResult.count != 0 }">
+				<nav>
+  				<ul class="pagination">
+			        <li<c:if test="${pageResult.prev eq false }"> class="disabled"</c:if>>
+			          <a href="${pageResult.beginPage-1 }" aria-label="Previous">
+			            <span aria-hidden="true">&laquo;</span>
+			          </a>
+			        </li>
+			    
+			    <c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
+			        		<li<c:if test="${i eq pageResult.pageNo }"> class="active"</c:if>>
+			        			<a href="${i}">${i}</a>
+			        		</li>
+			    </c:forEach>
+			        <li <c:if test="${pageResult.next eq false}"> class="disabled"</c:if>>
+			          <a href="${pageResult.endPage+1 }" aria-label="Next">
+			            <span aria-hidden="true">&raquo;</span>
+			          </a>
+			        </li>
+  				</ul>
+				</nav>
+		</c:if>               
             </div>
           
 
@@ -160,6 +156,22 @@
             	 location.href="/cityFarmer/gallery/gallerywrite.cf";
              })
             
+             
+           // --------------------------------------------------------------------
+         	$("nav > ul.pagination > li > a").click(function(e){
+			//기본 이벤트 막기...
+				e.preventDefault();
+		
+				var pageNo = $(this).attr("href")
+				if(pageNo == 0) return false;
+				location.href = "gallerylist1.cf?pageNo="+pageNo; //넘어온 페이지를 스크립에서 처리
+				});
+	
+				function goPage(pageNo) {
+					if(pageNo == 0) return false;
+					location.href = "gallerylist1.cf?pageNo="+pageNo; //넘어온 페이지를 스크립에서 처리
+				}
+           
     </script>
 </body>
 </html>

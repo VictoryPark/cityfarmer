@@ -6,7 +6,7 @@ import com.cityfarmer.repository.domain.GalleryBoard;
 
 
 public interface GalleryMapper {
-	List<GalleryBoard> selectGalleryBoard();
+	List<GalleryBoard> selectGalleryBoard(GalleryBoard galleryboard);
 	void insertGalleryBoard(GalleryBoard galleryboard);
 	int seLectGalleryBoardCount();
 

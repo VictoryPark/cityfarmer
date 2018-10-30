@@ -15,9 +15,9 @@ public class GalleryServiceImpl implements GalleryService {
 	private GalleryMapper gaMapper;
 
 	@Override
-	public List<GalleryBoard> list() {
+	public List<GalleryBoard> list(GalleryBoard galleryboard) {
 		
-		return gaMapper.selectGalleryBoard();
+		return gaMapper.selectGalleryBoard(galleryboard);
 	}
 	@Override
 	public void write(GalleryBoard galleryboard) {

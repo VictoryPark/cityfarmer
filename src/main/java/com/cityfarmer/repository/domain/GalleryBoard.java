@@ -12,6 +12,7 @@ public class GalleryBoard {
 	private int gaViewCnt;
 	private Date gaRegDate;
 	
+	
 	public int getCount() {
 		return count;
 	}
@@ -60,5 +61,27 @@ public class GalleryBoard {
 	public void setGaRegDate(Date gaRegDate) {
 		this.gaRegDate = gaRegDate;
 	}
+//	-----------------------page---------------------------------------------
+	private int pageNo;
+	private int begin;
+	private int end;
 	
+	public int getPageNo() {
+		return pageNo;
+	}
+	
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	//#{begin} -> board.xml
+	public int getBegin() {
+		return (pageNo - 1 )* 10 + 1;
+	}
+	
+	//#{end} -> board.xml
+	public int getEnd() {
+		return pageNo * 10;
+	}
+	
+
 }
