@@ -11,5 +11,8 @@ public interface GroupBuyService {
 	void write(GroupBuyBoard gbb);
 	List<GroupBuyBoard> list(Page page);
 	int listCount();
+	GroupBuyBoard detail(int no);
+	void update(GroupBuyBoard gbb);
+	void delete(int no);
 	
 }

@@ -30,4 +30,19 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		return mapper.gbSelectBoardCount();
 	}
 	
+	@Override
+	public GroupBuyBoard detail(int no) {
+		return mapper.gbSeletListBoardByNo(no);
+	}
+	
+	@Override
+	public void update(GroupBuyBoard gbb) {
+		mapper.gbUpdateBoard(gbb);
+	}
+	
+	@Override
+	public void delete(int no) {
+		mapper.gbDeleteBoard(no);
+	}
+	
 }

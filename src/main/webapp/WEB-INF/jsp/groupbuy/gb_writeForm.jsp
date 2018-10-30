@@ -76,12 +76,10 @@
                         </div>
                       </div>
               
-              
-            
             <div id="writebtn">
                     <button type="submit" class="btn btn-default">글 작성</button>
                     &nbsp;&nbsp;
-                    <button type="button" class="btn btn-default">취소</button>
+                    <button type="button" id="cancelBtn" class="btn btn-default">취소</button>
             </div>
             <br>
             <br>
@@ -121,6 +119,10 @@
             },
             showAlways: true
         });
+        
+        $("#cancelBtn").click(function() {
+        	location.href="gb_board.cf"
+        })
         </script>
 </body>
 </html>

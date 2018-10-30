@@ -49,7 +49,7 @@
                    <c:forEach var="gb" items="${list}">
                    <tr>
                        <td>${gb.gbNo}</td>
-                       <td>${gb.gbTitle}</td>
+                       <td><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a></td>
                        <td>${gb.writer}</td>
                        <td>${gb.gbViewCnt}</td>
                    </tr>
