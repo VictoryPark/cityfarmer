@@ -3,13 +3,22 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cityfarmer.repository.mapper.ExchangeMapper">
 
-	<resultMap id="exchangeMap" type="ExchangeBoard">
+	<resultMap id="boardMap" type="ExchangeBoard">
 		<result column="ex_no" property="exNo"/>
 		<result column="ex_title" property="exTitle"/>
 		<result column="ex_content" property="exContent"/>
 		<result column="ex_reg_date" property="exRegDate"/>
 		<result column="ex_complete" property="exComplete"/>
 		<result column="ex_view_cnt" property="exViewCnt"/>
+	</resultMap>
+	
+	<resultMap id="fileMap" type="ExchangeFile">
+		<result column="exf_no" property="exfNo"/>
+		<result column="ex_no" property="exNo"/>
+		<result column="exf_ori_name" property="exfOriName"/>
+		<result column="exf_sys_name" property="exfSysName"/>
+		<result column="exf_path" property="exfPath"/>
+		<result column="exf_size" property="exfSize"/>
 	</resultMap>
 	
 	<insert id="insertNewExchange" parameterType="ExchangeBoard">
@@ -19,6 +28,19 @@
 			cf_s_exchange_no.nextval, #{writer}, #{exTitle}, #{exContent} 
 		)
 	</insert>
+	
+	<insert id="insertNewFile" parameterType="ExchangeFile">
+		<!-- <selectKey keyProperty="exNo" resultType="int" order="BEFORE">
+			select cf_s_exchang_no.nextval from dual
+		</selectKey> -->
+		insert into cf_exchange_file (
+			exf_no, exf_ori_name, exf_sys_name, exf_path, exf_size
+		) values (
+			cf_s_exf_no.nextval, #{exfOriName}, #{exfSysName}, #{exfPath}, #{exfSize}
+		)
+	</insert>
+	
+	
 </mapper>
 
 

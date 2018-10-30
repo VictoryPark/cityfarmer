@@ -22,7 +22,7 @@ public class MemberController {
 	public String signup(Member member) {
 		service.signup(member);
 		
-		return "redirect:start.cf";
+		return "redirect:/start.cf";
 	}
 	
 	@RequestMapping("/login.cf")
@@ -36,6 +36,6 @@ public class MemberController {
 			return "redirect:/main.cf";
 		}
 		
-		return "redirect:start.cf";
+		return "redirect:/start.cf";
 	}
 }
