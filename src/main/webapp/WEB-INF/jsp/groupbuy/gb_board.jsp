@@ -49,33 +49,40 @@
                    <c:forEach var="gb" items="${list}">
                    <tr>
                        <td>${gb.gbNo}</td>
-                       <td>${gb.gbTitle}</td>
+                       <td><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a></td>
                        <td>${gb.writer}</td>
                        <td>${gb.gbViewCnt}</td>
                    </tr>
                    </c:forEach>
+                   <c:if test="${empty list}">
+					<tr>
+						<td colspan='4'>입력된 게시물이 없습니다.</td>
+					</tr>
+			</c:if>
                </table>
               
                <div id="paging">
-               <nav>
-                    <ul class="pagination">
-                      <li>
-                        <a href="#" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li>
-                        <a href="#" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
+              	<c:if test="${pageResult.count != 0}">
+					<nav>
+					  <ul class="pagination">
+					    <li <c:if test="${pageResult.prev eq false}">class="disabled"</c:if> >
+					      <a href="${pageResult.beginPage - 1}" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+						<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
+							<li <c:if test="${i eq pageResult.pageNo}">class="active"</c:if> >
+								<a href="${i}">${i}</a>
+							</li>
+						</c:forEach>
+					    <li <c:if test="${pageResult.next eq false}">class="disabled"</c:if> >
+					      <a href="${pageResult.endPage + 1}" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
+				</c:if>
                 </div>
                 <form class="navbar-form navbar" role="search">
                     <div id="search">
@@ -107,9 +114,20 @@
             <h4>with AR, CW, HK, SY, BG</h4>
         </footer>
         <script>
-            $("#writeButton").click(function(){
+        	$("#writeButton").click(function(){
             	location.href = "gb_writeForm.cf"
-            });            
+            });      
+            
+            $("nav > ul.pagination > li > a").click(function(e) {
+        		// 기본 이벤트 막기...
+        		e.preventDefault();
+        		
+        		var pageNo = $(this).attr("href");
+//         		alert(pageNo)
+        		if (pageNo == 0 || pageNo == '${pageResult.lastPage+1}') return false;
+        		
+        		location.href = "gb_board.cf?pageNo=" + pageNo;
+        	});
         </script>
 </body>
 </html>

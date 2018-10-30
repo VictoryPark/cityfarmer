@@ -14,17 +14,23 @@ public class TipServiceImpl implements TipService {
 	@Autowired
 	private TipMapper mapper;
 
-
+	// 게시판 전체글 조회
 	@Override
 	public List<TipBoard> selectBoard() {
-		
 		return mapper.selectBoard();
 	}
-	
-	/*@Override
+	// 글등록
+	@Override
 	public void insertBoard(TipBoard board) {
+		mapper.insertBoard(board);
+	}
+	// 상세글조회
+	@Override
+	public TipBoard selectBoardByNo(int no) {
+		return mapper.selectBoardByNo(no);
+	}
+	
 		
-		
-	}*/
+	
 	
 }

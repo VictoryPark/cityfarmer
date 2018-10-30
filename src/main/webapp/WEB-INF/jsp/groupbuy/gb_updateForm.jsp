@@ -16,16 +16,17 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
     <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.3.0/tui-code-snippet.min.js"></script>
-    <!-- timepicker-->
-    <c:url value="/resources/css/groupbuy/tui-time-picker.css" />
-    <c:url value="/resources/js/groupbuy/./tui-time-picker.js" />
+   <!-- timepicker-->
+    <link href="<c:url value="/resources/css/groupbuy/tui-time-picker.css" />" rel="stylesheet">
+    <script src="<c:url value="/resources/js/groupbuy/tui-time-picker.js" />"></script>
+    
     <!-- datepicker-->
-    <c:url value="/resources/css/groupbuy/tui-date-picker.css" />
-    <c:url value="/resources/js/groupbuy/tui-code-snippet.js" />
-    <c:url value="/resources/js/groupbuy/tui-date-picker.js" />
+     <link href="<c:url value="/resources/css/groupbuy/tui-date-picker.css" />" rel="stylesheet">
+     <script src="<c:url value="/resources/js/groupbuy/tui-code-snippet.js" />"></script>
+     <script src="<c:url value="/resources/js/groupbuy/tui-date-picker.js" />"></script>
     
     <!-- 페이지css-->
-    <c:url value="/resources/css/groupbuy/gb_update.css" />
+     <link href="<c:url value="/resources/css/groupbuy/gb_write.css" />" rel="stylesheet">
     
 </head>
 <body>
@@ -49,12 +50,14 @@
     </div>
    
     </div>
+    <form action="gb_update.cf" method="POST">
+    <input type="hidden" name="gbNo" value="${gbb.gbNo}" />
     <div class="bottom-section">
         <div class="section-one">
         <h3>공동구매 마감일 선택</h3>
         <div id="datepicker">
             <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
-                    <input type="text" id="datepicker-input-2" aria-label="Date-Time">
+                    <input type="text" name="gbEndDay"  id="datepicker-input-2" aria-label="Date-Time">
                     <span class="tui-ico-date"></span>
             </div>
             <div id="wrapper-2" style="margin-top: -1px;"></div>
@@ -64,23 +67,24 @@
         <div class="section-two">
                 <div class="panel panel-default">
                         <div class="panel-heading">
-                                <div id="title"><input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" style="margin-bottom: 10px;"> </div>
-                                <div id="writer">작성자</div>
+                                <div id="title"><input type="text" class="form-control" name="gbTitle" value="${gbb.gbTitle}" style="margin-bottom: 10px;"> </div>
+                                <div id="writer">${gbb.writer}</div>
                         </div>
                         <div class="panel-body">
-                                <div id="smnt-area"> <textarea name="content" id="summernote" value=""></textarea> </div>
+                                <div id="smnt-area"><textarea name="gbContent" id="summernote" value="">첨부파일 ${gbb.gbContent}</textarea> </div>
                         </div>
                       </div>
             
-            <div id="writebtn">
+             <div id="writebtn">
                     <button type="submit" class="btn btn-default">수정</button>
                     &nbsp;&nbsp;
-                    <button type="submit" class="btn btn-default">취소</button>
+                    <button type="button" id="cancelBtn" class="btn btn-default">취소</button>
             </div>
             <br>
             <br>
         </div> 
     </div>
+    </form>
     
         <footer>
             <h4>Copyright ⓒ<span>낭만코양이</span> All rights reserved.</h4>
@@ -99,18 +103,43 @@
         </script>
 
         <script>
-        var datepicker2 = new tui.DatePicker('#wrapper-2', {
-            date: new Date(),
-            input: {
-                element: '#datepicker-input-2',
-                format: 'yyyy-MM-dd HH:mm A'
-            },
-            timepicker: {
-                layoutType: 'tab',
-                inputType: 'spinbox'
-            },
-            showAlways: true
-        });
+       		var endDay = "${gbb.gbEndDay}"
+            var dateArr = endDay.split('-');
+            
+//             console.log(dateArr[0])
+//             console.log(dateArr[1])
+//             console.log(dateArr[2])
+            
+            var endTime = "${gbb.gbEndTime}"
+            var timeArr = endTime.split(':');
+            
+//             console.log(timeArr[0])
+//             console.log(timeArr[1])
+            
+            var year = dateArr[0];
+            var month = dateArr[1]-1;
+            var day = dateArr[2];
+            var hours = timeArr[0];
+            var minutes = timeArr[1];
+            
+//             console.log(month)
+            
+            var datepicker2 = new tui.DatePicker('#wrapper-2', {
+                date: new Date(year, month, day, hours, minutes),
+                input: {
+                    element: '#datepicker-input-2',
+                    format: 'yyyy-MM-dd HH:mm A'
+                },
+                timepicker: {
+                    layoutType: 'tab',
+                    inputType: 'spinbox'
+                },
+                showAlways: true
+            });
+            
+            $("#cancelBtn").click(function() {
+            	location.href="gb_board.cf"
+            })
         </script>
 </body>
 </html>

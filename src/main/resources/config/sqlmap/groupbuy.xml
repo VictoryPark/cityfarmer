@@ -24,16 +24,51 @@
 		<result column="gb_end_time" property="gbEndTime" />
 	</resultMap>
 	
+	<!-- 게시글 작성 -->
 	<insert id="gbInsertBoard" parameterType="GroupBuyBoard">
 		insert into cf_group_buy(gb_no, writer, gb_title, gb_content, gb_start_day, gb_end_day, gb_start_time, gb_end_time)
 		  	 values(CF_S_GB_NO.nextval, #{writer}, #{gbTitle}, #{gbContent}, #{gbStartDay}, #{gbEndDay}, #{gbStartTime}, #{gbEndTime})
 	</insert>
 	
-	<select id="gbSeletListBoard" resultMap="gbMap">
+	<!-- 게시글 목록(페이징) -->
+	<select id="gbSeletListBoard" parameterType="Page" resultMap="gbMap">
+		select *
+		  from (select rownum rnum, a.* 	
+			      from (select *
+				    	  from cf_group_buy
+					     order by gb_no desc) a
+			     where rownum &lt;= #{end})
+		 where rnum &gt;= #{begin}			     
+	</select>
+	
+	<!-- 전체 게시물의 수 -->
+	<select id="gbSelectBoardCount" resultType="int">
+		select count(*)
+		  from cf_group_buy
+	</select>
+	
+	<!-- 게시글 상세 -->
+	<select id="gbSeletListBoardByNo" parameterType="int" resultMap="gbMap">
 		select *
 		  from cf_group_buy
-		 order by gb_no desc 
+		 where gb_no = #{gbNo}  
 	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="gbUpdateBoard" parameterType="GroupBuyBoard">
+		update cf_group_buy
+		   set gb_title = #{gbTitle},
+		   	   gb_content = #{gbContent},
+		   	   gb_end_day = #{gbEndDay},
+		   	   gb_end_time = #{gbEndTime}
+		 where gb_no = #{gbNo}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="gbDeleteBoard" parameterType="int">
+		delete from cf_group_buy
+			  where gb_no = #{gbNo}
+	</delete>
 
 </mapper>
 

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import com.cityfarmer.repository.domain.TipBoard;
 import com.cityfarmer.tip.service.TipService;
 
 @Controller
@@ -19,16 +21,23 @@ public class TipController {
 		model.addAttribute("list", service.selectBoard());
 		
 	}
-	/*@RequestMapping("/wirteForm.cf")
+	@RequestMapping("/writeBoard.cf")
 	public void wirteForm() throws Exception{
 		
-	}*/
-	/*@RequestMapping("/write.cf")
+	}
+	@RequestMapping("/write.cf")
 	public String write(TipBoard tipboard) throws Exception{
-		service.insertBoard(tipboard);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.cf";
+		tipboard.setWriter("aaa");//로그인한아이디로 바꾸어야함
 		
-	}*/
+		service.insertBoard(tipboard);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "MainPage.cf";
+		
+	}
+	@RequestMapping("/detailBoard.cf")
+	public void detail(int no, Model model)throws Exception{
+		System.out.println(no);
+		model.addAttribute("tipBoard", service.selectBoardByNo(no));
+	}
 	
 
 }

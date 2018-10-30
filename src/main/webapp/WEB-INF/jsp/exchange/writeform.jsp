@@ -43,14 +43,18 @@
             </tr>
             <tr>
                 <td><label for="exampleInputEmail1">내용</label></td>
-                <td><textarea id="summernote" name="exContent"></textarea>
-                    </td>
+                <td><textarea id="summernote" name="exContent"></textarea></td>
             </tr>
         </table>
 
         <div id="buttonbox">
             <button class="btn btn-success btn-lg">등록하기</button>
         </div>
+    	<div id="imageBoard" name="file" ><ul></ul></div>
+    	
+    		<%-- <c:forEach items="${files}" var="file">
+    			<li><img src="<c:url value='/resources/file/${file}'/>" width="480" height="auto"/>"></li>
+    		</c:forEach> --%>
         </form>
                   
     </div>
@@ -66,10 +70,41 @@
 			focus : true,
             placeholder : '내용을 입력하여 주세요',
             fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
-            paragraph : 'justifyLeft'
+           /*  paragraph : 'justifyLeft' */
+          	callbacks: {
+          		onImageUpload : function(files, editor, welEditable) {
+          			console.log(files);
+          			console.log(this);
+          			for(let i=files.length -1; i>=0; i--){
+          				sendFile(files[i], this);
+          			}
+          		}
+          	} // callbacks
                 
         });
     });
+    
+    function sendFile(file, ele) {
+    	var form_data = new FormData();
+    	console.log("form_data", form_data)
+    	form_data.append('file', file);
+    	$.ajax({
+    		data : form_data,
+    		type : "POST",
+    		url : "<c:url value='/exchange/uploadfile.cf'/>",
+    		cache : false,
+    		contentType : false,
+    		enctype : "multipart/form_data",
+    		processData : false,
+    		success : function(url) {
+    			console.log(url);
+    			$("#imageBoard > ul").val(url)
+    			/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
+    			$(ele).summernote("editor.insertImage", url);
+    			/* $("#summernote").summernote('insertImage', url, filename) */
+    		}
+    	})//ajax
+    }
     $("#summernote").click(function(){
         alert($(".note-codable").code())
     })

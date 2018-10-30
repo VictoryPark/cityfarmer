@@ -20,14 +20,14 @@
 
 
 	<!-- 글 등록 -->
-	<!-- <insert id="insertBoard" parameterType="board"> insert into cf_tip( 
-		tip_no, writer, tip_title, tip_content ) values( cf_s_tip_no.nextval,#{writer},#{tipTitle},#{tipContent} 
-		) </insert> -->
+	<insert id="insertBoard" parameterType="tipBoard"> insert into cf_tip( 
+		tip_no, writer, tip_title, tip_content ) values( cf_s_tip_no.nextval, #{writer}, #{tipTitle}, #{tipContent} 
+		) </insert>
 
 
 	<!-- 글 상세보기 -->
-	<!-- <select id="selectBoardByNo" parameterType="int" resultMap="tipMap"> 
-		select* from cf_tip where no = #{tipNo} </select> -->
+	<select id="selectBoardByNo" parameterType="int" resultMap="tipMap"> 
+		select* from cf_tip where tip_no = #{tipNo} </select>
 
 
 	<!-- 글 삭제 -->
