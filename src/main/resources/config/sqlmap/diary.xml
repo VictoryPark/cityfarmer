@@ -10,38 +10,58 @@
 		<result column="dr_reg_date" property="drRegDate" />
 	</resultMap>
 	
+	<resultMap id="memberMap" type="Member">
+		<result column="member_no" property="memberNo" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="pass" property="pass" />
+		<result column="file_path" property="filePath" />
+		<result column="file_name" property="fileName" />
+	</resultMap>
+	
 	<!-- 전체 목록 가져오기 -->
-	<select id="selectDiaryBoard" resultMap="diaryMap">
+	<select id="selectDiaryBoard" parameterType="Page" resultMap="diaryMap">
 		select *
-		  from cf_diary
-		 order by dr_no desc 
+		from (select rownum rnum, a.*
+			from (	select *
+						from cf_diary
+				 	 order by dr_no desc) a
+			where rownum &lt;= #{end})				 	 
+		where rnum &gt;= #{begin}
+	</select>
+	
+	<!-- 전체 게시물의 수(조건에 맞는) -->
+	<select id="selectDiaryBoardCount" resultType="int">
+		select count(*)
+		from cf_diary
 	</select>
 	
 	<!-- 게시물 등록하기 : insertBoard -->
-	<insert id="insertDiaryBoard" parameterType="diaryboard">
+	<insert id="insertDiaryBoard" parameterType="DiaryBoard">
 		insert into cf_diary(
-			dr_no, dr_title, writer, dr_content
+			dr_no, writer, dr_title, dr_content
 		) values (
-			cf_s_diary_no.nextval, #{drTitle} , #{writer}, #{drContent}
+			cf_s_diary_no.nextval, #{writer}, #{drTitle}, #{drContent}
 		)
 	</insert> 
 	
-    <!-- <select id="selectDiaryBoardByNo" parameterType="int" resultMap="diaryMap">
+     <select id="selectDiaryBoardByNo" parameterType="int" resultMap="diaryMap">
     	select *
     	  from cf_diary
     	 where dr_no = #{drNo} 
     </select>		
-    <delete id="deleteDiaryBoard" parameterType="int">
-    	delete 
-    	  from cf_diary
-    	 where dr_no = #{drNo}
-    </delete>    
-    <update id="updateDiaryBoard" parameterType="diaryboard">
+    <update id="updateDiaryBoard" parameterType="DiaryBoard">
     	update cf_diary
     	   set dr_title = #{drTitle},
     	   	   dr_content = #{drContent} 	   	   
     	 where dr_no = #{drNo}
-    </update>	   -->
+    </update>
+    	   
+    <delete id="deleteDiaryBoard" parameterType="int">
+    	delete 
+    	  from cf_diary
+    	 where dr_no = #{drNo}
+    </delete>   
     
 <!--      댓글 부분 추가
     <select id="selectCommentByNo" parameterType="int" resultType="Comment">

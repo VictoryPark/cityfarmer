@@ -46,14 +46,13 @@
     <!---------------------------------------------- board--------------------------------------------------------------->
     <div class="container">
         <table class="table table-hover">
-            <caption>diary 게시판</caption>
+            <caption>전체 ${pageResult.count}개</caption>
             <thead>
                 <tr>
                     <th>#</th>
                     <th>작성자</th>
                     <th>제목</th>
                     <th>작성일</th>
-                    <th>댓글</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,9 +60,8 @@
                 <tr>
                     <td>${d.drNo}</td>
                     <td>${d.writer}</td>
-                    <td><a href='drdtail.cf?no=${d.drNo}'>${d.drTitle}</td>
+                    <td><a href='diarydetail.cf?no=${d.drNo}'>${d.drTitle}</a></td>
                     <td><fmt:formatDate value="${d.drRegDate}" pattern="yyyy-MM-dd" /></td>
-                    <td>4</td>
                 </tr>
                 </c:forEach>       
             </tbody>
@@ -72,22 +70,28 @@
         <button type="button" onclick="button_click();" id="drwriter" class="btn pull-right">글쓰기</button>
         </div>
 
-        <div class="text-center">
-            <ul class="pagination" href="">
-                <a href="" aria-label="Previous"><span aria-hidden="true"></span></a>
-                <li><a href="#">1</a>
-                <li>
-                <li><a href="#">2</a>
-                <li>
-                <li><a href="#">3</a>
-                <li>
-                <li><a href="#">4</a>
-                <li>
-                <li><a href="#">5</a>
-                <li>
-            </ul>
-        </div>
-    </div>
+        <c:if test="${pageResult.count != 0}">
+				<nav>
+				  <ul class="pagination">
+				    <li <c:if test="${pageResult.prev eq false}">class="disabled"</c:if> >
+				      <a href="${pageResult.beginPage - 1}" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+					<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
+							    <li <c:if test="${i eq pageResult.pageNo}">class="active"></c:if>> 
+							    	<a href="${i}">${i}</a>
+							    </li>    			    	
+					</c:forEach>
+				    <li <c:if test="${pageResult.next eq false}">class="disabled"</c:if> >
+				      <a  href="${pageResult.endPage + 1}" aria-label="Next">				      		
+				        <span aria-hidden="true">&raquo;</span>
+				        
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</c:if>
     <!--------------------------------------------------------------------- 밑에부터 캘린더 html  -------------------------------------------->
     <div class="calendar pull-right" id="calendar-app">
         <div class="calendar--day-view" id="day-view">
@@ -164,7 +168,7 @@
         </div>
     </div>
     <!---------------------------------------------- script 캘린더 부분--------------------------------------------------------->
-    <script type='text/javascript' src="<c:url value="/resources/css/diary/calendar.js"/>"></script>
+    <script type='text/javascript' src="<c:url value="/resources/js/diary/calendar.js"/>"></script>
     <!---------------------------------------------------- script----------------------------------- -->
     <script>
     function button_click() {
