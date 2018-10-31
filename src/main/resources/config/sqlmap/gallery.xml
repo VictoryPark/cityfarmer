@@ -36,13 +36,31 @@
 	<!-- 게시물 등록하기  -->
 	<insert id="insertGalleryBoard" parameterType="GalleryBoard">
 		insert into cf_gallery
-		(ga_no,ga_title,writer) 
-		values(cf_s_gallery_no.nextval, #{gaTitle},#{writer})
+		(ga_no,ga_title,writer,ga_content) 
+		values(cf_s_gallery_no.nextval, #{gaTitle},#{writer},#{gaContent})
 
 	</insert>
+	
+	<!-- 게시물 상세 -->
+	 <select id="selectGalleryBoardByNo" parameterType="int" resultMap="galleryMap">
+    	select *
+    	  from cf_gallery
+    	 where ga_no = #{gaNo} 
+    </select>	
+    
+    <!-- 게시글 삭제 -->
+	<delete id="GalleryDeleteBoard" parameterType="int">
+		delete from cf_gallery
+			  where ga_no = #{gaNo}
+	</delete>
 
-
-
+	<!-- 게시글 수정 -->
+	<update id="GalleryUpdateBoard" parameterType="GalleryBoard">
+    	update cf_gallery
+    	   set ga_title = #{gaTitle},
+    	       ga_content = #{gaContent}
+    	 where ga_no = #{gaNo}
+    </update>	 
 
 
 

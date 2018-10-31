@@ -41,44 +41,43 @@
                
             </div>
             <div class="main-title">
-                <h2>게시글 작성</h2>
+                <h2>게시글 수정</h2>
             </div>
             
-			<form action="write.cf" method="post">
-            <div>
-                <input type="text" class="form-control" placeholder="제목을 입력하여주세용" style="width:99%" name="gaTitle"><br>
-                <input type="text" class="form-control" placeholder="${user.id}" style="width:99%" name="writer">
-            </div><br>
+			<form action="update.cf" method="post">
+			    <input type="hidden" name="gaNo" value="${b.gaNo}" />
+			
+            	<div>
+                	<input type="text" class="form-control" placeholder="제목을 입력하여주세용" style="width:99%" name="gaTitle" value="${b.gaTitle}"><br>
+                	<input type="text" class="form-control" placeholder="${b.writer}" style="width:99%" name="writer">
+            	</div><br>
             <div class="smt">
-                    <textarea name="gaContent" id="summernote" value=""></textarea>
+                    <textarea name="gaContent" id="summernote">${b.gaContent}</textarea>
             </div>
-            <div id="wirte" > 
-                
-                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button class="btn btn-primary">글작성</button>
-
+            <div id="update" >
+           				 <button type="submit" class="btn btn-primary">수정</button>
             </div>
             </form>
-                    <button class="btn btn-primary1" id="cblist">목록</button>
+                    <button class="btn btn-primary1" id="">이전으로</button>
             
         </div><br>
         <script>
         $(document).ready(function() {
              $('#summernote').summernote({
-            width: 1250,
+            	width: 1250,
              height: 300,                 // set editor height
              minHeight: null,             // set minimum height of editor
              maxHeight: null,             // set maximum height of editor
              focus: true,
-             placeholder : '내용을 입력하여 주세요'
+             placeholder : '수정할 내용을 입력하여 주세요'
              // set focus to editable area after initializing summernote
                 });
             });
        	
-        $("#cblist").click(function () {
-			location.href="/cityFarmer/gallery/gallerylist1.cf"	
+     /*    $("#cblist").click(function () {
+			location.href="/cityFarmer/gallery/gallerylist.cf"	
 		})
-
+ */
         
         </script>
 </body>

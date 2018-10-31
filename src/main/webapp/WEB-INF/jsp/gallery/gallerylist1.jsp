@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>갤러리 게시판</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js"></script>
@@ -87,9 +87,9 @@
                     
                     <tbody>
                    	<c:forEach var="b" items="${list}">
-                        <tr>
+                        <tr class="clickde">
                             <td>${b.gaNo}</td>
-                            <td>${b.gaTitle}</td>
+                            <td><a href='gallerydetail.cf?no=${b.gaNo}'>${b.gaTitle}</td>
                             <td>${b.writer}</td>
                             <td><fmt:formatDate value="${b.gaRegDate}" pattern="yyyy-MM-dd" /></td>
                         </tr>
@@ -128,6 +128,10 @@
 			          </a>
 			        </li>
   				</ul>
+  				<div id="wirte"> 
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                    <button type="button" class="btn btn-primary" id="write">글작성</button>
+                  </div>
 				</nav>
 		</c:if>               
             </div>
@@ -150,12 +154,22 @@
                  $(".modal-body").html("<img src='"+t+"' class='modal-img'>");
                  $("#myModal").modal();
                  });
+                $(".clickde").click(function(){
+                    var t = $(this).attr("src");
+                     $(".modal-body").html("<img src='"+t+"' class='modal-img'>");
+                     $("#myModal").modal();
+                    });
                 });
              
              $("#write").click(function(){
             	 location.href="/cityFarmer/gallery/gallerywrite.cf";
              })
             
+             /*
+             $("#clickde").click(function(){
+            	 location.href="/cityfamer/gallery/gallerydetail.cf"
+             })
+             */
              
            // --------------------------------------------------------------------
          	$("nav > ul.pagination > li > a").click(function(e){

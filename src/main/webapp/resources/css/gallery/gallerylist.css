@@ -51,7 +51,6 @@ header {
 	height: 110px; 
 	margin: auto;
     background-color: white;
-    border-bottom: 3px solid skyblue;
 }
 
 header span {
@@ -175,9 +174,10 @@ footer span {
     text-align: center;
 }
 th{
-    background-color:  skyblue;
+    background-color:white;
     font-size: 20px;
     text-align: center;
+    font-weight: bold;
 }
 #wirte{
     float: right;

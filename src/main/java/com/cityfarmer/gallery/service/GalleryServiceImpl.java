@@ -29,6 +29,21 @@ public class GalleryServiceImpl implements GalleryService {
 		return gaMapper.seLectGalleryBoardCount();
 	}
 	
-	
+	@Override
+	public GalleryBoard detail(int no) {
+		return gaMapper.selectGalleryBoardByNo(no);
+	}
+	@Override
+	public void delete(int no) {
+		gaMapper.GalleryDeleteBoard(no);
+	}
+	@Override
+	public void update(GalleryBoard galleryboard) {
+		gaMapper.GalleryUpdateBoard(galleryboard);
+	}
+	@Override
+	public GalleryBoard updateForm(int no) {
+		return gaMapper.selectGalleryBoardByNo(no);
+	}
 
 }
