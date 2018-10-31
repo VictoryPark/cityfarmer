@@ -48,9 +48,9 @@
         </table>
 
         <div id="buttonbox">
-            <button class="btn btn-success btn-lg">등록하기</button>
+            <button class="btn btn-success btn-lg" id="submit">등록하기</button>
         </div>
-    	<div id="imageBoard" name="file" ><ul></ul></div>
+    	<input id="imageBoard" name="fileUrl" type="hidden"/>
     	
     		<%-- <c:forEach items="${files}" var="file">
     			<li><img src="<c:url value='/resources/file/${file}'/>" width="480" height="auto"/>"></li>
@@ -98,16 +98,17 @@
     		processData : false,
     		success : function(url) {
     			console.log(url);
-    			$("#imageBoard > ul").val(url)
+    			$("input#imageBoard").val(url)
     			/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
     			$(ele).summernote("editor.insertImage", url);
-    			/* $("#summernote").summernote('insertImage', url, filename) */
     		}
     	})//ajax
     }
-    $("#summernote").click(function(){
-        alert($(".note-codable").code())
-    })
+ 
+    /* $("button#submit").click(function(){
+    	var result = $("form#write").serializeArray();
+    	console.log("result", result)
+    }) */
   </script>
 </body>
 </html>

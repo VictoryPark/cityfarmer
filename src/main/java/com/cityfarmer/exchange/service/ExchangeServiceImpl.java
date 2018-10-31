@@ -15,8 +15,9 @@ public class ExchangeServiceImpl implements ExchangeService {
 	
 	
 	@Override
-	public int write(ExchangeBoard ex) {
-		return mapper.insertNewBoard(ex);
+	public int write(ExchangeBoard board, ExchangeFile file) {
+		System.out.println(board.getExNo());
+		return mapper.insertNewBoard(board);
 	}
 
 

@@ -42,11 +42,25 @@ public class ExchangeController {
 	}
 	
 	@RequestMapping("/write.cf")
-	public String write(ExchangeBoard ex) {
-		if(service.write(ex)!=0) {
-			return "redirect:list.cf";
+	public String write(ExchangeBoard board, ExchangeFile file) {
+		System.out.println(board);
+		String fileUrl = board.getFileUrl();
+		if(fileUrl!="") {
+			fileUrl = fileUrl.substring("http://localhost:8000".length());
+			//board.setFileUrl(fileUrl);
+			String parentUrl = getParentUrl(fileUrl);
+			file.setExfPath(parentUrl);
+//			System.out.println("parent : " +parentUrl);
+			String fileName = fileUrl.substring(parentUrl.length()+1);
+			file.setExfSysName(fileName);
+			
+//			System.out.println("fileName : " +fileName);
+
+			if(service.write(board, file)!=0) {
+				return "redirect:list.cf";
+			}
 		}
-		return "redirect:write.cf";
+		return "redirect:list.cf";
 	}
 	
 	public void updateForm() {
@@ -63,9 +77,9 @@ public class ExchangeController {
 	
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
-	public String uploadFile(@RequestParam("file") List<MultipartFile> attach, ExchangeFile ef) throws IllegalStateException, IOException {
-//		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/exchange";
-		String uploadPath = "/app/upload";
+	public String uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
+		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/exchange";
+//		String uploadPath = "/app/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
 		
@@ -83,31 +97,43 @@ public class ExchangeController {
 			fileSysName = newName + "." + fileExtension;
 			System.out.println(uploadPath + datePath + "/"+fileSysName);
 			
-			ef.setExfOriName(file.getOriginalFilename());
-			ef.setExfSysName(fileSysName);
-			ef.setExfPath(uploadPath + datePath);
-			ef.setExfSize(file.getSize());
+//			ef.setExfOriName(file.getOriginalFilename());
+//			ef.setExfSysName(fileSysName);
+//			ef.setExfPath(uploadPath + datePath);
+//			ef.setExfSize(file.getSize());
 			
 			File img = new File(uploadPath + datePath, fileSysName);
 			
 			if(img.exists() == false) {
 				img.mkdirs();
 			}
-//			service.uploadFile(ef);
 			file.transferTo(img);
+			//service.uploadFile(ef);
 		}
 		//source="org.eclipse.jst.jee.server:cityFarmer"
-		return "http://localhost:8000/file"+ datePath +"/"+ fileSysName;
+		return "http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName;
 	}
 	
-	 public static String getExtension(String fileName) {
-	        int dotPosition = fileName.lastIndexOf('.');
-	        
-	        if (dotPosition != -1 && fileName.length() - 1 > dotPosition) {
-	            return fileName.substring(dotPosition + 1);
-	        } else {
-	            return "";
-	        }
-	    }
+	 private static String getExtension(String fileName) {
+        int dotPosition = fileName.lastIndexOf('.');
+        
+        if (dotPosition != -1 && fileName.length() - 1 > dotPosition) {
+            return fileName.substring(dotPosition + 1);
+        } else {
+            return "";
+        }
+	 }
+	 
+	 private static String getParentUrl(String fileUrl) {
+		 int dotPosi = fileUrl.lastIndexOf('/');
+		 
+		 if(dotPosi != -1 && fileUrl.length() -1 > dotPosi) {
+			 return fileUrl.substring(0,dotPosi);
+		 } else {
+			 return "";
+		 }
+	 }
+	 
+	
 	
 } //end class

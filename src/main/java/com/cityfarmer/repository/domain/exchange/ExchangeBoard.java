@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
+@ToString
 public class ExchangeBoard {
 
 	private int exNo;
@@ -16,6 +16,7 @@ public class ExchangeBoard {
 	private Date exRegDate;
 	private String exComplete;
 	private int exViewCnt;
+	private String fileUrl;
 	private int pageNo;
 	private int begin;
 	private int end;
@@ -81,6 +82,13 @@ public class ExchangeBoard {
 	public void setEnd(int end) {
 		this.end = end;
 	}
+	public String getFileUrl() {
+		return fileUrl;
+	}
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
+	
 	
 	
 } //end class

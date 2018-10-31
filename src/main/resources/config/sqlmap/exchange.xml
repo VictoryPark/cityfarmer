@@ -21,11 +21,15 @@
 		<result column="exf_size" property="exfSize"/>
 	</resultMap>
 	
-	<insert id="insertNewExchange" parameterType="ExchangeBoard">
+	<insert id="insertNewBoard" parameterType="ExchangeBoard">
+		<selectKey keyProperty="exNo" resultType="int" order="BEFORE">
+			select cf_s_exchang_no.nextval from dual
+		</selectKey>
+		
 		insert into cf_exchange (
 			ex_no, writer, ex_title, ex_content
 		) values (
-			cf_s_exchange_no.nextval, #{writer}, #{exTitle}, #{exContent} 
+			#{exNo}, #{writer}, #{exTitle}, #{exContent} 
 		)
 	</insert>
 	
@@ -34,9 +38,9 @@
 			select cf_s_exchang_no.nextval from dual
 		</selectKey> -->
 		insert into cf_exchange_file (
-			exf_no, exf_ori_name, exf_sys_name, exf_path, exf_size
+			exf_no, ex_no, exf_ori_name, exf_sys_name, exf_path, exf_size
 		) values (
-			cf_s_exf_no.nextval, #{exfOriName}, #{exfSysName}, #{exfPath}, #{exfSize}
+			cf_s_exf_no.nextval, #{exNo}, #{exfOriName}, #{exfSysName}, #{exfPath}, #{exfSize}
 		)
 	</insert>
 	
