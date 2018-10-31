@@ -163,6 +163,10 @@ footer span {
 }
 
 /*글 디테일 추가*/
+div#boardContent {
+	padding : 30px;
+}
+
 header nav a:hover {
 	text-decoration: none; 
 	text-transform: uppercase; 

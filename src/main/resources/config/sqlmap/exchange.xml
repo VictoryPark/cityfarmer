@@ -69,6 +69,19 @@
 		select * from cf_exchange
 		   where ex_no = #{exNo}
 	</select>
+	
+	<update id="updateBoard" parameterType="ExchangeBoard">
+		update cf_exchange
+			set ex_title = #{exTitle},
+				ex_content = #{exContent}
+			where ex_no = #{exNo}	
+				
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from cf_exchange
+			where ex_no = #{exNo}
+	</delete>
 </mapper>
 
 

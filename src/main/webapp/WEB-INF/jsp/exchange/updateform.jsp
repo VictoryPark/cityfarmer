@@ -33,22 +33,23 @@
     </div>
     <br>
     <div class="bottom-section">
-        <form id="write" method="post" action="<c:url value="/exchange/write.cf"/>">
+        <form id="update" method="post" action="<c:url value="/exchange/update.cf"/>?exno=${board.exNo}">
        <input type="hidden" name="writer" value="${user.id}"/>
+       <input type="hidden" name="exNo" value="${board.exNo}"/>
         <table id="content" > 
             <tr>
                 <td><label for="exampleInputEmail1">제목</label></td>
                 <td><input type="text" class="form-control input-lg" 
-                	name="title" placeholder="제목을 입력하세요"></td>
+                	name="exTitle" value="${board.exTitle}"></td>
             </tr>
             <tr>
                 <td><label for="exampleInputEmail1">내용</label></td>
-                <td><textarea id="summernote" name="content"></textarea></td>
+                <td><textarea id="summernote" name="exContent">${board.exContent}</textarea></td>
             </tr>
         </table>
 
         <div id="buttonbox">
-            <button class="btn btn-success btn-lg" id="submit">등록하기</button>
+            <button class="btn btn-success btn-lg" id="submit">수정하기</button>
         </div>
     	<input id="imageBoard" name="fileUrl" type="hidden"/>
     	<input id="imageoriname" name="oriName" type="hidden"/>
@@ -72,7 +73,7 @@
             focus: true,
             tabsize : 2,
 			focus : true,
-            placeholder : '내용을 입력하여 주세요',
+            /* placeholder : '내용을 입력하여 주세요', */
             fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
            /*  paragraph : 'justifyLeft' */
           	callbacks: {

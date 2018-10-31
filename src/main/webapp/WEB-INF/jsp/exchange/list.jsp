@@ -51,12 +51,21 @@
 		                   </c:choose>
 	                   ><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>
 	                   <div id="image">
-	                       <a href="detail.cf?exno=${board.exNo}" ><img id="item" src="${board.url}"/></a>
+	                       <a href="detail.cf?exno=${board.exNo}" >
+	                       <c:choose>
+		                       <c:when test="${!empty board.url}">
+		                       <img id="item" src="${board.url}"/>
+		                       </c:when>
+		                       <c:otherwise>
+		                       <img id="none" src="<c:url value="/resources/img/exchange/cityfarmer.png"/>"/>
+		                       </c:otherwise>
+	                       </c:choose>
+	                       </a>
 	                   </div>
 	                   <br>
 	                   <div id="title" >
 	                       <span id="title">
-	                           <a href="#1" >${board.exTitle} </a>
+	                           <a href="detail.cf?exno=${board.exNo}" >${board.exTitle} </a>
 	                       </span><br>
 	                   </div>
 	                   <div id="writer">

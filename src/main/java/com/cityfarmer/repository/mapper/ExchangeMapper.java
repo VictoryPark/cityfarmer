@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
+import com.cityfarmer.repository.domain.exchange.FormVO;
 
 public interface ExchangeMapper {
 
@@ -18,4 +19,8 @@ public interface ExchangeMapper {
 	int selectBoardCount();
 	
 	ExchangeBoard selectBoardByExNo(int exNo);
+	
+	void updateBoard(ExchangeBoard board);
+	
+	void deleteBoard(int exNo);
 } //end mapper

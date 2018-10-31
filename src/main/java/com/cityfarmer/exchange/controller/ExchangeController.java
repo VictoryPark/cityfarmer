@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.exchange.service.ExchangeService;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
@@ -73,13 +74,17 @@ public class ExchangeController {
 	}
 	
 	@RequestMapping("/update.cf")
-	public String update(@RequestParam("exno")int exNo) {
-		service.update(exNo);
-		return "redirect:detail.cf?exno=" + exNo;
+	public String update(ExchangeBoard board) {
+		service.update(board);
+	
+		return "redirect:detail.cf?exno=" + board.getExNo();
 	}
 	
-	public void delete() {
+	@RequestMapping("/delete.cf")
+	public String delete(@RequestParam("exno")int exNo) {
+		service.delete(exNo);
 		
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "list.cf";
 	}
 	
 	@PostMapping("/uploadfile.cf")

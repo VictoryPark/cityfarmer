@@ -1,6 +1,7 @@
 package com.cityfarmer.exchange.service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.cityfarmer.repository.domain.exchange.ExPageResult;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
+import com.cityfarmer.repository.domain.exchange.FormVO;
 import com.cityfarmer.repository.mapper.ExchangeMapper;
 
 @Service
@@ -84,8 +86,14 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 
 	@Override
-	public void update(int exNo) {
-		
+	public void update(ExchangeBoard board) {
+		mapper.updateBoard(board);
+	}
+
+
+	@Override
+	public void delete(int exNo) {
+		mapper.deleteBoard(exNo);
 	} 
 
 	

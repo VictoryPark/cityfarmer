@@ -53,7 +53,7 @@
                     <td>${board.exViewCnt}</td>
                 </tr>
                 <tr id="content">
-                    <td  colspan="6">${board.exContent}</td>
+                    <td  colspan="6"><div id="boardContent">${board.exContent}</div></td>
                 </tr>
                 <!-- <tr>
                     <button type="button" class="btn btn-success list">목록</button>
@@ -64,7 +64,7 @@
             <div id="buttonbox">
                 <button type="button" class="btn btn-success list">목록</button>
                 <button type="button" value="${board.exNo}" class="btn btn-info update">수정</button>
-                <button type="button" class="btn btn-danger">삭제</button>
+                <button type="button" value="${board.exNo}" class="btn btn-danger delete">삭제</button>
             </div>
             <div id="reply">
                 <form id="reply" method="POST">
@@ -123,7 +123,13 @@
     <script>
     	$("button.update").click(function() {
     		alert($(this).val())
-    		location.href("<c:url value='/exchange/updateform.cf'/>" +"?exno="+$(this).val()")
+    		location.href = "<c:url value='/exchange/updateform.cf'/>" +"?exno="+$(this).val()
+    	})
+    	$("button.list").click(function() {
+    		location.href = "<c:url value='/exchange/list.cf'/>" +"?pageNo=1"
+    	})
+    	$("button.delete").click(function() {
+    		location.href = "<c:url value='/exchange/delete.cf'/>" +"?exno="+$(this).val()
     	})
     </script>
 </body>

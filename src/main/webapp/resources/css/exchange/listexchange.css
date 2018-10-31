@@ -105,6 +105,10 @@ div#writer {
 img#item {
 	width: 100%;
 }
+img#none {
+	width: 100%;
+	padding-top : 80px;
+}
 div#image:hover {
 	opacity: 0.7;
 }
