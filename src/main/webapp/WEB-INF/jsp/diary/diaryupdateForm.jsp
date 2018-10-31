@@ -92,12 +92,13 @@
             <img src="<c:url value="/resources/css/diary/img/ga4.jpg"/>" width="100%" height="100%">
         </div>
     </div>
-	<form action="writer.cf" method="post">
+	<form action="diaryupdate.cf" method="post">
+	<input type="hidden" name="drNo" value="${board.drNo}" />
     <div class="summernote">
-        <div><input id="sumtitle" type="text" placeholder="제목" name="drTitle"></div><br>
-        <div><input id="sumwriter" type="text" placeholder="작성자" name="writer"></div>
-        <textarea id="summernote" value="" name="drContent"></textarea>
-        <button type="submit"  class="btn btn-default" id="sum1">작성</button>
+        <div><input id="sumtitle" type="text" placeholder="제목" name="drTitle" value="${board.drTitle}"></div><br>
+        <div><input id="sumwriter" type="text" placeholder="작성자" name="writer" value="${board.writer}"></div>
+        <textarea id="summernote" value="${board.drContent}" name="drContent"></textarea>
+        <button type="submit"  class="btn btn-default" id="sum1">수정</button>
         <button type="button" onclick="button1_click();" class="btn btn-default" id="sum2">취소</button>
     </div>
 	</form>
@@ -110,7 +111,7 @@
                 focus: true                  // set focus to editable area after initializing summernote
             });
         });
-
+	
     </script>
     <script>
         $("#slideshow > div:gt(0)").hide();

@@ -1,22 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
-	<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/diary/main2.css"/>">
+<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/diary/main2.css"/>">
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
     <!-- include summernote css/js-->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script> -->
     <style>
         body {
             margin:0 auto;
@@ -46,19 +44,22 @@
             right: 10px;
             bottom: 10px;
         }
-
-        .summernote {
-            margin:27% auto;
-        }
         
-        #sum1, #sum2 {
-            float: right;
-            margin: 0.1%;
-        }
+       #panel {
+           margin: auto;
+           position: absolute;
+           top: 435px;
+           width: 1200px;
+           height: 320px;
+       }
 
-        #sumtitle {
-            position: relative;
-        }
+        #update, #del, #list {
+           margin: 5px;
+           position: relative;
+           top: 660px;
+           float: right;
+       } 
+        
         
     </style>
 </head>
@@ -92,26 +93,24 @@
             <img src="<c:url value="/resources/css/diary/img/ga4.jpg"/>" width="100%" height="100%">
         </div>
     </div>
-	<form action="writer.cf" method="post">
-    <div class="summernote">
-        <div><input id="sumtitle" type="text" placeholder="제목" name="drTitle"></div><br>
-        <div><input id="sumwriter" type="text" placeholder="작성자" name="writer"></div>
-        <textarea id="summernote" value="" name="drContent"></textarea>
-        <button type="submit"  class="btn btn-default" id="sum1">작성</button>
-        <button type="button" onclick="button1_click();" class="btn btn-default" id="sum2">취소</button>
-    </div>
-	</form>
-    <script>
-        $(document).ready(function () {
-            $('#summernote').summernote({
-                height: 300,                 // set editor height
-                minHeight: null,             // set minimum height of editor
-                maxHeight: null,             // set maximum height of editor
-                focus: true                  // set focus to editable area after initializing summernote
-            });
-        });
 
-    </script>
+    <div class="panel panel-default" id="panel">
+        <div class="panel-heading">
+         <p class="panel-title">제목 : ${board.drTitle}</p><hr>
+          <p class="panel-writer">작성자 : ${board.writer}</p>
+          <p class="panel-regdate">작성일 : <fmt:formatDate value="${board.drRegDate}" pattern="yyyy-MM-dd" /></p>
+
+        </div>
+        <div class="panel-body">
+          <div class="panel-content">${board.drContent}</div>
+        </div>
+    </div>
+    <div>
+    <button type="button" id="del" onclick="button1_click();" class="btn pull-right btn-default">삭제</button>
+    <button type="button" id="update" onclick="button2_click();" class="btn pull-right btn-default">수정</button>
+    <button type="button" id="list" onclick="button3_click();" class="btn pull-right btn-default">목록</button>
+    </div>
+
     <script>
         $("#slideshow > div:gt(0)").hide();
 
@@ -125,10 +124,16 @@
         }, 3000);
         
         function button1_click() {
+        	location.href = "diarydelete.cf?no=${board.drNo}";
+        }
+        
+        function button2_click() {
+        	location.href = "diaryupdateForm.cf?no=${board.drNo}";
+        }
+        
+        function button3_click() {
         	location.href = "diarylist.cf";
         }
-     
     </script>
 </body>
-
 </html>
