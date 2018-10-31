@@ -1,40 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel='stylesheet' type='text/css' href='./calendar.css' />
-    <link rel='stylesheet' type='text/css' href='./etc.css' />
-    <link rel='stylesheet' type='text/css' href='./main.css' />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-        crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-        crossorigin="anonymous"></script>
-        <script src="notify.js"></script>
-        
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/diary/main1.css"/>">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/diary/calendar2.css"/>">
     <style>
-
         body {
             margin: 0 auto;
+            
         }
 
-        #btb {
-            margin-top: 5.6%;
-            position: relative;
-            bottom: 10%;
+        table, th {
+            text-align: center;
+            
+            
         }
-        
-       
+
+
     </style>
-
 </head>
 
-<body id="drbody">
+<body>
     <header>
         <h1><span>City</span> Farmer</h1>
         <nav>
@@ -48,35 +42,54 @@
             <a href="">회원가입</a>
         </nav>
     </header>
-    <!-------------------------------------검색창 html---------------------------------------------------->
-    <div class="wrap" id="searchAll">
-        <div class="search">
-            <input type="text" class="searchTerm" placeholder="내용을 입력하세요.">
-            <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-            </button>
+
+    <!---------------------------------------------- board--------------------------------------------------------------->
+    <div class="container">
+        <table class="table table-hover">
+            <caption>diary 게시판</caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>작성자</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th>댓글</th>
+                </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="d" items="${list}">
+                <tr>
+                    <td>${d.drNo}</td>
+                    <td>${d.writer}</td>
+                    <td><a href='drdtail.cf?no=${d.drNo}'>${d.drTitle}</td>
+                    <td><fmt:formatDate value="${d.drRegDate}" pattern="yyyy-MM-dd" /></td>
+                    <td>4</td>
+                </tr>
+                </c:forEach>       
+            </tbody>
+        </table>
+        <div>
+        <button type="button" onclick="button_click();" id="drwriter" class="btn pull-right">글쓰기</button>
         </div>
-    </div>
-    <!--------------------------------------------post html----------------------------------------------------->
 
-    <div class="memo" style="display: none">
-        <div class="memoHead">
-            <ul class="btnBox">
-                <li class="mini"><a href="#"><i class="fas fa-angle-down"></i></a></li>
-                <li class="pick"><a href="#"><i class="fas fa-thumbtack"></i></a></li>
-                <li class="delete"><a href="#"><i class="fas fa-trash-alt"></i></a></li>
-                
-
+        <div class="text-center">
+            <ul class="pagination" href="">
+                <a href="" aria-label="Previous"><span aria-hidden="true"></span></a>
+                <li><a href="#">1</a>
+                <li>
+                <li><a href="#">2</a>
+                <li>
+                <li><a href="#">3</a>
+                <li>
+                <li><a href="#">4</a>
+                <li>
+                <li><a href="#">5</a>
+                <li>
             </ul>
         </div>
-        <div class="memoContents">
-            <textarea name="memoContents" id="memoContents"></textarea>
-        </div>
     </div>
-    <a href="#" id="addMemo">추가</a>
-
     <!--------------------------------------------------------------------- 밑에부터 캘린더 html  -------------------------------------------->
-    <div class="calendar" id="calendar-app">
+    <div class="calendar pull-right" id="calendar-app">
         <div class="calendar--day-view" id="day-view">
             <span class="day-view-exit" id="day-view-exit">&times;</span>
             <span class="day-view-date" id="day-view-date">MAY 29 2016</span>
@@ -150,12 +163,14 @@
             <span><span id="footer-date" class="footer__link">Today is May 30</span></span>
         </div>
     </div>
-    <!------------------------------------------버튼 html----------------------------------------------------->
-    <button type="submit" id="btb"><a href="">글쓰기</a></button>
-    <!------------------------------------------------------  캘린더 js------------------------------------------------------------->
-    <script type='text/javascript' src='./calendar.js'></script>
-    <!-----------------------------버튼 스크립트----------------------------------------------->
-    <script src="addmemo.js"></script>
-</body>
-
+    <!---------------------------------------------- script 캘린더 부분--------------------------------------------------------->
+    <script type='text/javascript' src="<c:url value="/resources/css/diary/calendar.js"/>"></script>
+    <!---------------------------------------------------- script----------------------------------- -->
+    <script>
+    function button_click() {
+    	location.href = "diarywriterForm.cf";
+    } 
+    </script>
+    
+</body>	
 </html>

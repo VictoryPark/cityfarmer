@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cityfarmer.repository.mapper.DiaryMapper">
+	<resultMap id="diaryMap" type="DiaryBoard">
+		<result column="dr_no" property="drNo" />
+		<result column="dr_title" property="drTitle" />
+		<result column="writer" property="writer" />
+		<result column="dr_content" property="drContent" />
+		<result column="dr_reg_date" property="drRegDate" />
+	</resultMap>
+	
+	<!-- 전체 목록 가져오기 -->
+	<select id="selectDiaryBoard" resultMap="diaryMap">
+		select *
+		  from cf_diary
+		 order by dr_no desc 
+	</select>
+	
+	<!-- 게시물 등록하기 : insertBoard -->
+	<insert id="insertDiaryBoard" parameterType="diaryboard">
+		insert into cf_diary(
+			dr_no, dr_title, writer, dr_content
+		) values (
+			cf_s_diary_no.nextval, #{drTitle} , #{writer}, #{drContent}
+		)
+	</insert> 
+	
+    <!-- <select id="selectDiaryBoardByNo" parameterType="int" resultMap="diaryMap">
+    	select *
+    	  from cf_diary
+    	 where dr_no = #{drNo} 
+    </select>		
+    <delete id="deleteDiaryBoard" parameterType="int">
+    	delete 
+    	  from cf_diary
+    	 where dr_no = #{drNo}
+    </delete>    
+    <update id="updateDiaryBoard" parameterType="diaryboard">
+    	update cf_diary
+    	   set dr_title = #{drTitle},
+    	   	   dr_content = #{drContent} 	   	   
+    	 where dr_no = #{drNo}
+    </update>	   -->
+    
+<!--      댓글 부분 추가
+    <select id="selectCommentByNo" parameterType="int" resultType="Comment">
+    	select * 
+    	from tb_comment
+    	where no = #{no}
+    	order by comment_no
+    </select> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

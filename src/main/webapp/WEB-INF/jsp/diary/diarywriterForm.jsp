@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel='stylesheet' type='text/css' href='./main2.css' />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<link rel='stylesheet' type='text/css' href="<c:url value="/resources/css/diary/main2.css"/>">
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
@@ -77,16 +80,16 @@
 
     <div id="slideshow">
         <div id="i1">
-            <img src="./img/ga1.jpg" width="100%" height="100%">
+            <img src="<c:url value="/resources/css/diary/img/ga1.jpg"/>" width="100%" height="100%">
         </div>
         <div id="i2">
-            <img src="./img/ga2.jpg" width="100%" height="100%">
+            <img src="<c:url value="/resources/css/diary/img/ga2.jpg"/>" width="100%" height="100%">
         </div>
         <div id="i3">
-            <img src="./img/ga3.jpg" width="100%" height="100%">
+            <img src="<c:url value="/resources/css/diary/img/ga3.jpg"/>" width="100%" height="100%">
         </div>
         <div id="i4">
-            <img src="./img/ga4.jpg" width="100%" height="100%">
+            <img src="<c:url value="/resources/css/diary/img/ga4.jpg"/>" width="100%" height="100%">
         </div>
     </div>
 
@@ -94,8 +97,8 @@
         <div><input id="sumtitle" type="text" placeholder="제목"></div>
         <div><input id="sumreg" type="text" placeholder="작성일"></div>
         <textarea name="content" id="summernote" value=""></textarea>
-        <button type="submit" id="sum1">작성</button>
-        <button type="submit" id="sum2">목록</button>
+        <button type="submit"  class="btn btn-default" id="sum1">작성</button>
+        <button type="button2" onclick="button2_click();" class="btn btn-default" id="sum2">취소</button>
     </div>
 
     <script>
@@ -120,6 +123,11 @@
                 .end()
                 .appendTo('#slideshow');
         }, 3000);
+        
+        function button2_click() {
+        	location.href = "diarylist.cf";
+        }
+     
     </script>
 </body>
 
