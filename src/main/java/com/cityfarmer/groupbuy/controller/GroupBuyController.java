@@ -125,6 +125,7 @@ public class GroupBuyController {
 	@RequestMapping("/gb_commentList.cf")
 	@ResponseBody
 	public List<GroupBuyComment> commentList(int no) {
+		// 시간이 9시간 느리게 들어감.. 왜 why
 		return service.commentList(no);
 	}
 	
@@ -132,14 +133,20 @@ public class GroupBuyController {
 	// 댓글 작성
 	@RequestMapping("/gb_writeComment.cf")
 	@ResponseBody
-	public String writeComment(GroupBuyComment gbc) {
+	public void writeComment(GroupBuyComment gbc) {
 		gbc.setGbcWriter("test");
-		System.out.println("내용" + gbc.getGbcContent());
 		service.writeComment(gbc);
-		
-		return "redirect:gb_detail.cf?no=" + gbc.getGbNo();
 	}
 	
+	// 댓글 삭제
+	@RequestMapping("/gb_deleteComment.cf")
+	@ResponseBody
+	public void deleteComment(int cmtNo) {
+		service.deleteComment(cmtNo);
+	}
+	
+	
+	// 파일 미완성
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
 	public String uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {

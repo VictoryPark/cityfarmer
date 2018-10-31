@@ -78,16 +78,25 @@
 			  where gb_no = #{gbNo}
 	</delete>
 	
+	<!-- 댓글 등록 -->
 	<insert id="gbcInsertComment" parameterType="GroupBuyComment">
 		insert into cf_gb_comment(gbc_no, gb_no, gbc_writer, gbc_content)
 		  	 values(CF_S_GBC_NO.nextval, #{gbNo}, #{gbcWriter}, #{gbcContent})
 	</insert>
 	
+	<!-- 댓글 목록 -->
 	<select id="gbcSelectComment" resultMap="gbcMap">
 		select * 
 		  from cf_gb_comment
 		 where gb_no = #{gbNo} 
+		 order by gbc_no desc
 	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="gbcDeleteComment" parameterType="int">
+		delete from cf_gb_comment
+			  where gbc_no = #{gbcNo}	
+	</delete>
 
 </mapper>
 

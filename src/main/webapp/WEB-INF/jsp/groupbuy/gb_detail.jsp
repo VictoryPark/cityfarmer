@@ -57,11 +57,7 @@
                     <div class="panel-body">
                         <div id="cmt_container">
                             <ul id="cmt_list">
-                               <li>
-                                   <div class="cmt_nickbox"></div>
-                                   <div class="cmt_txtbox"></div>
-                                   <div class="cmt_reg"></div>
-                                </li>
+                              <!-- 댓글 들어가는부분 -->
                             </ul> 
                         </div>
                         
@@ -98,6 +94,22 @@
 	            	data: "no=${gbb.gbNo}"
 	            }).done(function (result) {
 	            	console.log(result)
+	            	
+		            	$("ul#cmt_list").html("");
+	            	for(let i=0; i<result.length; i++) {
+		            	$("ul#cmt_list").append(
+		            		 "<li>"
+                            +      "<div class='cmt_nickbox'>" + result[i].gbcWriter + "</div>"
+                            +      "<div class='cmt_txtbox'>" + result[i].gbcContent + "</div>"
+                            +      "<div class='cmt_reg'>" + result[i].gbcRegDate + "</div>"
+                            +	   "<div class='cmt_btns'>"
+                            +	   "<a><img src='<c:url value='/resources/img/groupbuy/edit-512.png' />' /></a>&nbsp;"
+                            +	   "<a href=" + result[i].gbcNo + "><img src='<c:url value='/resources/img/groupbuy/v-42-512.png' />' /></a>"
+                            +	   "</div>" 	
+                            +"</li>"
+		            	);
+	            	}
+	            	
 	            	$(".cmt_nickbox").html(result.gbcWriter)
 	            	$(".cmt_txtbox").html(result.gbcContent)
 	            	$(".cmt_reg").html(result.gbcRegDate)
@@ -107,6 +119,39 @@
         
         	// 댓글리스트 뿌리기
         	commentList();
+        	
+            // 댓글작성 ajax
+            $("#cmtRegBtn").click(function() {
+            	var formData = $("#commentForm").serialize();
+            	console.log(formData)
+	            $.ajax({
+	            	url: "<c:url value='/groupbuy/gb_writeComment.cf' />",
+	            	type: "POST",
+	            	data: formData
+	            }).done(function (result) {
+	            	console.log(result)
+	            	commentList();
+	            	$("#gbcTxtarea").val("");	            
+	            });
+            });
+            
+            // 댓글삭제 ajax
+            $(document).on("click", "div.cmt_btns > a" , function(e) {
+            	e.preventDefault();
+            	var cmtNo = $(this).attr("href");
+            	console.log(cmtNo)
+            	
+            	$.ajax({
+	            	url: "<c:url value='/groupbuy/gb_deleteComment.cf' />",
+	            	type: "POST",
+	            	data: "cmtNo=" + cmtNo
+	            }).done(function (result) {
+	            	/* console.log(result) */
+	            	commentList();
+	            });
+            })
+            
+            
            // 날짜 등록 
            var countDownDate = new Date('${gbb.gbEndDay}' + ' ' + '${gbb.gbEndTime}').getTime();  
            var checkExpire = false;
@@ -151,25 +196,7 @@
             $("#updateBtn").click(function() {
          	   location.href="gb_updateForm.cf?no=${gbb.gbNo}"
             });
-            
-           
-            
-            
-            // 댓글작성 ajax
-            $("#cmtRegBtn").click(function() {
-            	var formData = $("#commentForm").serialize();
-            	console.log(formData)
-	            $.ajax({
-	            	url: "<c:url value='/groupbuy/gb_writeComment.cf' />",
-	            	type: "POST",
-	            	data: formData
-	            }).done(function (result) {
-	            	console.log(result)
-	            	commentList();
-	            	$("#gbcTxtarea").val("");	            
-	            });
-            });
-
+   
         </script>
 </body>
 </html>

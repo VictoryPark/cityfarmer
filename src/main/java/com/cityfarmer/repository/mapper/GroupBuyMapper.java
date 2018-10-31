@@ -17,5 +17,6 @@ public interface GroupBuyMapper {
 	// 코멘트
 	List<GroupBuyComment> gbcSelectComment(int no); // 코멘트리스트
 	void gbcInsertComment(GroupBuyComment gbc); // 코멘트작성
+	void gbcDeleteComment(int cmtNo); // 코멘트 삭제
 
 }
