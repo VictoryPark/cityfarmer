@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cityfarmer.repository.domain.Page;
 import com.cityfarmer.repository.domain.groupbuy.GroupBuyBoard;
+import com.cityfarmer.repository.domain.groupbuy.GroupBuyComment;
 import com.cityfarmer.repository.mapper.GroupBuyMapper;
 
 @Service
@@ -21,8 +22,8 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	}
 	
 	@Override
-	public List<GroupBuyBoard> list(Page page) {
-		return mapper.gbSeletListBoard(page);
+	public List<GroupBuyBoard> list(GroupBuyBoard gbb) {
+		return mapper.gbSeletListBoard(gbb);
 	}
 	
 	@Override
@@ -43,6 +44,16 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	@Override
 	public void delete(int no) {
 		mapper.gbDeleteBoard(no);
+	}
+	
+	@Override
+	public void writeComment(GroupBuyComment gbc) {
+		mapper.gbcInsertComment(gbc);
+	}
+	
+	@Override
+	public List<GroupBuyComment> commentList(int no) {
+		return mapper.gbcSelectComment(no);
 	}
 	
 }

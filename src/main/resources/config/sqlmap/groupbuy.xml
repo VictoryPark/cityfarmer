@@ -24,14 +24,22 @@
 		<result column="gb_end_time" property="gbEndTime" />
 	</resultMap>
 	
+	<resultMap id="gbcMap" type="GroupBuyComment">
+		<result column="gbc_no" property="gbcNo" />
+		<result column="gb_no" property="gbNo" />
+		<result column="gbc_writer" property="gbcWriter" />
+		<result column="gbc_content" property="gbcContent" />
+		<result column="gbc_reg_date" property="gbcRegDate" />		
+	</resultMap>
+	
 	<!-- 게시글 작성 -->
 	<insert id="gbInsertBoard" parameterType="GroupBuyBoard">
 		insert into cf_group_buy(gb_no, writer, gb_title, gb_content, gb_start_day, gb_end_day, gb_start_time, gb_end_time)
 		  	 values(CF_S_GB_NO.nextval, #{writer}, #{gbTitle}, #{gbContent}, #{gbStartDay}, #{gbEndDay}, #{gbStartTime}, #{gbEndTime})
-	</insert>
+	</insert>	
 	
 	<!-- 게시글 목록(페이징) -->
-	<select id="gbSeletListBoard" parameterType="Page" resultMap="gbMap">
+	<select id="gbSeletListBoard" parameterType="GroupBuyBoard" resultMap="gbMap">
 		select *
 		  from (select rownum rnum, a.* 	
 			      from (select *
@@ -69,6 +77,17 @@
 		delete from cf_group_buy
 			  where gb_no = #{gbNo}
 	</delete>
+	
+	<insert id="gbcInsertComment" parameterType="GroupBuyComment">
+		insert into cf_gb_comment(gbc_no, gb_no, gbc_writer, gbc_content)
+		  	 values(CF_S_GBC_NO.nextval, #{gbNo}, #{gbcWriter}, #{gbcContent})
+	</insert>
+	
+	<select id="gbcSelectComment" resultMap="gbcMap">
+		select * 
+		  from cf_gb_comment
+		 where gb_no = #{gbNo} 
+	</select>
 
 </mapper>
 

@@ -18,7 +18,7 @@
 </head>
 <body>
   <header>
-            <h1><span>City</span>Farmer</h1>
+            <h1><span>&lt;City&gt;</span> Farmer</h1>
             <nav>
                 <a href="">About</a>
                 <a href="">물물교환</a>

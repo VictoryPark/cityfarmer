@@ -6,16 +6,30 @@ import lombok.Data;
 
 @Data
 public class GroupBuyBoard {
-	int gbNo; // 시퀀스
-	String writer; // 로긴한 유저 아이디
-	String gbTitle; 
-	String gbContent;
-	Date gbRegDate;	// 기본값
-	int gbViewCnt; // 기본값
-	String gbStartDay; // 글 작성일
-	String gbEndDay; // 선택일
-	String gbStartTime; // 글 작성시간
-	String gbEndTime; // 종료 시간
+	private int gbNo; // 시퀀스
+	private String writer; // 로긴한 유저 아이디
+	private String gbTitle; 
+	private String gbContent;
+	private Date gbRegDate;	// 기본값
+	private int gbViewCnt; // 기본값
+	private String gbStartDay; // 글 작성일
+	private String gbEndDay; // 선택일
+	private String gbStartTime; // 글 작성시간
+	private String gbEndTime; // 종료 시간
+	private int pageNo;
+	
+	public int getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	public int getBegin() {
+		return (pageNo - 1) * 10 + 1;
+	}
+	public int getEnd() {
+		return pageNo * 10;
+	}
 }
 
 

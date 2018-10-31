@@ -72,7 +72,8 @@
                                 <div id="writer">작성자</div>
                         </div>
                         <div class="panel-body">
-                                <div id="smnt-area"><textarea name="gbContent" id="summernote" value=""></textarea> </div> <!-- 작성자파라미터 -->
+                                <div id="smnt-area"><textarea name="gbContent" id="summernote"></textarea> </div> <!-- 작성자파라미터 -->
+                                <input id="imageBoard" name="fileUrl" type="hidden"/>
                         </div>
                       </div>
               
@@ -98,11 +99,37 @@
                     height: 330,                 // set editor height
                     minHeight: null,             // set minimum height of editor
                     maxHeight: null,             // set maximum height of editor
-                    focus: true                  // set focus to editable area after initializing summernote
+                    focus: true,                  // set focus to editable area after initializing summernote
+                    callbacks: {
+                        onImageUpload: function(files, editor, welEditable) {
+                          for (var i = files.length - 1; i >= 0; i--) {
+                            sendFile(files[i], this);
+                          }
+                        }
+                      } // callbacks
                 });
             });
             
-            
+            function sendFile(file, ele) {
+            	var form_data = new FormData();
+            	console.log("form_data", form_data)
+            	form_data.append('file', file);
+            	$.ajax({
+            		data : form_data,
+            		type : "POST",
+            		url : "<c:url value='/groupbuy/uploadfile.cf'/>",
+            		cache : false,
+            		contentType : false,
+            		enctype : "multipart/form-data",
+            		processData : false,
+            		success : function(url) {
+            			console.log(url);
+            			$("input#imageBoard").val(url)
+            			/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
+            			$(ele).summernote("editor.insertImage", url);
+            		}
+            	})//ajax
+            }
         </script>
 
         <script>

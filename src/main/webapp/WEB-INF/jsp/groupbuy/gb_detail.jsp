@@ -58,39 +58,21 @@
                         <div id="cmt_container">
                             <ul id="cmt_list">
                                <li>
-                                   <div class="cmt_nickbox">작성자1</div>
-                                   <div class="cmt_txtbox">공구하고 싶습니다.</div>
-                                   <div class="cmt_reg">18-10-12 16:36:40</div>
+                                   <div class="cmt_nickbox"></div>
+                                   <div class="cmt_txtbox"></div>
+                                   <div class="cmt_reg"></div>
                                 </li>
-                               <li>
-                                   <div class="cmt_nickbox">작성자1</div>
-                                   <div class="cmt_txtbox">공구하고 싶습니다.</div>
-                                   <div class="cmt_reg">18-10-12 16:36:40</div>
-                                </li>
-                               <li>
-                                   <div class="cmt_nickbox">작성자1</div>
-                                   <div class="cmt_txtbox">공구하고 싶습니다.</div>
-                                   <div class="cmt_reg">18-10-12 16:36:40</div>
-                                </li>
-                               <li>
-                                   <div class="cmt_nickbox">작성자1</div>
-                                   <div class="cmt_txtbox">공구하고 싶습니다.</div>
-                                   <div class="cmt_reg">18-10-12 16:36:40</div>
-                                </li>
-                               <li>
-                                   <div class="cmt_nickbox">작성자1</div>
-                                   <div class="cmt_txtbox">공구하고 싶습니다.</div>
-                                   <div class="cmt_reg">18-10-12 16:36:40</div>
-                                </li>
-                               
                             </ul> 
                         </div>
                         
+                        <form id="commentForm">
                         <div id="cmt_writeform">
-                            <div id="cmt_writer">댓글작성자</div>
-                            <div id="cmt_textarea"><textarea></textarea></div>
-                            <div id="cmt_regbtn"><button type="button" class="btn btn-success">등록</button></div>
+                        	<input type="hidden" name="gbNo" value="${gbb.gbNo}" />
+                            <div id="cmt_writer"></div>
+                            <div id="cmt_textarea"><textarea id="gbcTxtarea" name="gbcContent"></textarea></div>
+                            <div id="cmt_regbtn"><button id="cmtRegBtn" type="button" class="btn btn-success">등록</button></div>
                         </div>
+                        </form>
                     </div>
                 </div> 
                                 <div id="writebtn">
@@ -108,6 +90,23 @@
         </footer>
 
         <script>
+        // 댓글 리스트 함수
+        var commentList = function() {
+        	  $.ajax({
+	            	url: "<c:url value='/groupbuy/gb_commentList.cf'/>",
+	            	type: "POST",
+	            	data: "no=${gbb.gbNo}"
+	            }).done(function (result) {
+	            	console.log(result)
+	            	$(".cmt_nickbox").html(result.gbcWriter)
+	            	$(".cmt_txtbox").html(result.gbcContent)
+	            	$(".cmt_reg").html(result.gbcRegDate)
+	            });
+        };
+        
+        
+        	// 댓글리스트 뿌리기
+        	commentList();
            // 날짜 등록 
            var countDownDate = new Date('${gbb.gbEndDay}' + ' ' + '${gbb.gbEndTime}').getTime();  
            var checkExpire = false;
@@ -151,6 +150,24 @@
      
             $("#updateBtn").click(function() {
          	   location.href="gb_updateForm.cf?no=${gbb.gbNo}"
+            });
+            
+           
+            
+            
+            // 댓글작성 ajax
+            $("#cmtRegBtn").click(function() {
+            	var formData = $("#commentForm").serialize();
+            	console.log(formData)
+	            $.ajax({
+	            	url: "<c:url value='/groupbuy/gb_writeComment.cf' />",
+	            	type: "POST",
+	            	data: formData
+	            }).done(function (result) {
+	            	console.log(result)
+	            	commentList();
+	            	$("#gbcTxtarea").val("");	            
+	            });
             });
 
         </script>
