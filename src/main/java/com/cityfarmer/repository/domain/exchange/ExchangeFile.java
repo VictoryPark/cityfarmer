@@ -15,5 +15,6 @@ public class ExchangeFile {
 	private String exfSysName;
 	private String exfPath;
 	private long exfSize;
+	private String url;
 	
 } //end class

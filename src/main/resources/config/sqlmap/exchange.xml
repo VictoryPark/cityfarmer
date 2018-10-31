@@ -23,9 +23,8 @@
 	
 	<insert id="insertNewBoard" parameterType="ExchangeBoard">
 		<selectKey keyProperty="exNo" resultType="int" order="BEFORE">
-			select cf_s_exchang_no.nextval from dual
+			select cf_s_exchange_no.nextval from dual
 		</selectKey>
-		
 		insert into cf_exchange (
 			ex_no, writer, ex_title, ex_content
 		) values (
@@ -44,7 +43,32 @@
 		)
 	</insert>
 	
+	<!-- 페이징 하려고 selectAll 하는 것 -->
+	<select id="selectAllBoard" parameterType="ExchangeBoard" resultMap="boardMap">
+		select *
+  		from (select rownum rnum, a.* 
+		  		from (  select * 
+				  		  from cf_exchange
+				  		order by ex_no desc) a
+				where rownum &lt;= #{end})
+		where rnum &gt;= #{begin}
+	</select>
 	
+	<!-- 전체 게시물 수 -->
+	<select id="selectBoardCount" resultType="int">
+		select count(*)
+		  from cf_exchange
+	</select>
+	
+	<select id="selectFileByExNo" parameterType="int" resultMap="fileMap">
+		select * from cf_exchange_file
+			where ex_no = #{exNo}
+	</select>
+	
+	<select id="selectBoardByExNo" parameterType="int" resultMap="boardMap">
+		select * from cf_exchange
+		   where ex_no = #{exNo}
+	</select>
 </mapper>
 
 

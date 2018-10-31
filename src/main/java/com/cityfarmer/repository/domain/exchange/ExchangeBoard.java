@@ -16,10 +16,12 @@ public class ExchangeBoard {
 	private Date exRegDate;
 	private String exComplete;
 	private int exViewCnt;
-	private String fileUrl;
 	private int pageNo;
-//	private int begin;
-//	private int end;
+	private String url;
+	private int reply;
+	private int begin;
+	private int end;
+	private String regDate;
 	
 	
 	public int getExNo() {
@@ -73,22 +75,35 @@ public class ExchangeBoard {
 	public int getBegin() {
 		return (pageNo-1) * 6 + 1;
 	}
-//	public void setBegin(int begin) {
-//		this.begin = begin;
-//	}
+	public void setBegin(int begin) {
+		this.begin = begin;
+	}
 	public int getEnd() {
 		return pageNo * 6;
 	}
-//	public void setEnd(int end) {
-//		this.end = end;
-//	}
-	public String getFileUrl() {
-		return fileUrl;
+	public String getUrl() {
+		return url;
 	}
-	public void setFileUrl(String fileUrl) {
-		this.fileUrl = fileUrl;
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public int getReply() {
+		return reply;
+	}
+	public void setReply(int reply) {
+		this.reply = reply;
 	}
 	
+	public void setEnd(int end) {
+		this.end = end;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+
 	
 	
 } //end class

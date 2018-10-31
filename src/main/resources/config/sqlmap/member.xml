@@ -17,7 +17,7 @@
 		)
 	</insert>
 	
-	<select id="selectMemberwithIdandPass" parameterType="Login" resultType="Member">
+	<select id="selectMemberwithIdandPass" parameterType="Login" resultMap="memberMap">
 		select * from cf_member
 		  where id = #{id} and
 		  		pass = #{pass}

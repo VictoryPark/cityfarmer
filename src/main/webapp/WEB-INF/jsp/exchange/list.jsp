@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="<c:url value="/resources/css/exchange/listexchange.css"/>">
 </head>
@@ -37,163 +38,97 @@
    </div>
    <div class="bottom-section">
        <div class="container-fluid">
-           <div class="col-md-4">    
-               <div class="col-md-12">
-                   <div id="blur" class="show"><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>
-                   <div id="image">
-                       <a href="#1" ><img id="item" src="<c:url value="/resources/img/exchange/carrot.png"/>"/></a>
-                   </div>
-                   <br>
-                   <div id="title" >
-                       <span id="title">
-                           <a href="#1" >당근이 올해 풍년이예요~ <br>20kg 물물교환 하실분? </a>
-                       </span><br>
-                   </div>
-                   <div id="writer">
-                       <span id="writer">
-                           작성자 :${writer}
-                       </span>
-                   </div>
-                   <hr>
-                   <div id="description">
-                       조회수 : [${viewCount}] / 댓글 : [${reply}]
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               <div class="col-md-12">
-                   <div id="blur" class="hide"><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>
-                   <div id="image">
-                       <a href="#1" ><img id="item" src="<c:url value="/resources/img/exchange/brocoli.png"/>" /></a>
-                   </div>
-                   <br>
-                   <div id="title" >
-                       <span id="title">
-                           <a href="#1">브로콜리 올해 풍년이예요~ <br>20kg 물물교환 하실분? </a>
-                       </span>
-                   </div>
-                   <div id="writer">
-                       <span id="writer">
-                           작성자 :${writer}
-                       </span>
-                   </div>
-                   <hr>
-                   <div id="description">
-                       조회수 : [${viewCount}] / 댓글 : [${reply}]
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               <div class="col-md-12">
-                   <div id="blur" class="show"><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>
-                   <div id="image">
-                       <a href="#1" ><img id="item" src="<c:url value="/resources/img/exchange/beans.png"/>" /></a>
-                   </div>
-                   <br>
-                   <div id="title" >
-                       <span id="title">
-                           <a href="#3" >완두콩 올해 풍년이예요~ <br>20kg 물물교환 하실분? </a>
-                       </span>
-                   </div>
-                   <div id="writer">
-                       <span id="writer">
-                           작성자 :${writer}
-                       </span>
-                   </div>
-                   <hr>
-                   <div id="description">
-                       조회수 : [${viewCount}] / 댓글 : [${reply}]
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               <div class="col-md-12">
-                   <div id="blur" class="show"><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>    
-                   <div id="image">
-                       <a href="#1" ><img id="item" src="<c:url value="/resources/img/exchange/potato.png"/>"/></a>
-                   </div>
-                   <br>
-                   <div id="title" >
-                       <span id="title">
-                           <a href="#1" >감자가 올해 풍년이예요~ <br>20kg 물물교환 하실분? </a>
-                       </span>
-                   </div>
-                   <div id="writer">
-                       <span id="writer">
-                           작성자 :${writer}
-                       </span>
-                   </div>
-                   <hr>
-                   <div id="description">
-                       조회수 : [${viewCount}] / 댓글 : [${reply}]
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               <div class="col-md-12">
-                   <div id="blur" class="hide"><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>    
-                   <div id="image">
-                       <a href="#1" ><img id="item" src="<c:url value="/resources/img/exchange/tomato.png"/>" /></a>
-                   </div>
-                   <br>
-                   <div id="title" >
-                       <span id="title">
-                           <a href="#1">토마토 올해 풍년이예요~ <br>20kg 물물교환 하실분? </a>
-                       </span>
-                   </div>
-                   <div id="writer">
-                       <span id="writer">
-                           작성자 :${writer}
-                       </span>
-                   </div>
-                   <hr>
-                   <div id="description">
-                       조회수 : [${viewCount}] / 댓글 : [${reply}]
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               <div class="col-md-12">
-                   <div id="blur" class="hide"><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>    
-                   <div id="image">
-                       <a href="#1" ><img id="item" src="<c:url value="/resources/img/exchange/cabbage.png"/>" /></a>
-                   </div>
-                   <br>
-                   <div id="title" >
-                       <span id="title">
-                           <a href="#1">양배추 올해 풍년이예요~ <br>20kg 물물교환 하실분? </a>
-                       </span>
-                   </div>
-                   <div id="writer">
-                       <span id="writer">
-                           작성자 :${writer}
-                       </span>
-                   </div>
-                   <hr>
-                   <div id="description">
-                       조회수 : [${viewCount}] / 댓글 : [${reply}]
-                   </div>
-               </div>
-           </div>
+       		<c:forEach var="board" items="${map.list}">
+       			<div class="col-md-4">    
+                	<div class="col-md-12">
+	                   <!-- 거래 완료 되었는지 아닌지 확인 -->
+	                   <div id="blur" 
+		                   <c:choose>
+		                   	<c:when test="${board.exComplete =='y'}">
+		                   		class="show"
+		                   	</c:when>
+		                   	<c:otherwise>class="hidden"</c:otherwise>
+		                   </c:choose>
+	                   ><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>
+	                   <div id="image">
+	                       <a href="detail.cf?exno=${board.exNo}" ><img id="item" src="${board.url}"/></a>
+	                   </div>
+	                   <br>
+	                   <div id="title" >
+	                       <span id="title">
+	                           <a href="#1" >${board.exTitle} </a>
+	                       </span><br>
+	                   </div>
+	                   <div id="writer">
+	                       <span id="writer">
+	                           작성자 :${board.writer}
+	                       </span>
+	                   </div>
+	                   <hr>
+	                   <div id="description">
+	                       조회수 : [${board.exViewCnt}] / 댓글 : [${board.reply}]
+	                   </div>
+	               </div>
+	           </div>
+       		</c:forEach>
+           
+           
+               
        </div>
    </div>
-   <div id="paging" class="text-center">
-       <div class="pagination">
-           <a href="#1" data-page="1" class>&laquo;</a>
-           <a href="#1" data-page="1" class>&lt;</a>
-           <a href="#1" data-page="1" class>1</a>
-           <a href="#1" data-page="1" class>2</a>
-           <a href="#1" data-page="1" class>3</a>
-           <a href="#1" data-page="1" class>4</a>
-           <a href="#1" data-page="1" class>5</a>
-           <a href="#1" data-page="1" class>&gt;</a>
-           <a href="#1" data-page="1" class>&raquo;</a>
-       </div>
-   </div>
-
+   <c:if test="${map.pageResult.count != 0}">
+	   <div id="paging" class="text-center">
+	       <div class="pagination">
+	           <a <c:if test="${map.pageResult.prev eq false}"> class="disabled"</c:if>
+	          		 <c:choose>
+			      		<c:when test="${map.pageResult.prev eq true}">href="list.cf?pageNo=${map.pageResult.beginPage}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.beginPage - 1}"</c:otherwise>
+			      	</c:choose>
+			      		 aria-label="PreviousAll">
+	           <span aria-hidden="true">&laquo;</span></a>
+	           <a <c:choose>
+			      		<c:when test="${map.pageResult.prev eq true}">href="list.cf?pageNo=${map.pageResult.beginPage - 1}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.beginPage - 1}"</c:otherwise>
+			      	</c:choose>
+			      		 aria-label="Previous">
+	           <span aria-hidden="true">&lt;</span></a>
+	           
+	           <c:forEach var="i" begin="${map.pageResult.beginPage}" end="${map.pageResult.endPage}">
+	           	<c:choose>
+				    <c:when test="${i eq map.pageResult.pageNo}">
+	           			<a href="#1">${i}</a>
+	           		</c:when>
+	           		<c:otherwise>
+	           			<a href="list.cf?pageNo=${i}">${i}</a>
+	           		</c:otherwise>
+	           	</c:choose>
+	           </c:forEach>
+	           
+	           
+	           <a <c:choose>
+			      		<c:when test="${map.pageResult.next eq true}">href="list.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.endPage+1}"</c:otherwise>
+			      	</c:choose>
+			      	aria-label="Next">
+			      	<span aria-hidden="true">&gt;</span></a>
+	           <a <c:if test="${map.pageResult.next eq false}"> class="disabled"</c:if>
+	           		<c:choose>
+			      		<c:when test="${map.pageResult.next eq true}">href="list.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.endPage}"</c:otherwise>
+			      	</c:choose>
+			      		aria-label="NextAll">
+	           <span aria-hidden="true">&raquo;</span></a>
+	       </div>
+	    </div>
+	</c:if>
    <footer>
        <h4>Powered by lots of <span>fresh</span> ingredients.</h4>
    </footer>
 
+<script>
+	/* $(document).ready(function() {
+		alert("${map.pageResult.lastPage}")
+	}) */
+</script>
 </body>
 </html>

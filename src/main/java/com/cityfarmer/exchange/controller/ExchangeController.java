@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cityfarmer.exchange.service.ExchangeService;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
+import com.cityfarmer.repository.domain.exchange.FormVO;
 
 @Controller
 @RequestMapping("/exchange")
@@ -32,8 +35,10 @@ public class ExchangeController {
 //	}
 	
 	@RequestMapping("/list.cf")
-	public void list() {
-		
+	public void list(@RequestParam(value="pageNo",defaultValue = "1")
+					int pageNo, Model model) {
+		Map<String, Object>  map = service.list(pageNo);
+		model.addAttribute("map", map);
 	}
 	
 	@RequestMapping("/writeform.cf")
@@ -42,33 +47,35 @@ public class ExchangeController {
 	}
 	
 	@RequestMapping("/write.cf")
-	public String write(ExchangeBoard board, ExchangeFile file) {
-		System.out.println(board);
-		String fileUrl = board.getFileUrl();
-		if(fileUrl!="") {
-			fileUrl = fileUrl.substring("http://localhost:8000".length());
-			//board.setFileUrl(fileUrl);
-			String parentUrl = getParentUrl(fileUrl);
-			file.setExfPath(parentUrl);
-//			System.out.println("parent : " +parentUrl);
-			String fileName = fileUrl.substring(parentUrl.length()+1);
-			file.setExfSysName(fileName);
-			
-//			System.out.println("fileName : " +fileName);
-
-			if(service.write(board, file)!=0) {
-				return "redirect:list.cf";
-			}
-		}
+	public String write(FormVO form, ExchangeBoard board, ExchangeFile file) {
+		//System.out.println(form);
+		board.setExTitle(form.getTitle());
+		board.setExContent(form.getContent());
+		board.setWriter(form.getWriter());
+		file.setExfOriName(form.getOriName());
+		file.setExfSysName(form.getSysName());
+		file.setExfPath(form.getPath());
+		file.setExfSize(form.getSize());
+		
+		service.write(board, file);
+		
 		return "redirect:list.cf";
 	}
 	
-	public void updateForm() {
-		
+	@RequestMapping("/updateform.cf")
+	public void updateForm(@RequestParam("exno")int exNo,  Model model) {
+		model.addAttribute("board",service.detail(exNo));
 	}
 	
-	public void update() {
-		
+	@RequestMapping("/detail.cf")
+	public void detail(@RequestParam("exno")int exNo, Model model) {
+		model.addAttribute("board",service.detail(exNo));
+	}
+	
+	@RequestMapping("/update.cf")
+	public String update(@RequestParam("exno")int exNo) {
+		service.update(exNo);
+		return "redirect:detail.cf?exno=" + exNo;
 	}
 	
 	public void delete() {
@@ -77,9 +84,9 @@ public class ExchangeController {
 	
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
-	public String uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
-		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/exchange";
-//		String uploadPath = "/app/upload";
+	public ExchangeFile uploadFile(@RequestParam("file") List<MultipartFile> attach, ExchangeFile exFile) throws IllegalStateException, IOException {
+//		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/exchange";
+		String uploadPath = "/app/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
 		
@@ -97,10 +104,10 @@ public class ExchangeController {
 			fileSysName = newName + "." + fileExtension;
 			System.out.println(uploadPath + datePath + "/"+fileSysName);
 			
-//			ef.setExfOriName(file.getOriginalFilename());
-//			ef.setExfSysName(fileSysName);
-//			ef.setExfPath(uploadPath + datePath);
-//			ef.setExfSize(file.getSize());
+			exFile.setExfOriName(file.getOriginalFilename());
+			exFile.setExfSysName(fileSysName);
+			exFile.setExfPath(uploadPath + datePath);
+			exFile.setExfSize(file.getSize());
 			
 			File img = new File(uploadPath + datePath, fileSysName);
 			
@@ -109,9 +116,11 @@ public class ExchangeController {
 			}
 			file.transferTo(img);
 			//service.uploadFile(ef);
-		}
+			exFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
+		} //enhanced for문
+		
 		//source="org.eclipse.jst.jee.server:cityFarmer"
-		return "http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName;
+		return exFile;
 	}
 	
 	 private static String getExtension(String fileName) {
