@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.gallery.service.GalleryService;
-import com.cityfarmer.repository.domain.GaPageResult;
-import com.cityfarmer.repository.domain.GalleryBoard;
+import com.cityfarmer.repository.domain.gallery.GaPageResult;
+import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 
 @Controller
 @RequestMapping("/gallery")

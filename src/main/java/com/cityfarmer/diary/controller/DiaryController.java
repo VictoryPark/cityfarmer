@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.diary.service.DiaryService;
-import com.cityfarmer.repository.domain.DiaryBoard;
+import com.cityfarmer.repository.domain.diary.DiaryBoard;
 
 @Controller
 @RequestMapping("/diary")

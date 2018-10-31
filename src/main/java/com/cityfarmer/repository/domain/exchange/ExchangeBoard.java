@@ -18,8 +18,8 @@ public class ExchangeBoard {
 	private int exViewCnt;
 	private String fileUrl;
 	private int pageNo;
-	private int begin;
-	private int end;
+//	private int begin;
+//	private int end;
 	
 	
 	public int getExNo() {
@@ -73,15 +73,15 @@ public class ExchangeBoard {
 	public int getBegin() {
 		return (pageNo-1) * 6 + 1;
 	}
-	public void setBegin(int begin) {
-		this.begin = begin;
-	}
+//	public void setBegin(int begin) {
+//		this.begin = begin;
+//	}
 	public int getEnd() {
 		return pageNo * 6;
 	}
-	public void setEnd(int end) {
-		this.end = end;
-	}
+//	public void setEnd(int end) {
+//		this.end = end;
+//	}
 	public String getFileUrl() {
 		return fileUrl;
 	}

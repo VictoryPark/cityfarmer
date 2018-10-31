@@ -1,4 +1,4 @@
-package com.cityfarmer.repository.domain;
+package com.cityfarmer.repository.domain.gallery;
 
 import java.util.Date;
 

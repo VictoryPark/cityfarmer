@@ -1,4 +1,4 @@
-package com.cityfarmer.repository.domain;
+package com.cityfarmer.repository.domain.tip;
 
 import java.util.Date;
 

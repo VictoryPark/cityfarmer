@@ -2,7 +2,7 @@ package com.cityfarmer.diary.service;
 
 import java.util.List;
 
-import com.cityfarmer.repository.domain.DiaryBoard;
+import com.cityfarmer.repository.domain.diary.DiaryBoard;
 
 public interface DiaryService {
 	

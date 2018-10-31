@@ -2,14 +2,14 @@ package com.cityfarmer.repository.mapper;
 
 import java.util.List;
 
-import com.cityfarmer.repository.domain.TipBoard;
+import com.cityfarmer.repository.domain.tip.TipBoard;
 
 public interface TipMapper {
-	//ÀüÃ¼ °Ô½Ã±Û Á¶È¸
+	//ï¿½ï¿½Ã¼ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸
 	List<TipBoard> selectBoard();
-	//±Û»ó¼¼Á¶È¸
+	//ï¿½Û»ï¿½ï¿½ï¿½È¸
 	TipBoard selectBoardByNo(int no);
-	//±Ûµî·Ï
+	//ï¿½Ûµï¿½ï¿½
 	void insertBoard(TipBoard board);
 	void deleteBoard(int no);
 	void updateBoard(int no);

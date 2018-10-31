@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
-import com.cityfarmer.repository.domain.TipBoard;
+import com.cityfarmer.repository.domain.tip.TipBoard;
 import com.cityfarmer.tip.service.TipService;
 
 @Controller
@@ -14,7 +14,7 @@ import com.cityfarmer.tip.service.TipService;
 public class TipController {
 	@Autowired
 	public TipService service;
-	//	Tip±Ûµî·Ï
+	//	Tipï¿½Ûµï¿½ï¿½
 	@RequestMapping("MainPage.cf")
 	public void list(Model model) throws Exception{
 		System.out.println("list: " + service.selectBoard());
@@ -27,7 +27,7 @@ public class TipController {
 	}
 	@RequestMapping("/write.cf")
 	public String write(TipBoard tipboard) throws Exception{
-		tipboard.setWriter("aaa");//·Î±×ÀÎÇÑ¾ÆÀÌµð·Î ¹Ù²Ù¾î¾ßÇÔ
+		tipboard.setWriter("aaa");//ï¿½Î±ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ìµï¿½ï¿½ ï¿½Ù²Ù¾ï¿½ï¿½ï¿½ï¿½
 		
 		service.insertBoard(tipboard);
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "MainPage.cf";

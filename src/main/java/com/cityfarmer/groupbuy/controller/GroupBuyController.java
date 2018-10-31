@@ -12,8 +12,8 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.common.PageResult;
 import com.cityfarmer.groupbuy.service.GroupBuyService;
-import com.cityfarmer.repository.domain.GroupBuyBoard;
 import com.cityfarmer.repository.domain.Page;
+import com.cityfarmer.repository.domain.groupbuy.GroupBuyBoard;
 
 @Controller
 @RequestMapping("/groupbuy")

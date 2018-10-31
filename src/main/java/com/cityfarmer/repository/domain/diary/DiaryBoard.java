@@ -1,4 +1,4 @@
-package com.cityfarmer.repository.domain;
+package com.cityfarmer.repository.domain.diary;
 
 import java.util.Date;
 

@@ -1,9 +1,9 @@
 package com.cityfarmer.repository.mapper;
 
-import java.util.List;	
+import java.util.List;
 
-import com.cityfarmer.repository.domain.GroupBuyBoard;
 import com.cityfarmer.repository.domain.Page;
+import com.cityfarmer.repository.domain.groupbuy.GroupBuyBoard;
 
 public interface GroupBuyMapper {
 	
