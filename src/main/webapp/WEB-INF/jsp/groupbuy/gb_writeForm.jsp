@@ -99,6 +99,7 @@
                     height: 330,                 // set editor height
                     minHeight: null,             // set minimum height of editor
                     maxHeight: null,             // set maximum height of editor
+                    placeholder: "내용을 입력해주세요",
                     focus: true,                  // set focus to editable area after initializing summernote
                     callbacks: {
                         onImageUpload: function(files, editor, welEditable) {

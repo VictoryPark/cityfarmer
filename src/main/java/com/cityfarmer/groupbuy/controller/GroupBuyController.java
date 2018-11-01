@@ -37,9 +37,10 @@ public class GroupBuyController {
 		GroupBuyBoard gbb = new GroupBuyBoard();
 		gbb.setPageNo(pageNo);
 		
-		System.out.println(service.listCount());
-		System.out.println(pageNo);
-		
+//		System.out.println(service.listCount());
+//		System.out.println(pageNo);
+//		System.out.println(gbb.getGbNo());
+//		model.addAttribute("comment", service.commentList(gbb.getGbNo()));
 		model.addAttribute("list", service.list(gbb));
 		model.addAttribute("pageResult", new PageResult(pageNo, service.listCount()));
 	}
@@ -86,6 +87,7 @@ public class GroupBuyController {
 		return "redirect:gb_board.cf";
 	}
 	
+	
 	// 게시글 작성폼 이동
 	@RequestMapping("/gb_writeForm.cf")
 	public void writeForm() {}
@@ -125,7 +127,6 @@ public class GroupBuyController {
 	@RequestMapping("/gb_commentList.cf")
 	@ResponseBody
 	public List<GroupBuyComment> commentList(int no) {
-		// 시간이 9시간 느리게 들어감.. 왜 why
 		return service.commentList(no);
 	}
 	
@@ -145,13 +146,20 @@ public class GroupBuyController {
 		service.deleteComment(cmtNo);
 	}
 	
+	// 댓글 수정
+	@RequestMapping("/gb_updateComment.cf")
+	@ResponseBody
+	public void updateComment(GroupBuyComment gbc) {
+		service.updateComment(gbc);
+	}
+	
 	
 	// 파일 미완성
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
 	public String uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
 //		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/groupbuy";
-		String uploadPath = "/app/upload/groupbuy";
+		String uploadPath = "/app/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
 		

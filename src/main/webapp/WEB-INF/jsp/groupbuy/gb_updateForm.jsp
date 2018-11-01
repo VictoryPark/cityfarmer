@@ -71,7 +71,7 @@
                                 <div id="writer">${gbb.writer}</div>
                         </div>
                         <div class="panel-body">
-                                <div id="smnt-area"><textarea name="gbContent" id="summernote" value="">첨부파일 ${gbb.gbContent}</textarea> </div>
+                                <div id="smnt-area"><textarea name="gbContent" id="summernote" value="">${gbb.gbContent}</textarea> </div>
                         </div>
                       </div>
             
@@ -97,6 +97,7 @@
                     height: 330,                 // set editor height
                     minHeight: null,             // set minimum height of editor
                     maxHeight: null,             // set maximum height of editor
+                    placeholder: "내용을 입력해주세요",
                     focus: true                  // set focus to editable area after initializing summernote
                 });
             });

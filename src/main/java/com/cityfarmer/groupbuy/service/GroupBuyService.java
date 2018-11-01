@@ -20,4 +20,6 @@ public interface GroupBuyService {
 	void writeComment(GroupBuyComment gbc);	// 코멘트작성
 	List<GroupBuyComment> commentList(int no); // 코멘트 리스트
 	void deleteComment(int cmtNo); // 코멘트 삭제
+	void updateComment(GroupBuyComment gbc); // 코멘트 수정
+	
 }

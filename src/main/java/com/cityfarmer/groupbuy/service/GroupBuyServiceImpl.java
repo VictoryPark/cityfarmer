@@ -37,6 +37,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	// 상세
 	@Override
 	public GroupBuyBoard detail(int no) {
+		mapper.gbUpdateViewCnt(no);
 		return mapper.gbSeletListBoardByNo(no);
 	}
 	
@@ -54,6 +55,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	
 	/* 코멘트 */
 	
+	
 	// 코멘트 작성
 	@Override
 	public void writeComment(GroupBuyComment gbc) {
@@ -70,6 +72,12 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	@Override
 	public void deleteComment(int cmtNo) {
 		mapper.gbcDeleteComment(cmtNo);
+	}
+	
+	// 코멘트 수정
+	@Override
+	public void updateComment(GroupBuyComment gbc) {
+		mapper.gbcUpdateComment(gbc);
 	}
 	
 }

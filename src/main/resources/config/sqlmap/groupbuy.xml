@@ -62,13 +62,21 @@
 		 where gb_no = #{gbNo}  
 	</select>
 	
+	<!-- 조회수 -->
+	<update id="gbUpdateViewCnt" parameterType="int">
+		update cf_group_buy
+		   set gb_view_cnt = gb_view_cnt + 1
+		 where gb_no = #{gbNo}
+	</update>
+	
 	<!-- 게시글 수정 -->
 	<update id="gbUpdateBoard" parameterType="GroupBuyBoard">
 		update cf_group_buy
 		   set gb_title = #{gbTitle},
 		   	   gb_content = #{gbContent},
 		   	   gb_end_day = #{gbEndDay},
-		   	   gb_end_time = #{gbEndTime}
+		   	   gb_end_time = #{gbEndTime},
+		   	   gb_reg_date = sysdate
 		 where gb_no = #{gbNo}
 	</update>
 	
@@ -97,30 +105,14 @@
 		delete from cf_gb_comment
 			  where gbc_no = #{gbcNo}	
 	</delete>
-
+	
+	<!-- 댓글 수정 -->
+	<update id="gbcUpdateComment" parameterType="GroupBuyComment">
+		update cf_gb_comment
+		   set gbc_content = #{gbcContent},
+		   	   gbc_reg_date = sysdate
+		 where gbc_no = #{gbcNo} 
+	</update>
+	
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

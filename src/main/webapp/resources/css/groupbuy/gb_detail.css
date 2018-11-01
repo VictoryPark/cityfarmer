@@ -171,8 +171,16 @@ footer span {
 }
 
 #writebtn{
+	float:right;
     text-align: right;
     margin-right: 30px;
+    margin-bottom: 20px;
+}
+#listbtn{
+	float:left;
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 20px;
 }
 
 
@@ -182,6 +190,7 @@ ul {
 }
 
 .cmt_nickbox {
+    clear: both;
     float: left; 
     width:15%; 
     margin-bottom: 20px;
@@ -192,12 +201,18 @@ ul {
     width: 60%; 
     margin-bottom: 20px;
 }
+.cmt_updateForm{
+    float: left; 
+    width: 60%; 
+    margin-bottom: 20px;
+}
 
 .cmt_reg {
     float: left; 
     width: 15%; 
     margin-bottom: 20px;
 }
+
 
 .cmt_btns {
     float: left; 
@@ -210,11 +225,12 @@ ul {
 /* } */
 
 #cmt_writer {
+	clear: both;
     float: left; width:15%; padding: 30px;
 }
 
-textarea {
-    float: left; width:75%; height: 100px;
+#gbcTxtarea {
+    float: left; width:75%; height: 100px; resize:none;
 }
 
 #cmt_regbtn {
@@ -230,6 +246,3 @@ textarea {
     float:right;
 }
 
-#writebtn {
-    margin-bottom: 20px;
-}

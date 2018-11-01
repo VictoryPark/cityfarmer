@@ -43,12 +43,12 @@
                       <h3 class="panel-title" style="text-align: left; font-weight: bold;">${gbb.gbTitle}</h3>
                       <div id="writer" style="display: inline-block;"><h3 class="panel-title">${gbb.writer} &nbsp&nbsp&nbsp<span id="reg_time"><fmt:formatDate value="${gbb.gbRegDate}" pattern="yyyy-MM-dd HH:mm:ss" /></span></h3></div>
                       <div id="detail_info">
-                            <span id="view_cnt">${gbb.gbViewCnt}</span> |
-                            <span id="cmt_count">댓글수 10</span>
+                            <span id="view_cnt">조회수 ${gbb.gbViewCnt}</span> |
+                            <span id="cmt_count">댓글수 </span>
                       </div>
                     </div>
                     <div class="panel-body">
-                            <img src="https://steptohealth.co.kr/wp-content/uploads/2017/09/consumir-tomate-500x332.jpeg" />
+<!--                             <img src="https://steptohealth.co.kr/wp-content/uploads/2017/09/consumir-tomate-500x332.jpeg" /> -->
                             ${gbb.gbContent}
                             <div style="font-weight: bold;">공구종료날짜: ${gbb.gbEndDay} ${gbb.gbEndTime}</div>
                             <div id="timeLimit" style="color: red;"></div>
@@ -71,11 +71,14 @@
                         </form>
                     </div>
                 </div> 
-                                <div id="writebtn">
-                                        <button type="button" id="updateBtn" class="btn btn-default">수정</button>
-                                        &nbsp;
-                                        <button type="button" id="deleteBtn" class="btn btn-default">삭제</button>
-                                </div>
+        				<div id="listbtn">
+      						<button type="button" id="listButton" class="btn btn-default">목록</button>
+        				</div>        
+                        <div id="writebtn">
+                            <button type="button" id="updateBtn" class="btn btn-default">수정</button>
+                            &nbsp;
+                            <button type="button" id="deleteBtn" class="btn btn-default">삭제</button>
+                        </div>
             </div>
         </div>
 
@@ -95,24 +98,32 @@
 	            }).done(function (result) {
 	            	console.log(result)
 	            	
-		            	$("ul#cmt_list").html("");
+	            	$("#cmt_count").html("댓글수  "+ result.length);
+	    
+	            	$("ul#cmt_list").html("");
 	            	for(let i=0; i<result.length; i++) {
 		            	$("ul#cmt_list").append(
 		            		 "<li>"
                             +      "<div class='cmt_nickbox'>" + result[i].gbcWriter + "</div>"
-                            +      "<div class='cmt_txtbox'>" + result[i].gbcContent + "</div>"
+		            		+	   "<div class='cmt_box'>" 
+                            +      "<div class='cmt_txtbox' data-writer=" + result[i].gbcWriter + " data-no=" + result[i].gbcNo + ">" + result[i].gbcContent + "</div>"
+                            +	   "<div class='cmt_updateForm'" + " data-no=" + result[i].gbcNo + " style='display: none;'>"
+                			+		"<textarea class='cmt_updatetxtarea' name='gbcContent' style='width:90%;' data-no=" + result[i].gbcNo + ">" + result[i].gbcContent + "</textarea>"
+                			+ 		"<div style='text-align:right; width:90%;'>"
+                			+		"<input type='hidden' name='gbcNo' value=" + result[i].gbcNo + "/>"
+                			+ 		"<button type='button' class='btn btn-default btn-xs cmtUpdateBtn' data-no=" + result[i].gbcNo + ">수정</button> "
+                			+ 		"<button type='button' class='btn btn-default btn-xs cmtCancelBtn' data-no=" + result[i].gbcNo + ">취소</button>"
+                			+ 		"</div>"
+                            +	   "</div>"	
+                            +	   "</div>" 
                             +      "<div class='cmt_reg'>" + result[i].gbcRegDate + "</div>"
                             +	   "<div class='cmt_btns'>"
-                            +	   "<a><img src='<c:url value='/resources/img/groupbuy/edit-512.png' />' /></a>&nbsp;"
+                            +	   "<a href=" + result[i].gbcNo + " data-writer=" + result[i].gbcWriter + "><img src='<c:url value='/resources/img/groupbuy/edit-512.png' />' /></a>&nbsp;"
                             +	   "<a href=" + result[i].gbcNo + "><img src='<c:url value='/resources/img/groupbuy/v-42-512.png' />' /></a>"
-                            +	   "</div>" 	
+                            +	   "</div>"
                             +"</li>"
 		            	);
 	            	}
-	            	
-	            	$(".cmt_nickbox").html(result.gbcWriter)
-	            	$(".cmt_txtbox").html(result.gbcContent)
-	            	$(".cmt_reg").html(result.gbcRegDate)
 	            });
         };
         
@@ -136,7 +147,7 @@
             });
             
             // 댓글삭제 ajax
-            $(document).on("click", "div.cmt_btns > a" , function(e) {
+            $(document).on("click", "div.cmt_btns > a:odd" , function(e) {
             	e.preventDefault();
             	var cmtNo = $(this).attr("href");
             	console.log(cmtNo)
@@ -150,6 +161,37 @@
 	            	commentList();
 	            });
             })
+            
+            // 댓글 수정 버튼
+            $(document).on("click", ".cmtUpdateBtn" ,function() {
+            	$.ajax({
+	            	url: "<c:url value='/groupbuy/gb_updateComment.cf' />",
+	            	type: "POST",
+	            	data: "gbcNo=" + $(this).data("no") + "&gbcContent=" + $(".cmt_updatetxtarea[data-no=" + $(this).data("no") + "]").val()
+	            }).done(function (result) {
+	            	commentList();
+	            });
+            });
+            
+            // 댓글 수정 취소 버튼
+            $(document).on("click", ".cmtCancelBtn", function(e) {
+            	commentList();
+            });
+            
+            // 댓글 수정 폼 띄우기
+            $(document).on("click", "div.cmt_btns > a:even" , function(e) {
+            	e.preventDefault()
+            	
+            	console.log($(this).attr("href"))
+            	
+            	// 조건문 추가 로그인한 아이디와 댓글 작성자 아이디가 같아야함. if(${user.id}==$("div.cmt_txtbox[data-writer=" + $(this).data() + "]"))
+//             	commentList();
+//             	$(document).on("toggle", "div.cmt_txtbox[data-no=" + $(this).attr("href") + "]");
+//             	$(document).on("toggle", "div.cmt_updateForm[data-no=" + $(this).attr("href") + "]");
+            	$("div.cmt_txtbox[data-no=" + $(this).attr("href") + "]").toggle();
+            	$("div.cmt_updateForm[data-no=" + $(this).attr("href") + "]").toggle();
+            });
+            
             
             
            // 날짜 등록 
@@ -195,6 +237,10 @@
      
             $("#updateBtn").click(function() {
          	   location.href="gb_updateForm.cf?no=${gbb.gbNo}"
+            });
+            
+            $("#listButton").click(function() {
+         	   location.href="gb_board.cf"
             });
    
         </script>
