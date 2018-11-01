@@ -2,6 +2,7 @@ package com.cityfarmer.exchange.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.exchange.service.ExchangeService;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
+import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
 import com.cityfarmer.repository.domain.exchange.FormVO;
 
@@ -70,7 +73,7 @@ public class ExchangeController {
 	
 	@RequestMapping("/detail.cf")
 	public void detail(@RequestParam("exno")int exNo, Model model) {
-		model.addAttribute("board",service.detail(exNo));
+		model.addAttribute("map",service.detail(exNo));
 	}
 	
 	@RequestMapping("/update.cf")
@@ -128,7 +131,33 @@ public class ExchangeController {
 		return exFile;
 	}
 	
-	 private static String getExtension(String fileName) {
+	@PostMapping("/comment/list.cf")
+	@ResponseBody
+	public List<ExchangeComment> listComment(ExchangeComment comment) throws ParseException {
+		return convertDate(service.listComment(comment));
+	}
+
+	@PostMapping("/comment/write.cf")
+	@ResponseBody
+	public List<ExchangeComment> writeComment(ExchangeComment comment) throws ParseException {
+		return convertDate(service.writeComment(comment));
+	}
+
+	@GetMapping("/comment/delete.cf")
+	@ResponseBody
+	public List<ExchangeComment> deleteComment(ExchangeComment comment) throws ParseException {
+		return convertDate(service.deleteComment(comment));
+	}
+	
+	private List<ExchangeComment> convertDate(List<ExchangeComment> list) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		for(ExchangeComment co : list) {
+			String date = sdf.format(co.getExcRegDate());
+			co.setRegDateString(date);
+		}
+		return list;
+	}
+	private static String getExtension(String fileName) {
         int dotPosition = fileName.lastIndexOf('.');
         
         if (dotPosition != -1 && fileName.length() - 1 > dotPosition) {

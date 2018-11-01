@@ -217,8 +217,12 @@ div#submitbutton {
     margin-top: 20px;
     float: right;
 }
+div#listreply {
+	width: 90%;
+	margin: 0 auto
+}
 table#reply {
-    width: 90%;
+    width: 100%;
     margin: 0 auto 40px;
     padding: 10px;
 }
@@ -229,6 +233,7 @@ tr#head {
 }
 td#regDate {
     text-align: right;
+    padding-right : 10px;
 }
 tr#content {
     min-height: 100px;
@@ -236,6 +241,9 @@ tr#content {
 }
 td#content {
     padding: 20px;
+}
+td#writer{
+	padding-left : 10px;
 }
 tr#blank {
     height: 10px;
@@ -248,4 +256,26 @@ td#buttons {
 button[id^='repl'] {
     margin: 5px;
 	display: inline;
+}
+table#replysummary {
+	padding: 0;
+	border : none;
+	margin-bottom : 0;
+	float : left;
+	width : 150px;
+}
+table#replysummary th, table#replysummary tr {
+	padding:0;
+	border : none;
+	background-color : white;
+	height : 20px;
+}
+table#replysummary span {
+	padding-left : 10px;
+}
+span.label {
+	margin-left : 5px;
+}
+span#count {
+	color : #10806b;
 }

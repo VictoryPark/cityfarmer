@@ -82,6 +82,41 @@
 		delete from cf_exchange
 			where ex_no = #{exNo}
 	</delete>
+	
+	<resultMap id="commentMap" type="ExchangeComment">
+		<result column="ex_no" property="exNo"/>
+		<result column="exc_no" property="excNo"/>
+		<result column="exc_writer" property="excWriter"/>
+		<result column="exc_content" property="excContent"/>
+		<result column="exc_reg_date" property="excRegDate"/>
+		<result column="exc_ref" property="excRef"/>
+		<result column="exc_parent_no" property="excParentNo"/>
+		
+	</resultMap>
+	<insert id="insertNewComment" parameterType="ExchangeComment">
+		insert into cf_exchange_comment (
+			exc_no, ex_no, exc_writer, exc_content
+		) values (
+			cf_s_exc_no.nextval, #{exNo}, #{excWriter}, #{excContent}
+		)
+	</insert>
+	
+	<select id="selectCommentListByExNo" parameterType="int" resultMap="commentMap">
+		select * from cf_exchange_comment
+			where ex_no = #{exNo}
+		  order by exc_reg_date
+	</select>
+	
+	<select id="selectCommentCount" parameterType="int" resultType="int">
+		select count(*)
+		  from cf_exchange_comment
+		  where ex_no = #{exNo}
+	</select>
+	
+	<delete id="deleteComment" parameterType="int">
+		delete from cf_exchange_comment
+			where exc_no = #{excNo}
+	</delete>
 </mapper>
 
 

@@ -1,7 +1,6 @@
 package com.cityfarmer.exchange.service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.cityfarmer.repository.domain.exchange.ExPageResult;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
+import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
-import com.cityfarmer.repository.domain.exchange.FormVO;
 import com.cityfarmer.repository.mapper.ExchangeMapper;
 
 @Service
@@ -69,13 +68,18 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 
 	@Override
-	public ExchangeBoard detail(int exNo) {
+	public Map<String, Object> detail(int exNo) {
+		Map<String, Object> map = new HashMap<>();
+		
 		ExchangeBoard board =  mapper.selectBoardByExNo(exNo);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		board.setRegDate(sdf.format(board.getExRegDate()));
+		Integer count = mapper.selectCommentCount(exNo);
 		
-		return board;
+		map.put("board", board);
+		map.put("count", count);
+		return map;
 	}
 
 
@@ -94,6 +98,26 @@ public class ExchangeServiceImpl implements ExchangeService {
 	@Override
 	public void delete(int exNo) {
 		mapper.deleteBoard(exNo);
+	}
+
+
+	@Override
+	public List<ExchangeComment> writeComment(ExchangeComment comment) {
+		mapper.insertNewComment(comment);
+		return mapper.selectCommentListByExNo(comment.getExNo());
+	}
+
+
+	@Override
+	public List<ExchangeComment> listComment(ExchangeComment comment) {
+		return mapper.selectCommentListByExNo(comment.getExNo());
+	}
+
+
+	@Override
+	public List<ExchangeComment> deleteComment(ExchangeComment comment) {
+		mapper.deleteComment(comment.getExcNo());
+		return mapper.selectCommentListByExNo(comment.getExNo());
 	} 
 
 	

@@ -18,4 +18,5 @@ public class ExchangeComment {
 	private Date excRegDate;
 	private int excRef;
 	private int excParentNo;
+	private String regDateString;
 } //end class

@@ -3,6 +3,7 @@ package com.cityfarmer.repository.mapper;
 import java.util.List;
 
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
+import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
 import com.cityfarmer.repository.domain.exchange.FormVO;
 
@@ -23,4 +24,12 @@ public interface ExchangeMapper {
 	void updateBoard(ExchangeBoard board);
 	
 	void deleteBoard(int exNo);
+
+	void insertNewComment(ExchangeComment comment);
+	
+	List<ExchangeComment> selectCommentListByExNo(int exNo);
+	
+	int selectCommentCount(int exNo);
+	
+	void deleteComment(int excNo);
 } //end mapper
