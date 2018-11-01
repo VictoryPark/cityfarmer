@@ -3,17 +3,21 @@ package com.cityfarmer.gallery.service;
 import java.util.List;
 
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
+import com.cityfarmer.repository.domain.gallery.GalleryFile;
 
 public interface GalleryService {
+	int count();	//전체게시물
 
-	List<GalleryBoard> list(GalleryBoard galleryboard);
-	void write(GalleryBoard galleryboard);
-	int count();
-	GalleryBoard detail(int gaNo);
-	void delete(int no);
+	List<GalleryBoard> list(GalleryBoard galleryboard); // 조회
+	void write(GalleryBoard galleryboard, GalleryFile file); // 등록
+	GalleryBoard detail(int gaNo); //상세
+	void delete(int no); // 삭제
 	
-	
+	//수정
 	void update(GalleryBoard galleryboard);
 	GalleryBoard updateForm(int no);
+
+	//파일등록
+	void uploadFile(GalleryFile file);
 
 }

@@ -12,6 +12,15 @@
 		<result column="ga_view_cnt" property="gaViewCnt" />
 		<result column="ga_reg_date" property="gaRegDate" />
 	</resultMap>
+	
+	<resultMap id="fileMap" type="GalleryFile">
+		<result column="gaf_no" property="gafNo"/>
+		<result column="ga_no" property="gaNo"/>
+		<result column="gaf_ori_name" property="gafOriName"/>
+		<result column="gaf_sys_name" property="gafSysName"/>
+		<result column="gaf_path" property="gafPath"/>
+		<result column="gaf_size" property="gafSize"/>
+	</resultMap>
 
 	<!-- 게시물 조회 -->
 	<select id="selectGalleryBoard" parameterType="GalleryBoard" resultMap="galleryMap">
@@ -35,11 +44,27 @@
 	
 	<!-- 게시물 등록하기  -->
 	<insert id="insertGalleryBoard" parameterType="GalleryBoard">
+		<selectKey keyProperty="gaNo" resultType="int" order="BEFORE">
+			select cf_s_gallery_no.nextval from dual
+		</selectKey>
 		insert into cf_gallery
 		(ga_no,ga_title,writer,ga_content) 
 		values(cf_s_gallery_no.nextval, #{gaTitle},#{writer},#{gaContent})
 
 	</insert>
+	<!-- 파일 등록 -->
+	<insert id="insertGalleryFile" parameterType="GalleryFile">
+		insert into cf_gallery_file (
+			gaf_no, ga_no, gaf_ori_name, gaf_sys_name, gaf_path, gaf_size
+		) values (
+			cf_s_gaf_no.nextval, #{gaNo}, #{gafOriName}, #{gafSysName}, #{gafPath}, #{gafSize}
+		)
+	</insert>
+	
+	<select id="selectFileByGaNo" parameterType="int" resultMap="fileMap">
+		select * from cf_gallery_file
+			where ga_no = #{gaNo}
+	</select>
 	
 	<!-- 게시물 상세 -->
 	 <select id="selectGalleryBoardByNo" parameterType="int" resultMap="galleryMap">

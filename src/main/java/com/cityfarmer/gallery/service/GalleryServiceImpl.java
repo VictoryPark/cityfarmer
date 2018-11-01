@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
+import com.cityfarmer.repository.domain.gallery.GalleryFile;
 import com.cityfarmer.repository.mapper.GalleryMapper;
 
 @Service
@@ -20,8 +21,11 @@ public class GalleryServiceImpl implements GalleryService {
 		return gaMapper.selectGalleryBoard(galleryboard);
 	}
 	@Override
-	public void write(GalleryBoard galleryboard) {
+	public void write(GalleryBoard galleryboard, GalleryFile file) {
 		gaMapper.insertGalleryBoard(galleryboard);
+		
+		file.setGaNo(galleryboard.getGaNo());
+		gaMapper.insertGalleryFile(file);
 	}
 	
 	@Override
@@ -44,6 +48,13 @@ public class GalleryServiceImpl implements GalleryService {
 	@Override
 	public GalleryBoard updateForm(int no) {
 		return gaMapper.selectGalleryBoardByNo(no);
+	}
+	
+	
+	@Override
+	public void uploadFile(GalleryFile file) {
+		
+		gaMapper.insertGalleryFile(file);
 	}
 
 }

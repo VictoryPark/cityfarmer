@@ -58,6 +58,11 @@
                     <button class="btn btn-primary">글작성</button>
 
             </div>
+                	<input id="imageBoard" name="fileUrl" type="hidden"/>
+                	<%--  <c:forEach items="${files}" var="file">
+    			<li><img src="<c:url value='/resources/file/${file}'/>" width="480" height="auto"/>"></li>
+    		</c:forEach> --%>
+            
             </form>
                     <button class="btn btn-primary1" id="cblist">목록</button>
             
@@ -70,10 +75,42 @@
              minHeight: null,             // set minimum height of editor
              maxHeight: null,             // set maximum height of editor
              focus: true,
-             placeholder : '내용을 입력하여 주세요'
-             // set focus to editable area after initializing summernote
+             placeholder : '내용을 입력하여 주세요',
+             callbacks: {
+           		onImageUpload : function(files, editor, welEditable) {
+           			console.log(files);
+           			console.log(this);
+           			for(let i=files.length -1; i>=0; i--){
+           				sendFile(files[i], this);
+           			}
+           		}
+           	} // callbacks
                 });
             });
+        function sendFile(file, ele) {
+        	var form_data = new FormData();
+        	console.log("form_data", form_data)
+        	form_data.append('file', file);
+        	$.ajax({
+        		data : form_data,
+        		type : "POST",
+        		url : "<c:url value='/gallery/uploadfile.cf'/>",
+        		cache : false,
+        		contentType : false,
+        		enctype : "multipart/form_data",
+        		processData : false,
+        		success : function(gaFile) {
+        			console.log(gaFile.url);
+        			$("input#imageBoard").val(gaFile.url)
+        			$("input#imageoriname").val(gaFile.gafOriName)
+        			$("input#imagesysname").val(gaFile.gafSysName)
+        			$("input#imagepath").val(gaFile.gafPath)
+        			$("input#imagesize").val(gaFile.gafSize)
+        			/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
+        			$(ele).summernote("editor.insertImage", gaFile.url);
+        		}
+        	})//ajax
+        }
        	
         $("#cblist").click(function () {
 			location.href="/cityFarmer/gallery/gallerylist1.cf"	
