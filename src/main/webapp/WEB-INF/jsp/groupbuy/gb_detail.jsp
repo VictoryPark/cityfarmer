@@ -64,7 +64,8 @@
                         <form id="commentForm">
                         <div id="cmt_writeform">
                         	<input type="hidden" name="gbNo" value="${gbb.gbNo}" />
-                            <div id="cmt_writer"></div>
+                            <div id="cmt_writer">${user.id}</div>
+                            <input type="hidden" name="gbcWriter" value="${user.id}" />
                             <div id="cmt_textarea"><textarea id="gbcTxtarea" name="gbcContent"></textarea></div>
                             <div id="cmt_regbtn"><button id="cmtRegBtn" type="button" class="btn btn-success">등록</button></div>
                         </div>
@@ -75,9 +76,9 @@
       						<button type="button" id="listButton" class="btn btn-default">목록</button>
         				</div>        
                         <div id="writebtn">
-                            <button type="button" id="updateBtn" class="btn btn-default">수정</button>
+                            <button type="button" id="updateBtn" data-writer="${gbb.writer}" class="btn btn-default">수정</button>
                             &nbsp;
-                            <button type="button" id="deleteBtn" class="btn btn-default">삭제</button>
+                            <button type="button" id="deleteBtn" data-writer="${gbb.writer}" class="btn btn-default">삭제</button>
                         </div>
             </div>
         </div>
@@ -119,7 +120,7 @@
                             +      "<div class='cmt_reg'>" + result[i].gbcRegDate + "</div>"
                             +	   "<div class='cmt_btns'>"
                             +	   "<a href=" + result[i].gbcNo + " data-writer=" + result[i].gbcWriter + "><img src='<c:url value='/resources/img/groupbuy/edit-512.png' />' /></a>&nbsp;"
-                            +	   "<a href=" + result[i].gbcNo + "><img src='<c:url value='/resources/img/groupbuy/v-42-512.png' />' /></a>"
+                            +	   "<a href=" + result[i].gbcNo + " data-writer=" + result[i].gbcWriter + "><img src='<c:url value='/resources/img/groupbuy/v-42-512.png' />' /></a>"
                             +	   "</div>"
                             +"</li>"
 		            	);
@@ -134,7 +135,7 @@
             // 댓글작성 ajax
             $("#cmtRegBtn").click(function() {
             	var formData = $("#commentForm").serialize();
-            	console.log(formData)
+//             	console.log(formData)
 	            $.ajax({
 	            	url: "<c:url value='/groupbuy/gb_writeComment.cf' />",
 	            	type: "POST",
@@ -150,7 +151,10 @@
             $(document).on("click", "div.cmt_btns > a:odd" , function(e) {
             	e.preventDefault();
             	var cmtNo = $(this).attr("href");
-            	console.log(cmtNo)
+            	if('${user.id}' !== $(this).data("writer")) {
+            		alert("본인이 작성한 댓글만 삭제할 수 있습니다.")
+        			return;
+            	}
             	
             	$.ajax({
 	            	url: "<c:url value='/groupbuy/gb_deleteComment.cf' />",
@@ -184,12 +188,21 @@
             	
             	console.log($(this).attr("href"))
             	
-            	// 조건문 추가 로그인한 아이디와 댓글 작성자 아이디가 같아야함. if(${user.id}==$("div.cmt_txtbox[data-writer=" + $(this).data() + "]"))
+            	// 조건문 추가 로그인한 아이디와 댓글 작성자 아이디가 같아야함.
+            	console.log("${user.id}")
+            	console.log($(this).data("writer"))
+            	if('${user.id}' !== $(this).data("writer")) {
+            		alert("본인이 작성한 댓글만 수정할 수 있습니다.")
+            		return;
+            	}
 //             	commentList();
 //             	$(document).on("toggle", "div.cmt_txtbox[data-no=" + $(this).attr("href") + "]");
 //             	$(document).on("toggle", "div.cmt_updateForm[data-no=" + $(this).attr("href") + "]");
-            	$("div.cmt_txtbox[data-no=" + $(this).attr("href") + "]").toggle();
-            	$("div.cmt_updateForm[data-no=" + $(this).attr("href") + "]").toggle();
+
+				console.log(this)
+
+			    	$("div.cmt_txtbox[data-no=" + $(this).attr("href") + "]").toggle();
+	            	$("div.cmt_updateForm[data-no=" + $(this).attr("href") + "]").toggle();
             });
             
             
@@ -232,10 +245,19 @@
             });
             
             $("#deleteBtn").click(function() {
+              if($(this).data("writer") != '${user.id}') {
+            	  alert("글 작성자만 삭제할 수 있습니다.")
+            	  return;
+              }
          	  location.href="gb_delete.cf?no=${gbb.gbNo}" 
             });
      
             $("#updateBtn").click(function() {
+            	if($(this).data("writer") != '${user.id}') {
+            	  console.log($(this).data("writer"))
+              	  alert("글 작성자만 수정할 수 있습니다.")
+              	  return;
+                }
          	   location.href="gb_updateForm.cf?no=${gbb.gbNo}"
             });
             

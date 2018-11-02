@@ -93,7 +93,7 @@
 	</insert>
 	
 	<!-- 댓글 목록 -->
-	<select id="gbcSelectComment" resultMap="gbcMap">
+	<select id="gbcSelectComment" parameterType="int" resultMap="gbcMap">
 		select * 
 		  from cf_gb_comment
 		 where gb_no = #{gbNo} 
@@ -113,6 +113,13 @@
 		   	   gbc_reg_date = sysdate
 		 where gbc_no = #{gbcNo} 
 	</update>
+	
+	<!-- 게시글번호에 해당하는 댓글 개수 -->
+	<select id="gbcCountComment" parameterType="int" resultType="int">
+		select count(*)
+		  from cf_gb_comment
+		 where gb_no = #{gbNo} 
+	</select>
 	
 </mapper>
 

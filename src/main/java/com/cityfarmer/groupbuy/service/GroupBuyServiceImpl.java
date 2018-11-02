@@ -80,4 +80,10 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		mapper.gbcUpdateComment(gbc);
 	}
 	
+	// 코멘트 개수
+	@Override
+	public int countComment(int gbNo) {
+		return mapper.gbcCountComment(gbNo);
+	}
+	
 }

@@ -69,7 +69,8 @@
                 <div class="panel panel-default">
                         <div class="panel-heading">
                                 <div id="title"><input type="text" class="form-control" name="gbTitle" placeholder="제목을 입력하세요" style="margin-bottom: 10px;"> </div>  <!-- 작성자파라미터 -->
-                                <div id="writer">작성자</div>
+                                <div id="writer">${user.id}</div>
+                                <input type="hidden" name="writer" value="${user.id}" />
                         </div>
                         <div class="panel-body">
                                 <div id="smnt-area"><textarea name="gbContent" id="summernote"></textarea> </div> <!-- 작성자파라미터 -->

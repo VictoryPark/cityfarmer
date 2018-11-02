@@ -3,6 +3,7 @@ package com.cityfarmer.groupbuy.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -37,10 +38,19 @@ public class GroupBuyController {
 		GroupBuyBoard gbb = new GroupBuyBoard();
 		gbb.setPageNo(pageNo);
 		
-//		System.out.println(service.listCount());
-//		System.out.println(pageNo);
-//		System.out.println(gbb.getGbNo());
-//		model.addAttribute("comment", service.commentList(gbb.getGbNo()));
+		List<GroupBuyBoard> gbList =  service.list(gbb);
+		
+		List<Integer> cmtList = new ArrayList<>();
+		
+		for(int i=0; i<gbList.size(); i++) {
+			cmtList.add(service.countComment(gbList.get(i).getGbNo()));
+		}
+		
+//		Date today = new Date();
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm");
+//		model.addAttribute("today", sdf.format(today));
+		
+		model.addAttribute("comment", cmtList);
 		model.addAttribute("list", service.list(gbb));
 		model.addAttribute("pageResult", new PageResult(pageNo, service.listCount()));
 	}
@@ -115,7 +125,6 @@ public class GroupBuyController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String[] startArr = sdf.format(start).split(" ");
 		
-		gbb.setWriter("test"); //  로그인한사람으로 바꿔야함
 		gbb.setGbStartDay(startArr[0]);
 		gbb.setGbStartTime(startArr[1]);
 		
@@ -135,7 +144,6 @@ public class GroupBuyController {
 	@RequestMapping("/gb_writeComment.cf")
 	@ResponseBody
 	public void writeComment(GroupBuyComment gbc) {
-		gbc.setGbcWriter("test");
 		service.writeComment(gbc);
 	}
 	

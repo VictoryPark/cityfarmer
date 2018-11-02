@@ -21,5 +21,6 @@ public interface GroupBuyService {
 	List<GroupBuyComment> commentList(int no); // 코멘트 리스트
 	void deleteComment(int cmtNo); // 코멘트 삭제
 	void updateComment(GroupBuyComment gbc); // 코멘트 수정
+	int countComment(int gbNo); // 코멘트 개수
 	
 }
