@@ -1,10 +1,13 @@
 package com.cityfarmer.gallery.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cityfarmer.repository.domain.gallery.GaPageResult;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
 import com.cityfarmer.repository.mapper.GalleryMapper;
@@ -16,9 +19,32 @@ public class GalleryServiceImpl implements GalleryService {
 	private GalleryMapper gaMapper;
 
 	@Override
-	public List<GalleryBoard> list(GalleryBoard galleryboard) {
+	public Map<String, Object> list(int pageNo) {
+		GalleryBoard galleryboard = new GalleryBoard();
+		galleryboard.setPageNo(pageNo);
 		
-		return gaMapper.selectGalleryBoard(galleryboard);
+		Map<String, Object> map = new HashMap<>();
+		List<GalleryBoard> boardList = gaMapper.selectGalleryBoard(galleryboard);
+		
+		for(GalleryBoard b : boardList) {
+			System.out.println("b.no" + b.getGaNo());
+			
+			GalleryFile file = gaMapper.selectFileByGaNo(b.getGaNo());
+			System.out.println("file: " + file);
+			if(file==null) continue;
+			
+			System.out.println(file.getGafPath()+ "/" + file.getGafSysName());
+			b.setUrl(file.getGafPath() + "/" + file.getGafSysName());
+			
+			
+		}
+		
+		int count = gaMapper.seLectGalleryBoardCount();
+		
+		map.put("list", boardList);
+		map.put("pageResult", new GaPageResult(pageNo,count));
+		return  map;
+		
 	}
 	@Override
 	public void write(GalleryBoard galleryboard, GalleryFile file) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,13 @@ public class GalleryController {
 	//갤러리 조회
 	@RequestMapping("/gallerylist1.cf")
 	public void list(Model model, GalleryBoard galleryboard,@RequestParam(value="pageNo", defaultValue="1")int pageNo) throws Exception {
-		galleryboard.setPageNo(pageNo);
-		model.addAttribute("list", gaService.list(galleryboard));
-		model.addAttribute("pageResult", new GaPageResult(pageNo, gaService.count()));
+//		galleryboard.setPageNo(pageNo);
+//		model.addAttribute("list", gaService.list(galleryboard));
+//		model.addAttribute("pageResult", new GaPageResult(pageNo, gaService.count()));
+	
+		Map<String,Object> map = gaService.list(pageNo);
+		model.addAttribute("map",map);
+		
 //		model.addAttribute("count", gaService.count());
 	}
 	

@@ -12,17 +12,18 @@ public class GalleryBoard {
 	private int gaViewCnt;
 	private Date gaRegDate;
 	
-	private String fileUrl;
+	private String Url;
 
 	
 	
-	public String getFileUrl() {
-		return fileUrl;
-	}
-	public void setFileUrl(String fileUrl) {
-		this.fileUrl = fileUrl;
-	}
 	
+	
+	public String getUrl() {
+		return Url;
+	}
+	public void setUrl(String url) {
+		Url = url;
+	}
 	public int getCount() {
 		return count;
 	}

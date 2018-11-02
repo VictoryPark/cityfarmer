@@ -35,8 +35,7 @@
                     <!-- <img src="https://res.cloudinary.com/bigboydesign1/image/upload/v1476647899/download_schjib.jpg" /> -->
                
             </div>
-            <div class="main-title">
-                <h2>상세페이지</h2>
+            <div class="main-title"> 
                 <h3>글제목 : ${b.gaTitle} <button class="glyphicon glyphicon-heart" aria-hidden="true" style="float: right;"></button></h3><br>
                 <p>작성자 : ${user.id}</p>
                 <div id="carousel" >
@@ -167,7 +166,7 @@
              });
 
              $(document).ready(function () {
-                $(".gallery-img").click(function(){
+                $("img").click(function(){
                 var t = $(this).attr("src");
                  $(".modal-body").html("<img src='"+t+"' class='modal-img'>");
                  $("#myModal").modal();

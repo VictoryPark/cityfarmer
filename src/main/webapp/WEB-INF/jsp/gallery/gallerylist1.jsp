@@ -53,7 +53,17 @@
                 <div class="table-responsive" style="width:100%;">
                         <div class="container" style="width:50%; float: right">
                                 <div class="gallery">
-                                   <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr08/original-1654-1439317465-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />		
+                                 <a href="gallerydetail.cf?gano=${b.gaNo}" >
+	                       <c:choose>
+		                       <c:when test="${empty b.url}">
+		                       <img id="item" src="${b.url}" class="gallery-image"/>
+		                       </c:when>
+		                       <c:otherwise>
+		                       <img id="none" src="<c:url value="/resources/img/exchange/cityfarmer.png"/>"/>
+		                       </c:otherwise>
+	                       </c:choose>
+	                       </a>
+                                   <!-- <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr08/original-1654-1439317465-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />		
                                     <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr08/original-13354-1439321173-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
                                     <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr04/original-25740-1439321209-5.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
                                     <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr08/original-9292-1439319916-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
@@ -61,7 +71,7 @@
                                     <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr02/original-16901-1439320287-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
                                 <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr02/original-6989-1439317507-15.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
                                 <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr11/original-8867-1439317446-6.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr03/original-22498-1439319085-3.jpg?down size=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
+                                <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr03/original-22498-1439319085-3.jpg?down size=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" /> -->
                                 </div> 
                             </div>
                             
@@ -85,7 +95,7 @@
                     </thead>
                     
                     <tbody>
-                   	<c:forEach var="b" items="${list}">
+                   	<c:forEach var="b" items="${map.list}">
                         <tr class="clickde">
                             <td>${b.gaNo}</td>
                             <td><a href='gallerydetail.cf?no=${b.gaNo}'>${b.gaTitle}</td>
@@ -107,22 +117,22 @@
                     <button type="submit" class="btn btn-default">°Ë»ö</button>
                 </form>          
                 
-		<c:if test="${pageResult.count != 0 }">
+		<c:if test="${map.pageResult.count != 0 }">
 				<nav>
   				<ul class="pagination">
-			        <li<c:if test="${pageResult.prev eq false }"> class="disabled"</c:if>>
-			          <a href="${pageResult.beginPage-1 }" aria-label="Previous">
+			        <li<c:if test="${map.pageResult.prev eq false }"> class="disabled"</c:if>>
+			          <a href="${map.pageResult.beginPage-1 }" aria-label="Previous">
 			            <span aria-hidden="true">&laquo;</span>
 			          </a>
 			        </li>
 			    
-			    <c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
-			        		<li<c:if test="${i eq pageResult.pageNo }"> class="active"</c:if>>
+			    <c:forEach var="i" begin="${map.pageResult.beginPage}" end="${map.pageResult.endPage}">
+			        		<li<c:if test="${i eq map.pageResult.pageNo }"> class="active"</c:if>>
 			        			<a href="${i}">${i}</a>
 			        		</li>
 			    </c:forEach>
-			        <li <c:if test="${pageResult.next eq false}"> class="disabled"</c:if>>
-			          <a href="${pageResult.endPage+1 }" aria-label="Next">
+			        <li <c:if test="${map.pageResult.next eq false}"> class="disabled"</c:if>>
+			          <a href="${map.pageResult.endPage+1 }" aria-label="Next">
 			            <span aria-hidden="true">&raquo;</span>
 			          </a>
 			        </li>
