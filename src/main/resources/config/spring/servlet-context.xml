@@ -38,18 +38,18 @@
       </mvc:annotation-driven>
       
      <!-- 인터셉터 기능 등록 -->
-      <mvc:interceptors>
+    <!--    <mvc:interceptors>
       	<mvc:interceptor>
-      		<!-- 인터셉터를 어느 url에 등록해야 할지 설정한다. -->
-      		<mvc:mapping path="/09interceptor/**"/>
-      		<!-- 특정한 url은 제외해야 하는 것..loginform 같은 경우..계속 redirect 한다. -->
+      		인터셉터를 어느 url에 등록해야 할지 설정한다.
+      		<mvc:mapping path="/member/**"/>
+      		특정한 url은 제외해야 하는 것..loginform 같은 경우..계속 redirect 한다. 
       		<mvc:exclude-mapping path="/login*.do"/>
-      		<!-- <mvc:exclude-mapping path="/loginform.do"/>
-      		<mvc:exclude-mapping path="/login.do"/> -->
-      		<!-- 어느 interceptor 클래스를 사용할지 빈 객체 설정 -->
+      		<mvc:exclude-mapping path="/loginform.do"/>
+      		<mvc:exclude-mapping path="/login.do"/>
+      		어느 interceptor 클래스를 사용할지 빈 객체 설정 
       		<bean class="com.cityfarmer.common.Interceptor"/>
       	</mvc:interceptor>
-      </mvc:interceptors>
+      </mvc:interceptors>  -->
       <!-- 파일업로드 할 수 있는 라이브러리 다운로드 후..
       그 라이브러리를 실제 사용하는 spring jar 클래스를 빈객체로 만든다..
       id는 고정으로 사용하여야 한다.. -->
@@ -60,7 +60,13 @@
       
       <!-- 컨트롤러에 메소드 거치지 않고 페이지 이동 
 			url path로 올경우에는...prefix + viewname + suffix 의 jsp로 이동해라!-->
-     <!--  <mvc:view-controller path="/09interceptor/loginform.do"
+     <mvc:view-controller path="/main.cf"
+      						view-name="common/main"/> 
+     <mvc:view-controller path="/start.cf"
+      						view-name="common/start"/> 
+     <!--<mvc:view-controller path="/cityFarmer/writeform.cf"
+      						view-name="common/main"/> -->
+     <!-- <mvc:view-controller path="/09interceptor/loginform.do"
       						view-name="09interceptor/loginform"/> -->
       
       <!-- 웹 자원중에 스프링을 거치지 않아도 되는 것들 : image..Css..Javascript 등등.. 

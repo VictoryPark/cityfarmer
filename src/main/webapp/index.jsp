@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:redirect url="/tip/MainPage.cf"></c:redirect>
+	<c:redirect url="/start.cf"></c:redirect>
 </body>
 </html>

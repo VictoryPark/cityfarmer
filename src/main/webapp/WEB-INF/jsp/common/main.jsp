@@ -15,7 +15,7 @@
        <!--<div class="letter-container">
          <p class="lettering">Alaska, USA</p>
        </div>-->
-       <h1>꿀팁</h1>
+       <a href="<c:url value="/tip/MainPage.cf"/>"><h1>꿀팁</h1></a>
        <h3>Tip</h3>
      </div>
      <div class="cont_desc">
@@ -33,7 +33,7 @@
    </div>
    <div class="section">
      <div class="cont_title">
-       <h1>공동<br>구매</h1>
+       <a href="<c:url value="/groupbuy/gb_board.cf"/>"><h1>공동<br>구매</h1></a>
        <h3>Group Purchasing</h3>
      </div>
      <div class="cont_desc">
@@ -42,7 +42,7 @@
    </div>
    <div class="section">
      <div class="cont_title">
-       <h1>갤러리</h1>
+       <a href="<c:url value="/gallery/gallerylist1.cf"/>"><h1>갤러리</h1></a>
        <h3>Gallery</h3>
      </div>
      <div class="cont_desc">
@@ -51,7 +51,7 @@
    </div>
    <div class="section">
      <div class="cont_title">
-       <h1>나만의<br>일기</h1>
+       <a href="<c:url value="/diary/diarylist.cf"/>"><h1>나만의<br>일기</h1></a>
        <h3>My diary</h3>
      </div>
      <div class="cont_desc">
