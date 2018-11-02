@@ -62,7 +62,7 @@ public class GalleryController {
 		
 		gaService.write(galleryboard, file);
 		
-		return "redirect:list.cf";
+		return "redirect:gallerylist1.cf";
 		
 		/*
 		System.out.println(galleryboard);

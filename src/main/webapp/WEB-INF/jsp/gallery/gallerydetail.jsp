@@ -38,7 +38,7 @@
             <div class="main-title">
                 <h2>상세페이지</h2>
                 <h3>글제목 : ${b.gaTitle} <button class="glyphicon glyphicon-heart" aria-hidden="true" style="float: right;"></button></h3><br>
-                <span>작성자 :</span>
+                <p>작성자 : ${user.id}</p>
                 <div id="carousel" >
                     <figure id="spinner" >
 						${b.gaContent}

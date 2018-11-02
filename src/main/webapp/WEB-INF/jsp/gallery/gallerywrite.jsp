@@ -58,8 +58,12 @@
                     <button class="btn btn-primary">±€¿€º∫</button>
 
             </div>
-                	<input id="imageBoard" name="fileUrl" type="hidden"/>
-                	<%--  <c:forEach items="${files}" var="file">
+   					<input id="imageBoard" name="fileUrl" type="hidden"/>
+			    	<input id="imageoriname" name="oriName" type="hidden"/>
+			    	<input id="imagesysname" name="sysName" type="hidden"/>
+				    	<input id="imagepath" name="path" type="hidden"/>
+				    	<input id="imagesize" name="size" type="hidden"/>
+    	                	<%--  <c:forEach items="${files}" var="file">
     			<li><img src="<c:url value='/resources/file/${file}'/>" width="480" height="auto"/>"></li>
     		</c:forEach> --%>
             

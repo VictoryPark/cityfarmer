@@ -49,7 +49,7 @@
 		</selectKey>
 		insert into cf_gallery
 		(ga_no,ga_title,writer,ga_content) 
-		values(cf_s_gallery_no.nextval, #{gaTitle},#{writer},#{gaContent})
+		values(#{gaNo}, #{gaTitle},#{writer},#{gaContent})
 
 	</insert>
 	<!-- 파일 등록 -->

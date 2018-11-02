@@ -2,6 +2,7 @@ package com.cityfarmer.repository.domain.gallery;
 
 public class GFormVO {
 
+
 	private String writer;
 	private String gaTitle;
 	private String gaContent;
@@ -17,13 +18,13 @@ public class GFormVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	
 	public String getGaTitle() {
 		return gaTitle;
 	}
 	public void setGaTitle(String gaTitle) {
 		this.gaTitle = gaTitle;
 	}
-	
 	public String getGaContent() {
 		return gaContent;
 	}
@@ -59,7 +60,8 @@ public class GFormVO {
 	}
 	public void setSize(int size) {
 		this.size = size;
-	}
+	}	
+	
 	
 	
 }
