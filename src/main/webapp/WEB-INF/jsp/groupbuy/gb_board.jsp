@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,7 +22,7 @@
 </head>
 <body>
   <header>
-            <h1><span>&lt;City&gt;</span> Farmer</h1>
+            <h1><span>City</span> Farmer</h1>
             <nav>
                 <a href="">About</a>
                 <a href="">물물교환</a>
@@ -39,17 +43,20 @@
         </div>
         <div class="bottom-section">
             <div class="section-one">
-               <table class="table table-striped">
+               <table class="table table-hover">
+               	<thead>	
                    <tr>
                         <td>글 번호</td>
                         <td>제목</td>
                         <td>작성자</td>
                         <td>조회수</td>
                    </tr>
-                   <c:forEach var="gb" items="${list}">
+                </thead>
+                <tbody>
+                   <c:forEach var="gb" items="${list}" varStatus="status"> 
                    <tr>
-                       <td>${gb.gbNo}</td>
-                       <td><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a></td>
+                   	   <td>${gb.gbNo}</td>
+                       <td><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a> <span class="cmtCount">[${comment[status.index]}]</span> </td>
                        <td>${gb.writer}</td>
                        <td>${gb.gbViewCnt}</td>
                    </tr>
@@ -58,7 +65,8 @@
 					<tr>
 						<td colspan='4'>입력된 게시물이 없습니다.</td>
 					</tr>
-			</c:if>
+					</c:if>
+				 </tbody>
                </table>
               
                <div id="paging">
@@ -128,6 +136,8 @@
         		
         		location.href = "gb_board.cf?pageNo=" + pageNo;
         	});
+            
+         
         </script>
 </body>
 </html>
