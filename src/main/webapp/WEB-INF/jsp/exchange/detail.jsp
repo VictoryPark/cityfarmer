@@ -342,12 +342,13 @@ $(document).ready(function(){
 			  		    		text += '</div></td>'
 			  		    		
 	    				} //blank value 와 ref 같으면...if
+			
+	    				$("tr#head"+comment.excRef+" ~ tr[id^='blank']").html(text)
 	    			} //blank value 값 찾는 for 문...		
 	   			} //ref 에 값이 있는 답글일때...
     		
     		} // 답글 뿌려주는 for
 		    $("tr#blank"+com.excNo).addClass("rere")
-			$("tr#head"+com.excRef+" ~ tr[id^='blank']").html(text)
     		
     		
     		
