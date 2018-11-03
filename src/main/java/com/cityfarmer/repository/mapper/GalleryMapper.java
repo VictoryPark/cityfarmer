@@ -22,5 +22,7 @@ public interface GalleryMapper {
 	void insertGalleryFile(GalleryFile file);//파일 등록
 
 	GalleryFile selectFileByGaNo(int gaNo);
+	
+	int GalleryBoardView(int no);
 
 }

@@ -47,7 +47,7 @@
 			<form action="write.cf" method="post">
             <div>
                 <input type="text" class="form-control" placeholder="제목을 입력하여주세용" style="width:99%" name="gaTitle"><br>
-                <input type="text" class="form-control" placeholder="${user.id}" style="width:99%" name="writer">
+                <input type="hidden" class="form-control" placeholder="${user.id}" style="width:99%" name="writer" >
             </div><br>
             <div class="smt">
                     <textarea name="gaContent" id="summernote" value=""></textarea>

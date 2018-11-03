@@ -86,7 +86,13 @@
     	       ga_content = #{gaContent}
     	 where ga_no = #{gaNo}
     </update>	 
-
+ 	
+ 	<!-- 게시글 조회수 -->
+ 	<update id="GalleryBoardView" parameterType="int">
+    	update cf_gallery
+    	   set ga_view_cnt = ga_view_cnt + 1
+    	 where ga_no = #{gaNo}
+    </update>	
 
 
 

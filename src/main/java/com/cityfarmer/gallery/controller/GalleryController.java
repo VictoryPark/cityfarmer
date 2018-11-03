@@ -91,6 +91,7 @@ public class GalleryController {
 	@RequestMapping("/gallerydetail.cf")
 	public void detail(int no, Model model) throws Exception {
 		model.addAttribute("map", gaService.detail(no));
+		
 	}
 	@RequestMapping("/gallerydelete.cf")
 	public String delete(int no) {

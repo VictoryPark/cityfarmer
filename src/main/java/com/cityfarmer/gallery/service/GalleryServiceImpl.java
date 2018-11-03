@@ -62,6 +62,7 @@ public class GalleryServiceImpl implements GalleryService {
 	@Override
 	public Map<String, Object> detail(int no) {
 //		return gaMapper.selectGalleryBoardByNo(no);
+		gaMapper.GalleryBoardView(no);
 		Map<String, Object> map = new HashMap<>();
 		
 		GalleryBoard board = gaMapper.selectGalleryBoardByNo(no);
