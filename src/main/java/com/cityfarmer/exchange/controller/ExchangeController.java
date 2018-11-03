@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.exchange.service.ExchangeService;
+import com.cityfarmer.repository.domain.Member;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
@@ -51,8 +55,11 @@ public class ExchangeController {
 	}
 	
 	@RequestMapping("/write.cf")
-	public String write(FormVO form, ExchangeBoard board, ExchangeFile file) {
+	public String write(FormVO form) {
 		//System.out.println(form);
+		ExchangeBoard board = new ExchangeBoard();
+		ExchangeFile file = new ExchangeFile();
+		
 		board.setExTitle(form.getTitle());
 		board.setExContent(form.getContent());
 		board.setWriter(form.getWriter());
@@ -68,12 +75,14 @@ public class ExchangeController {
 	
 	@RequestMapping("/updateform.cf")
 	public void updateForm(@RequestParam("exno")int exNo,  Model model) {
-		model.addAttribute("board",service.detail(exNo));
+		model.addAttribute("board",service.updateForm(exNo));
 	}
 	
 	@RequestMapping("/detail.cf")
-	public void detail(@RequestParam("exno")int exNo, Model model) {
-		model.addAttribute("map",service.detail(exNo));
+	public void detail(@RequestParam("exno")int exNo, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member m = (Member) session.getAttribute("user");
+		model.addAttribute("map",service.detail(exNo, m.getId()));
 	}
 	
 	@RequestMapping("/update.cf")
@@ -92,7 +101,7 @@ public class ExchangeController {
 	
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
-	public ExchangeFile uploadFile(@RequestParam("file") List<MultipartFile> attach, ExchangeFile exFile) throws IllegalStateException, IOException {
+	public ExchangeFile uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
 //		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/exchange";
 		String uploadPath = "/app/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
@@ -105,6 +114,8 @@ public class ExchangeController {
 		String fileSysName = "";
 
 		System.out.println(attach);
+		
+		ExchangeFile exFile = new ExchangeFile();
 		
 		for(MultipartFile file : attach) {
 			if(file.isEmpty()==true) continue;
@@ -133,8 +144,8 @@ public class ExchangeController {
 	
 	@PostMapping("/comment/list.cf")
 	@ResponseBody
-	public List<ExchangeComment> listComment(ExchangeComment comment) throws ParseException {
-		return convertDate(service.listComment(comment));
+	public List<ExchangeComment> listComment(@RequestParam("exno")int exNo) throws ParseException {
+		return convertDate(service.listComment(exNo));
 	}
 
 	@PostMapping("/comment/write.cf")
@@ -147,7 +158,28 @@ public class ExchangeController {
 	@ResponseBody
 	public List<ExchangeComment> deleteComment(ExchangeComment comment) throws ParseException {
 		return convertDate(service.deleteComment(comment));
+	}//deleteComment
+	
+	@PostMapping("/comment/updateform.cf")
+	@ResponseBody
+	public List<ExchangeComment> updateFormComment(@RequestParam("exno")int exNo) throws ParseException {
+		return convertDate(service.listComment(exNo));
+	} //updateFormComment
+	
+	@PostMapping("/comment/update.cf")
+	@ResponseBody
+	public List<ExchangeComment> updateComment(ExchangeComment comment) throws ParseException {
+		//comment.setExcRegDate(new Date());
+		return convertDate(service.updateComment(comment));
+	} // updateComment
+	
+	@PostMapping("/comment/writerepl.cf")
+	@ResponseBody
+	public List<ExchangeComment> writeReply(ExchangeComment comment) {
+		
+		return service.writeReply(comment);
 	}
+	
 	
 	private List<ExchangeComment> convertDate(List<ExchangeComment> list) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");

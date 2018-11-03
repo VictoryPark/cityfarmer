@@ -1,6 +1,7 @@
 package com.cityfarmer.exchange.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import com.cityfarmer.repository.domain.exchange.ExPageResult;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
+import com.cityfarmer.repository.domain.exchange.ViewCnt;
 import com.cityfarmer.repository.mapper.ExchangeMapper;
 
 @Service
@@ -48,14 +50,15 @@ public class ExchangeServiceImpl implements ExchangeService {
 		//List<ExchangeFile> fileList = new ArrayList<>();
 		
 		for(ExchangeBoard board : boardList) {
-			System.out.println("board.getno : "+board.getExNo());
+			//System.out.println("board.getno : "+board.getExNo());
 			
 			ExchangeFile file = mapper.selectFileByExNo(board.getExNo());
-			System.out.println("file : "+file);
+			//System.out.println("file : "+file);
 			if(file ==null) continue;
 			
 			System.out.println(file.getExfPath()+ "/" + file.getExfSysName());
 			board.setUrl(file.getExfPath() + "/" + file.getExfSysName());
+			board.setReply(mapper.selectCommentCount(board.getExNo()));
 		}
 		
 		int count = mapper.selectBoardCount();
@@ -68,8 +71,15 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 
 	@Override
-	public Map<String, Object> detail(int exNo) {
+	public Map<String, Object> detail(int exNo, String id) {
 		Map<String, Object> map = new HashMap<>();
+		ViewCnt cnt = new ViewCnt();
+		cnt.setExNo(exNo);
+		cnt.setId(id);
+		
+		if(mapper.selectBoardCountByWriter(cnt)==0) {
+			mapper.updateViewCnt(exNo);
+		}
 		
 		ExchangeBoard board =  mapper.selectBoardByExNo(exNo);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -109,8 +119,8 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 
 	@Override
-	public List<ExchangeComment> listComment(ExchangeComment comment) {
-		return mapper.selectCommentListByExNo(comment.getExNo());
+	public List<ExchangeComment> listComment(int exNo) {
+		return mapper.selectCommentListByExNo(exNo);
 	}
 
 
@@ -118,7 +128,21 @@ public class ExchangeServiceImpl implements ExchangeService {
 	public List<ExchangeComment> deleteComment(ExchangeComment comment) {
 		mapper.deleteComment(comment.getExcNo());
 		return mapper.selectCommentListByExNo(comment.getExNo());
-	} 
+	}
+
+
+	@Override
+	public List<ExchangeComment> updateComment(ExchangeComment comment) {
+		mapper.updateComment(comment);
+		return mapper.selectCommentListByExNo(comment.getExNo());
+	}
+
+
+	@Override
+	public List<ExchangeComment> writeReply(ExchangeComment comment) {
+		mapper.insertReply(comment);
+		return mapper.selectAllReply(comment.getExNo());
+	}
 
 	
 } //end class

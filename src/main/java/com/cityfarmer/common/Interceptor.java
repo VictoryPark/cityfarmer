@@ -24,7 +24,7 @@ public class Interceptor extends HandlerInterceptorAdapter{
 			return true;
 		}
 		System.out.println("인증 인터셉터에 로그인 부분이 안되었음이 걸렸음..");
-		response.sendRedirect("loginform.do");
+		response.sendRedirect("/cityFarmer/start.cf");
 		return false;
 	}
 }

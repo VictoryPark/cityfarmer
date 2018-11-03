@@ -225,15 +225,22 @@ table#reply {
     width: 100%;
     margin: 0 auto 40px;
     padding: 10px;
+    border-bottom: 0.5px solid rgb(128, 128, 128, 0.5);
 }
-tr#head {
+tr[id^='head'] {
     border-top : 2px solid rgb(128, 128, 128);
     height: 40px;
     padding: 10px;
 }
-td#regDate {
+/* td#regDate {
     text-align: right;
     padding-right : 10px;
+} */
+span#regDate {
+    text-align: left;
+    padding-left : 10px;
+    font-size : 11px;
+    color : gray;
 }
 tr#content {
     min-height: 100px;
@@ -245,17 +252,27 @@ td#content {
 td#writer{
 	padding-left : 10px;
 }
-tr#blank {
+tr[id^='blank'] {
     height: 10px;
 }
 td#buttons {
     text-align: right;
 	padding: 0 0 0 0;
-	line-height: 100%
+	line-height: 100%;
+	width : 20%;
 }
-button[id^='repl'] {
+/* a[id^='repl'] {
     margin: 5px;
 	display: inline;
+	color : black;
+} */
+i[class^='fa'] {
+    margin: 5px;
+	display: inline;
+	color : black;
+}
+a[id^='comm']:hover {
+    text-decoration : none;
 }
 table#replysummary {
 	padding: 0;
@@ -278,4 +295,23 @@ span.label {
 }
 span#count {
 	color : #10806b;
+}
+textarea#reContent {
+	width : 100%;
+}
+td#updatebutton {
+	width:10%;
+}
+
+div#rere {
+	width : 90%;
+	float: right;
+	margin : 10px;
+}
+tr.rere {
+	min-height : 50px;
+}
+
+button#writeRepl {
+	margin-top : 10px;
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
-import com.cityfarmer.repository.domain.exchange.FormVO;
+import com.cityfarmer.repository.domain.exchange.ViewCnt;
 
 public interface ExchangeMapper {
 
@@ -32,4 +32,16 @@ public interface ExchangeMapper {
 	int selectCommentCount(int exNo);
 	
 	void deleteComment(int excNo);
+	
+	void updateComment(ExchangeComment comment);
+	
+	List<ExchangeComment> selectOneComment(int excNo);
+	
+	int selectBoardCountByWriter(ViewCnt cnt);
+	
+	void updateViewCnt(int exNo);
+	
+	void insertReply(ExchangeComment comment);
+	
+	List<ExchangeComment> selectAllReply(int exNo);
 } //end mapper
