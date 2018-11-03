@@ -47,33 +47,25 @@
                 		</ol> -->
                 		<hr>		
                     <div class="col-md-2" style="text-align: left">
-                        		전체 ${pageResult.count}개
+                        		전체 ${map.pageResult.count}개
                     </div>
                 </div>
                 <div class="table-responsive" style="width:100%;">
                         <div class="container" style="width:50%; float: right">
                                 <div class="gallery">
-                                 <a href="gallerydetail.cf?gano=${b.gaNo}" >
-	                       <c:choose>
-		                       <c:when test="${empty b.url}">
-		                       <img id="item" src="${b.url}" class="gallery-image"/>
-		                       </c:when>
-		                       <c:otherwise>
-		                       <img id="none" src="<c:url value="/resources/img/exchange/cityfarmer.png"/>"/>
-		                       </c:otherwise>
+	                       			<c:forEach var="b" items="${map.list}">
+									<c:choose>
+		                       		<c:when test="${!empty b.url}">
+		                       				<img id="item" src="${b.url}" alt="" width="100%" height="auto" class="gallery-img" />
+		                       		</c:when>
+		                       		<c:otherwise>
+		                      				 <img id="none" src="<c:url value="/resources/img/exchange/cityfarmer.png"/>" class="gallery-img"/>
+		                       		</c:otherwise>
 	                       </c:choose>
-	                       </a>
-                                   <!-- <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr08/original-1654-1439317465-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />		
-                                    <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr08/original-13354-1439321173-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                    <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr04/original-25740-1439321209-5.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                    <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr08/original-9292-1439319916-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                    <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr05/original-6710-1439319334-17.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                    <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/15/enhanced/webdr02/original-16901-1439320287-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr02/original-6989-1439317507-15.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr11/original-8867-1439317446-6.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" />
-                                <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr03/original-22498-1439319085-3.jpg?down size=715:*&output-format=auto&output-quality=auto" alt="" width="100%" height="auto" class="gallery-img" /> -->
+                        		</c:forEach>
                                 </div> 
                             </div>
+                            
                             
                             <div id="myModal" class="modal fade" role="dialog">
                               <div class="modal-dialog">
@@ -99,15 +91,16 @@
                         <tr class="clickde">
                             <td>${b.gaNo}</td>
                             <td><a href='gallerydetail.cf?no=${b.gaNo}'>${b.gaTitle}</td>
-                            <td>${b.writer}</td>
+                            <td>${user.id}</td>
                             <td><fmt:formatDate value="${b.gaRegDate}" pattern="yyyy-MM-dd" /></td>
                         </tr>
                     </c:forEach>
                     
                     </tbody>
                 </table>
-                
+               
                 </div>
+                         <div>
         
                 <form class="navbar-form" role="search" style="margin-right: 70px">
                     
@@ -163,13 +156,7 @@
                  $(".modal-body").html("<img src='"+t+"' class='modal-img'>");
                  $("#myModal").modal();
                  });
-                $(".clickde").click(function(){
-                    var t = $(this).attr("src");
-                     $(".modal-body").html("<img src='"+t+"' class='modal-img'>");
-                     $("#myModal").modal();
-                    });
                 });
-             
              $("#write").click(function(){
             	 location.href="/cityFarmer/gallery/gallerywrite.cf";
              })

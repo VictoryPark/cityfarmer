@@ -36,11 +36,11 @@
                
             </div>
             <div class="main-title"> 
-                <h3>글제목 : ${b.gaTitle} <button class="glyphicon glyphicon-heart" aria-hidden="true" style="float: right;"></button></h3><br>
+                <h3>글제목 : ${map.b.gaTitle} <button class="glyphicon glyphicon-heart" aria-hidden="true" style="float: right;"></button></h3><br>
                 <p>작성자 : ${user.id}</p>
                 <div id="carousel" >
                     <figure id="spinner" >
-						${b.gaContent}
+						${map.b.gaContent}
                      	<!--    <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr01/original-9161-1439317330-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt>
                         <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr01/original-9161-1439317330-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt>
                         <img src="https://img.buzzfeed.com/buzzfeed-static/static/2015-08/11/14/enhanced/webdr01/original-9161-1439317330-3.jpg?downsize=715:*&output-format=auto&output-quality=auto" alt>
@@ -119,7 +119,7 @@
                
             //----------삭제------------------
              $("#delete").click(function() {
-         	  location.href="gallerydelete.cf?no=${b.gaNo}" 
+         	  location.href="gallerydelete.cf?no=${map.b.gaNo}" 
             });
             //-------------목록---------------------
               $("#blist").click(function () {
@@ -127,7 +127,7 @@
               })
 			//----------수정-----------------------------
               $("#update").click(function () {
-				location.href="galleryupdate.cf?no=${b.gaNo}"	
+				location.href="galleryupdate.cf?no=${map.b.gaNo}"	
               })
      
                

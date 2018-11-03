@@ -60,8 +60,14 @@ public class GalleryServiceImpl implements GalleryService {
 	}
 	
 	@Override
-	public GalleryBoard detail(int no) {
-		return gaMapper.selectGalleryBoardByNo(no);
+	public Map<String, Object> detail(int no) {
+//		return gaMapper.selectGalleryBoardByNo(no);
+		Map<String, Object> map = new HashMap<>();
+		
+		GalleryBoard board = gaMapper.selectGalleryBoardByNo(no);
+		
+		map.put("b", board);
+		return map;
 	}
 	@Override
 	public void delete(int no) {
