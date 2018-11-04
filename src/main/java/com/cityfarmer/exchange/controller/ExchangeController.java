@@ -145,7 +145,12 @@ public class ExchangeController {
 	@PostMapping("/comment/list.cf")
 	@ResponseBody
 	public List<ExchangeComment> listComment(@RequestParam("exno")int exNo) throws ParseException {
-		return convertDate(service.listComment(exNo));
+		List<ExchangeComment> list = convertDate(service.listComment(exNo));
+//		for( ExchangeComment ec : list) {
+//			System.out.println(ec.getExcRef() +" - "+ ec.getExcParentNo());
+//		}
+		
+		return list;
 	}
 
 	@PostMapping("/comment/write.cf")

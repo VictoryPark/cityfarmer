@@ -296,6 +296,9 @@ span.label {
 span#count {
 	color : #10806b;
 }
+span#reContent {
+	margin : 10px;
+}
 textarea#reContent {
 	width : 100%;
 }
@@ -303,15 +306,16 @@ td#updatebutton {
 	width:10%;
 }
 
-div#rere {
+div[id^='rere'] {
 	width : 90%;
 	float: right;
 	margin : 10px;
-}
-tr.rere {
-	min-height : 50px;
+	border-bottom : 0.5px solid rgb(128, 128, 128, 0.5)
 }
 
-button#writeRepl {
-	margin-top : 10px;
+button[id$='Repl'] {
+	margin : 10px 5px;
+}
+i.fab {
+	size : 14px;
 }

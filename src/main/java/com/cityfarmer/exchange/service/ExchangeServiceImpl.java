@@ -120,7 +120,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 	@Override
 	public List<ExchangeComment> listComment(int exNo) {
-		return mapper.selectCommentListByExNo(exNo);
+		return mapper.selectAllReply(exNo);
 	}
 
 
