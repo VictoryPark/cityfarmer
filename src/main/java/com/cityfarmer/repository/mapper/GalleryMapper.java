@@ -3,6 +3,7 @@ package com.cityfarmer.repository.mapper;
 import java.util.List;
 
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
+import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
 
 
@@ -24,5 +25,11 @@ public interface GalleryMapper {
 	GalleryFile selectFileByGaNo(int gaNo);
 	
 	int GalleryBoardView(int no);
+	
+	//-------------------------------------
+	void insertComment(GalleryComment comment);
+	
+	List<GalleryComment> selectCommentListByGaNo(int gaNo);
+	
 
 }

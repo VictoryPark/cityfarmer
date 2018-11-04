@@ -2,6 +2,7 @@ package com.cityfarmer.gallery.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.gallery.service.GalleryService;
+import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.gallery.GFormVO;
 import com.cityfarmer.repository.domain.gallery.GaPageResult;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
+import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
 
 @Controller
@@ -173,7 +176,29 @@ public class GalleryController {
 			 return "";
 		 }
 	 }
-	 
+	 //----------------------------------------------------------------
+	 @PostMapping("/comment/list.cf")
+		@ResponseBody
+		public List<GalleryComment> listComment(@RequestParam("gano")int gaNo) throws ParseException {
+			return convertDate(gaService.listComment(gaNo));
+		}
+
+		@PostMapping("/comment/write.cf")
+		@ResponseBody
+		public List<GalleryComment> writeComment(GalleryComment comment) throws ParseException {
+			return convertDate(gaService.writeComment(comment));
+		}
+		
+		
+		//--------------------------------------------------------------------------
+		private List<GalleryComment> convertDate(List<GalleryComment> list) throws ParseException {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			for(GalleryComment co : list) {
+				String date = sdf.format(co.getGacRegDate());
+				co.setRegDateString(date);
+			}
+			return list;
+		}
 	
 	
 }
