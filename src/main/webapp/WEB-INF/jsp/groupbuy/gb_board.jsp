@@ -122,7 +122,13 @@
             <h4>with AR, CW, HK, SY, BG</h4>
         </footer>
         <script>
-        	$("#writeButton").click(function(){
+        	$("#writeButton").click(function(e){
+        		if('${user.id}' == '') {
+       				e.preventDefault()
+       				alert("먼저 로그인을 해주세요.")
+       				return
+       			}
+       			
             	location.href = "gb_writeForm.cf"
             });      
             

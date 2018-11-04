@@ -74,7 +74,7 @@
                         </div>
                         <div class="panel-body">
                                 <div id="smnt-area"><textarea name="gbContent" id="summernote"></textarea> </div> <!-- 작성자파라미터 -->
-                                <input id="imageBoard" name="fileUrl" type="hidden"/>
+                                <input id="imageBoard" name="url" type="hidden"/>
                         </div>
                       </div>
               
@@ -98,8 +98,6 @@
             $(document).ready(function () {
                 $('#summernote').summernote({
                     height: 330,                 // set editor height
-                    minHeight: null,             // set minimum height of editor
-                    maxHeight: null,             // set maximum height of editor
                     placeholder: "내용을 입력해주세요",
                     focus: true,                  // set focus to editable area after initializing summernote
                     callbacks: {
@@ -117,18 +115,16 @@
             	console.log("form_data", form_data)
             	form_data.append('file', file);
             	$.ajax({
-            		data : form_data,
+            		data : form_data, 
             		type : "POST",
             		url : "<c:url value='/groupbuy/uploadfile.cf'/>",
             		cache : false,
             		contentType : false,
-            		enctype : "multipart/form-data",
+            		enctype : "multipart/form_data",
             		processData : false,
-            		success : function(url) {
-            			console.log(url);
-            			$("input#imageBoard").val(url)
-            			/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
-            			$(ele).summernote("editor.insertImage", url);
+            		success : function(gbFile) {
+            			console.log(gbFile.url);
+            			$(ele).summernote("editor.insertImage", gbFile.url);
             		}
             	})//ajax
             }

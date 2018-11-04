@@ -258,7 +258,7 @@
               	  alert("글 작성자만 수정할 수 있습니다.")
               	  return;
                 }
-         	   location.href="gb_updateForm.cf?no=${gbb.gbNo}"
+         	   location.href="gb_updateForm.cf?no=${gbb.gbNo}&"
             });
             
             $("#listButton").click(function() {

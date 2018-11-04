@@ -32,6 +32,15 @@
 		<result column="gbc_reg_date" property="gbcRegDate" />		
 	</resultMap>
 	
+		<resultMap id="fileMap" type="GroupBuyFile">
+		<result column="gbf_no" property="gbfNo"/>
+		<result column="gb_no" property="gbNo"/>
+		<result column="gbf_ori_name" property="gbfOriName"/>
+		<result column="gbf_sys_name" property="gbfSysName"/>
+		<result column="gbf_path" property="gbfPath"/>
+		<result column="gbf_size" property="gbfSize"/>
+	</resultMap>
+	
 	<!-- 게시글 작성 -->
 	<insert id="gbInsertBoard" parameterType="GroupBuyBoard">
 		insert into cf_group_buy(gb_no, writer, gb_title, gb_content, gb_start_day, gb_end_day, gb_start_time, gb_end_time)
@@ -49,6 +58,35 @@
 		 where rnum &gt;= #{begin}			     
 	</select>
 	
+	<!-- 파일첨부 -->
+	<insert id="insertNewFile" parameterType="GroupBuyFile">
+		<selectKey keyProperty="gbNo" resultType="int" order="BEFORE">
+			select cf_s_gb_no.currval from dual
+		</selectKey> 
+		insert into cf_gb_file (
+			gbf_no, gb_no, gbf_ori_name, gbf_sys_name, gbf_path, gbf_size
+		) values (
+			cf_s_gbf_no.nextval, #{gbNo}, #{gbfOriName}, #{gbfSysName}, #{gbfPath}, #{gbfSize}
+		)
+	</insert>
+	
+	<!-- 파일 수정 -->
+	<update id="updateFile" parameterType="GroupBuyFile">
+		update cf_gb_file
+		   set gbf_ori_name = #{gbfOriName}, 
+		       gbf_sys_name = #{gbfSysName}, 
+		       gbf_path = #{gbfPath}, 
+		       gbf_size = #{gbfSize}
+		 where gbf_no = #{gbfNo}
+	</update>
+	
+	<!-- 게시글번호에 해당하는 파일 불러오기 -->
+	<select id="gbSelectFileByNo" parameterType="int" resultMap="fileMap">
+		select *
+		  from cf_gb_file 
+		 where gb_no = #{gbNo} 
+	</select>
+	
 	<!-- 전체 게시물의 수 -->
 	<select id="gbSelectBoardCount" resultType="int">
 		select count(*)
@@ -61,6 +99,7 @@
 		  from cf_group_buy
 		 where gb_no = #{gbNo}  
 	</select>
+	
 	
 	<!-- 조회수 -->
 	<update id="gbUpdateViewCnt" parameterType="int">
