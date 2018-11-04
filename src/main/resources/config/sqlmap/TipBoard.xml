@@ -4,6 +4,7 @@
 <mapper namespace="com.cityfarmer.repository.mapper.TipMapper">
 	<resultMap id="tipMap" type="tipBoard">
 		<result column="tip_no" property="tipNo" />
+		<result column="tipc_no" property="tipcNo" />
 		<result column="writer" property="writer" />
 		<result column="tip_title" property="tipTitle" />
 		<result column="tip_content" property="tipContent" />
@@ -11,32 +12,89 @@
 		<result column="tip_reg_date" property="tipRegDate" />
 
 	</resultMap>
+	
+	<resultMap id = "tipcMap" type ="tipBoardComment">
+	<result column="tip_no" property="tipNo" />
+	<result column="tipc_no" property="tipcNo" />
+	<result column = "tipc_writer" property = "tipcWriter"/>
+	<result column = "tipc_content" property = "tipcContent"/>
+	<result column = "tipc_reg_date" property = "tipcRegDate"/>
+	</resultMap>
+	
+	
+	
 	<!-- 전체목록 가져오기 -->
 	<select id="selectBoard" resultMap="tipMap">
-		select *
-		from cf_tip
-		order by tip_no desc
+		select* from cf_tip order by tip_no desc
+<!-- select * from(select rownum rnum, a.* from(select * from cf_tip order
+		by tip_no desc ) a where rownum &lt;= #{end}) where rnum &gt;=
+		#{begin}  -->
 	</select>
 
 
 	<!-- 글 등록 -->
-	<insert id="insertBoard" parameterType="tipBoard"> insert into cf_tip( 
-		tip_no, writer, tip_title, tip_content ) values( cf_s_tip_no.nextval, #{writer}, #{tipTitle}, #{tipContent} 
-		) </insert>
+	<insert id="insertBoard" parameterType="tipBoard"> insert into cf_tip(
+		tip_no, writer, tip_title, tip_content ) values( cf_s_tip_no.nextval,
+		#{writer}, #{tipTitle}, #{tipContent}
+		)
+	</insert>
 
 
 	<!-- 글 상세보기 -->
-	<select id="selectBoardByNo" parameterType="int" resultMap="tipMap"> 
-		select* from cf_tip where tip_no = #{tipNo} </select>
+	<select id="selectBoardByNo" parameterType="int" resultMap="tipMap">
+		select* from cf_tip where tip_no = #{tipNo}
+	</select>
 
 
 	<!-- 글 삭제 -->
-	<!-- <delete id="deleteBoard" parameterType="int"> delete from cf_tip where 
-		no = #{tipNo} </delete> -->
+	<delete id="deleteBoard" parameterType="int"> delete from cf_tip where
+		tip_no = #{tipNo}
+	</delete>
 
 	<!-- 글 수정 -->
-	<!-- <update id="updateBoard" parameterType="board"> update tb_board set 
-		title = #{tipTitle}, content = #{tipContent} where no = #{tipNo} </update> -->
+	<update id="updateBoard" parameterType="tipBoard"> update cf_tip set
+		tip_title = #{tipTitle}, tip_content = #{tipContent} where tip_no =
+		#{tipNo}
+	</update>
+
+	<!-- 전체 게시물의 수 -->
+	<select id="selectBoardCount" resultType="int">
+		select count(*)
+		from cf_tip
+	</select>
+	<!-- parameterType으로 int를 안준 이유 -->
+	<!-- 댓글 목록 조회 -->
+	<select id = "selectComment" parameterType = "int" resultMap = "tipcMap">
+	select *
+	from cf_tip_comment
+	where tip_no= #{tipNo}
+	order by tipc_no desc
+	
+	</select>
+	<!-- 댓글 등록  -->
+	<insert id = "insertComment" parameterType="tipBoardComment">
+	insert into cf_tip_comment(tipc_no, tip_no, tipc_writer, tipc_content) 
+	values(cf_s_tipc_no.nextval, #{tipNo}, #{tipcWriter}, #{tipcContent})
+	</insert>
+	<!-- 댓글 삭제 -->
+	<delete id  = "deleteComment" parameterType = "int">
+	delete from cf_tip_comment
+	where tipc_no = #{tipcNo}
+	</delete>
+	<!-- 댓글 수정 -->
+	<!-- <update id = "updateComent" parameterType = "tipBoardComment">
+	update cf_tip_comment
+	set tipc_content=#{tipcContent},
+	tipc_writer = #{tipcWriter}
+	where tipc_no = #{tipcNo}
+	</update> -->
+	<!-- 댓글전체수 -->
+	<select id = "selectCommentCountNo" parameterType = "int" resultType = "int">
+	select count(*)
+	from cf_tip_comment
+	where tipc_no = #{tipcNo}
+	
+	</select>
 
 
 
