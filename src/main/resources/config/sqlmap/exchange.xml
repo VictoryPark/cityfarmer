@@ -83,6 +83,20 @@
 			where ex_no = #{exNo}
 	</delete>
 	
+	<!-- 게시글 조회수 증가를 위한 작성 비교 -->
+	<select id="selectBoardCountByWriter" parameterType="ViewCnt" resultType="int">
+		select count(*)
+		  from cf_exchange
+		 where ex_no = #{exNo}
+		   and writer = #{id}
+	</select>
+	
+	<update id="updateViewCnt" parameterType="int">
+		update cf_exchange
+		  set ex_view_cnt = ex_view_cnt + 1
+		 where ex_no = #{exNo}
+	</update>
+	
 	<resultMap id="commentMap" type="ExchangeComment">
 		<result column="ex_no" property="exNo"/>
 		<result column="exc_no" property="excNo"/>
@@ -90,9 +104,10 @@
 		<result column="exc_content" property="excContent"/>
 		<result column="exc_reg_date" property="excRegDate"/>
 		<result column="exc_ref" property="excRef"/>
-		<result column="exc_parent_no" property="excParentNo"/>
-		
+		<result column="exc_parent_no" property="excParentNo"/>	
 	</resultMap>
+	
+	<!-- 댓글 작성 -->
 	<insert id="insertNewComment" parameterType="ExchangeComment">
 		insert into cf_exchange_comment (
 			exc_no, ex_no, exc_writer, exc_content
@@ -101,22 +116,61 @@
 		)
 	</insert>
 	
+	<!-- 게시글 번호에 대한 모든 댓글 list -->
 	<select id="selectCommentListByExNo" parameterType="int" resultMap="commentMap">
 		select * from cf_exchange_comment
 			where ex_no = #{exNo}
 		  order by exc_reg_date
 	</select>
 	
+	<!-- 댓글 수 조회 -->
 	<select id="selectCommentCount" parameterType="int" resultType="int">
 		select count(*)
 		  from cf_exchange_comment
 		  where ex_no = #{exNo}
 	</select>
 	
+	<!-- <select id="selectOneComment" parameterType="int" resultMap="commentMap">
+		select exc_content
+		  from cf_exchange_comment
+		 where exc_no = #{excNo}
+	</select> -->
+	
+	<!-- 댓글 삭제 -->
 	<delete id="deleteComment" parameterType="int">
 		delete from cf_exchange_comment
 			where exc_no = #{excNo}
 	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="ExchangeComment">
+		update cf_exchange_comment
+		   set exc_content = #{excContent}
+		  where exc_no = #{excNo}
+	</update>
+	
+	<!-- 답글 등록(계층 쿼리를 위한 ref, parent_no 등록 -->
+	<insert id="insertReply" parameterType="ExchangeComment">
+		<selectKey keyProperty="excNo" resultType="int" order="BEFORE">
+			select cf_s_exc_no.nextval from dual
+		</selectKey>
+		insert into cf_exchange_comment (
+			exc_no, ex_no, exc_writer, exc_content, exc_ref, exc_parent_no
+		) values (
+			#{excNo}, #{exNo}, #{excWriter}, #{excContent}, #{excRef}, #{excParentNo}
+		)
+	</insert>
+	
+	<!-- 댓글과 답글 모두 가져오기..(계층 쿼리 적용) -->
+	<select id="selectAllReply" parameterType="int" resultMap="commentMap">
+		select *
+		  from cf_exchange_comment
+		  where ex_no = #{exNo}
+		  start with exc_parent_no = 0		  
+		connect by prior exc_no = exc_parent_no
+		  order siblings by exc_ref desc
+		
+	</select>
 </mapper>
 
 

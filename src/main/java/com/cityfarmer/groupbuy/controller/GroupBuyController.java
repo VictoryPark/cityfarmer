@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.cityfarmer.common.PageResult;
 import com.cityfarmer.groupbuy.service.GroupBuyService;
 import com.cityfarmer.repository.domain.groupbuy.GroupBuyBoard;
 import com.cityfarmer.repository.domain.groupbuy.GroupBuyComment;
+import com.cityfarmer.repository.domain.groupbuy.GroupBuyFile;
 
 @Controller
 @RequestMapping("/groupbuy")
@@ -29,6 +32,8 @@ public class GroupBuyController {
 	
 	@Autowired
 	private GroupBuyService service;
+	
+	private List<GroupBuyFile> fileList = new ArrayList<>();
 	
 	@RequestMapping("/cf_main.cf")
 	public void mainForm() {}
@@ -70,23 +75,12 @@ public class GroupBuyController {
 	// 게시글 수정
 	@RequestMapping("/gb_update.cf")
 	public String update(GroupBuyBoard gbb) {
-		String[] endArr = gbb.getGbEndDay().split(" "); // 2018-10-29 06:29 PM
+		setEndTime(gbb);
+	
+		service.update(gbb, fileList);
 		
-		gbb.setGbEndDay(endArr[0]);
+		fileList = new ArrayList<>();
 		
-		String[] endTimeArr = endArr[1].split(":"); // 18:34 --> 18 split  34
-		if(endArr[2].equals("PM")) {
-			int hours = Integer.parseInt(endTimeArr[0]);
-			if(hours==12) { 
-				gbb.setGbEndTime(endArr[1]);
-			} else {
-				gbb.setGbEndTime(String.valueOf(hours + 12) + ":" + endTimeArr[1]);
-			}
-		} else {
-			gbb.setGbEndTime(endArr[1]);
-		}
-		
-		service.update(gbb);
 		return "redirect:gb_board.cf";
 	}
 	
@@ -97,7 +91,6 @@ public class GroupBuyController {
 		return "redirect:gb_board.cf";
 	}
 	
-	
 	// 게시글 작성폼 이동
 	@RequestMapping("/gb_writeForm.cf")
 	public void writeForm() {}
@@ -105,21 +98,7 @@ public class GroupBuyController {
 	//	게시글 작성
 	@RequestMapping("/gb_write.cf")
 	public String write(GroupBuyBoard gbb) {
-		String[] endArr = gbb.getGbEndDay().split(" "); // 2018-10-29 06:29 PM
-		
-		gbb.setGbEndDay(endArr[0]);
-		
-		String[] endTimeArr = endArr[1].split(":"); // 18:34 --> 18 split  34
-		if(endArr[2].equals("PM")) {
-			int hours = Integer.parseInt(endTimeArr[0]);
-			if(hours==12) { 
-				gbb.setGbEndTime(endArr[1]);
-			} else {
-				gbb.setGbEndTime(String.valueOf(hours + 12) + ":" + endTimeArr[1]);
-			}
-		} else {
-			gbb.setGbEndTime(endArr[1]);
-		}
+		setEndTime(gbb);
 		
 		Date start = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -128,7 +107,10 @@ public class GroupBuyController {
 		gbb.setGbStartDay(startArr[0]);
 		gbb.setGbStartTime(startArr[1]);
 		
-		service.write(gbb);
+		service.write(gbb, fileList);
+		
+		fileList = new ArrayList<>();
+				
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "gb_board.cf";
 	}
 	
@@ -161,11 +143,10 @@ public class GroupBuyController {
 		service.updateComment(gbc);
 	}
 	
-	
-	// 파일 미완성
+	// 파일 업로드
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
-	public String uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
+	public GroupBuyFile uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
 //		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/groupbuy";
 		String uploadPath = "/app/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
@@ -179,16 +160,20 @@ public class GroupBuyController {
 
 		System.out.println(attach);
 		
+		GroupBuyFile gbFile = new GroupBuyFile();
+		
 		for(MultipartFile file : attach) {
 			if(file.isEmpty()==true) continue;
 			fileExtension = getExtension(file.getOriginalFilename());
 			fileSysName = newName + "." + fileExtension;
 			System.out.println(uploadPath + datePath + "/"+fileSysName);
 			
-//			ef.setExfOriName(file.getOriginalFilename());
-//			ef.setExfSysName(fileSysName);
-//			ef.setExfPath(uploadPath + datePath);
-//			ef.setExfSize(file.getSize());
+			gbFile.setGbfOriName(file.getOriginalFilename());
+			gbFile.setGbfSysName(fileSysName);
+			gbFile.setGbfPath(uploadPath + datePath);
+			gbFile.setGbfSize(file.getSize());
+			
+			System.out.println("파일 크기: " + file.getSize());
 			
 			File img = new File(uploadPath + datePath, fileSysName);
 			
@@ -196,11 +181,17 @@ public class GroupBuyController {
 				img.mkdirs();
 			}
 			file.transferTo(img);
-			//service.uploadFile(ef);
+			gbFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
 		}
 		//source="org.eclipse.jst.jee.server:cityFarmer"
-		return "http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName;
+			fileList.add(gbFile);
+			
+		return gbFile;
 	}
+	
+	
+	
+/* 일반 메소드 */	
 	
 	 private static String getExtension(String fileName) {
         int dotPosition = fileName.lastIndexOf('.');
@@ -212,15 +203,24 @@ public class GroupBuyController {
         }
 	 }
 	 
-	 private static String getParentUrl(String fileUrl) {
-		 int dotPosi = fileUrl.lastIndexOf('/');
-		 
-		 if(dotPosi != -1 && fileUrl.length() -1 > dotPosi) {
-			 return fileUrl.substring(0,dotPosi);
-		 } else {
-			 return "";
-		 }
-	 }
+	// 종료날짜 설정
+		public void setEndTime(GroupBuyBoard gbb) {
+			String[] endArr = gbb.getGbEndDay().split(" "); // 2018-10-29 06:29 PM
+			
+			gbb.setGbEndDay(endArr[0]);
+			
+			String[] endTimeArr = endArr[1].split(":"); // 18:34 --> 18 split  34
+			if(endArr[2].equals("PM")) {
+				int hours = Integer.parseInt(endTimeArr[0]);
+				if(hours==12) { 
+					gbb.setGbEndTime(endArr[1]);
+				} else {
+					gbb.setGbEndTime(String.valueOf(hours + 12) + ":" + endTimeArr[1]);
+				}
+			} else {
+				gbb.setGbEndTime(endArr[1]);
+			}
+		}
 	 
 	 
 	

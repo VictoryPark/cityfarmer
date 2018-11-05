@@ -70,7 +70,7 @@
 	                   </div>
 	                   <div id="writer">
 	                       <span id="writer">
-	                           작성자 :${board.writer}
+	                           작성자 : ${board.writer}
 	                       </span>
 	                   </div>
 	                   <hr>

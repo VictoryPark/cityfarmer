@@ -15,7 +15,7 @@ public interface ExchangeService {
 
 	Map<String, Object> list(int pageNo);
 
-	Map<String, Object> detail(int exNo);
+	Map<String, Object> detail(int exNo, String string);
 
 	ExchangeBoard updateForm(int exNo);
 
@@ -25,8 +25,12 @@ public interface ExchangeService {
 
 	List<ExchangeComment> writeComment(ExchangeComment comment);
 
-	List<ExchangeComment> listComment(ExchangeComment comment);
+	List<ExchangeComment> listComment(int exNo);
 
 	List<ExchangeComment> deleteComment(ExchangeComment comment);
+
+	List<ExchangeComment> updateComment(ExchangeComment comment);
+
+	List<ExchangeComment> writeReply(ExchangeComment comment);
 
 }

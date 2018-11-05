@@ -79,9 +79,9 @@
             <div>
                 <h3 class="heading">Comment</h3>
                   <div class="container">
-                    <form>
+                    <form method="POST">
                       <div class="form-group">
-                        <textarea class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
+                        <textarea id="writecomment" class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
                       </div>
                     </form>
                     <div class="button-group pull-right">
@@ -89,6 +89,7 @@
                       <a href="#" class="btn btn-primary" id="post">Post</a>
                     </div>
                     <ul class="posts">
+                    	
                     </ul>
                   </div>
               
@@ -132,7 +133,7 @@
      
                
             // ´ñ±Û
-                        var main = function() {
+                      var main = function() {
               $('#post').click(function() {
                 var post = $('.status-box').val();
                 $('<li class="comment">').text(post).prependTo('.posts');
@@ -162,8 +163,8 @@
 	   var elem = document.querySelector('.m-p-g');
 
              document.addEventListener('DOMContentLoaded', function() {
-                var gallery = new MaterialPhotoGallery(elem);
-             });
+/*                 var gallery = new MaterialPhotoGallery(elem);
+ */             });
 
              $(document).ready(function () {
                 $("img").click(function(){
@@ -173,8 +174,51 @@
                  });
 
                 });
+             
+             
+   //--------------------------------------------------------------------------
+  		  
+   		//´ñ±ÛÀÛ¼º
+   		$("#post").click(function() {
+    		$.ajax({
+    			url : "<c:url value='/gallery/comment/write.cf'/>",
+    			data : {
+    				"gacContent" :  $('.status-box').val(),
+    				"gacWriter" : "${user.id}",
+    				"gaNo" : "${map.b.gaNo}"
+    				   },
+    			type : "POST"
+    		}).done(function(result){
+            	commentList();
 
-        
+    		});
+  		 });
+   
+   			//´ñ±Û Á¶È¸
+    		var commentList = function(){
+    			$.ajax({
+    				url : "<c:url value='/gallery/comment/list.cf'/>",
+    				type : "POST",
+    				data : "gano=${map.b.gaNo}"
+    			}).done(function(result){
+    				console.log(result);
+    				$("ul.posts").html("");
+    				for(let i=0; i<result.length; i++){
+  			  				$("ul.posts").append(
+								"<li class='comment'>"+result[i].gacContent+"</li>"
+  			  				);
+    					
+    				}
+    			})
+    			
+    		};
+    		
+    		//´ñ±Û»Ñ·ÁÁÖ±â
+         	commentList();
+
+    		
+
+    	
         </script>
 </body>
 </html>

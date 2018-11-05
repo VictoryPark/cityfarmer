@@ -5,11 +5,11 @@ import lombok.Data;
 @Data
 public class GroupBuyFile {
 
-	private int exfNo;
-	private int exNo;
-	private String exfOriName;
-	private String exfSysName;
-	private String exfPath;
-	private long exfSize;
-
+	private int gbfNo;
+	private int gbNo;
+	private String gbfOriName;
+	private String gbfSysName;
+	private String gbfPath;
+	private long gbfSize;
+	private String url;
 }

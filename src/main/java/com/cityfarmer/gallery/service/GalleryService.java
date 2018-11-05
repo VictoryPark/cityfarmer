@@ -1,8 +1,10 @@
 package com.cityfarmer.gallery.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
+import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
 
 public interface GalleryService {
@@ -26,4 +28,8 @@ public interface GalleryService {
 	//파일등록
 	void uploadFile(GalleryFile file);
 
+	
+	List<GalleryComment> writeComment(GalleryComment comment);
+
+	List<GalleryComment> listComment(int gaNo);
 }

@@ -83,6 +83,8 @@
                         <th>제목</th>
                         <th>글쓴이</th>
                         <th>등록일</th>
+                        <th>조회수</th>
+                        <th>추천수</th>
                     </tr>
                     </thead>
                     
@@ -91,8 +93,10 @@
                         <tr class="clickde">
                             <td>${b.gaNo}</td>
                             <td><a href='gallerydetail.cf?no=${b.gaNo}'>${b.gaTitle}</td>
-                            <td>${user.id}</td>
+                            <td>${b.writer}</td>
                             <td><fmt:formatDate value="${b.gaRegDate}" pattern="yyyy-MM-dd" /></td>
+                            <td>${b.gaViewCnt}</td>
+                            <td>${b.gaRecCnt}</td>
                         </tr>
                     </c:forEach>
                     

@@ -21,6 +21,14 @@
 		<result column="gaf_path" property="gafPath"/>
 		<result column="gaf_size" property="gafSize"/>
 	</resultMap>
+	
+	<resultMap id="commentMap" type="GalleryComment">
+		<result column="ga_no" property="gaNo"/>
+		<result column="gac_no" property="gacNo"/>
+		<result column="gac_writer" property="gacWriter"/>
+		<result column="gac_content" property="gacContent"/>
+		<result column="gac_reg_date" property="gacRegDate"/>
+	</resultMap>
 
 	<!-- 게시물 조회 -->
 	<select id="selectGalleryBoard" parameterType="GalleryBoard" resultMap="galleryMap">
@@ -86,8 +94,29 @@
     	       ga_content = #{gaContent}
     	 where ga_no = #{gaNo}
     </update>	 
+ 	
+ 	<!-- 게시글 조회수 -->
+ 	<update id="GalleryBoardView" parameterType="int">
+    	update cf_gallery
+    	   set ga_view_cnt = ga_view_cnt + 1
+    	 where ga_no = #{gaNo}
+    </update>	
 
-
+	<!-- 댓글 작성 -->
+	<insert id="insertComment" parameterType="GalleryComment">
+		insert into cf_gallery_comment (
+			gac_no, ga_no, gac_writer, gac_content
+		) values (
+			cf_s_gac_no.nextval, #{gaNo}, #{gacWriter}, #{gacContent}
+		)
+	</insert>
+	<!-- 게시글 번호에 대한 모든 댓글 list -->
+	<select id="selectCommentListByGaNo" parameterType="int" resultMap="commentMap">
+		select * from cf_gallery_comment
+			where ga_no = #{gaNo}
+		  order by gac_reg_date
+	</select>
+	
 
 
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cityfarmer.repository.domain.gallery.GaPageResult;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
+import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
 import com.cityfarmer.repository.mapper.GalleryMapper;
 
@@ -62,6 +63,7 @@ public class GalleryServiceImpl implements GalleryService {
 	@Override
 	public Map<String, Object> detail(int no) {
 //		return gaMapper.selectGalleryBoardByNo(no);
+		gaMapper.GalleryBoardView(no);
 		Map<String, Object> map = new HashMap<>();
 		
 		GalleryBoard board = gaMapper.selectGalleryBoardByNo(no);
@@ -87,6 +89,16 @@ public class GalleryServiceImpl implements GalleryService {
 	public void uploadFile(GalleryFile file) {
 		
 		gaMapper.insertGalleryFile(file);
+	}
+	@Override
+	public List<GalleryComment> writeComment(GalleryComment comment) {
+		gaMapper.insertComment(comment);
+		return gaMapper.selectCommentListByGaNo(comment.getGaNo());
+	}
+	@Override
+	public List<GalleryComment> listComment(int gaNo) {
+	
+		return gaMapper.selectCommentListByGaNo(gaNo);
 	}
 
 }
