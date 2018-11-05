@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.cityfarmer.repository.domain.Page;
 import com.cityfarmer.repository.domain.diary.DiaryBoard;
+import com.cityfarmer.repository.domain.diary.DiaryComment;
+import com.cityfarmer.repository.domain.diary.drPage;
 import com.cityfarmer.repository.mapper.DiaryMapper;
 
 @Service
@@ -16,7 +18,7 @@ public class DiaryServiceImpl implements DiaryService {
 	private DiaryMapper drmapper;
 	
 	@Override
-	public List<DiaryBoard> list(Page page) {
+	public List<DiaryBoard> list(drPage page) {
 		return drmapper.selectDiaryBoard(page);
 	}
 
@@ -52,6 +54,35 @@ public class DiaryServiceImpl implements DiaryService {
 	public int count() {
 		return drmapper.selectDiaryBoardCount();
 	}
+
+	@Override
+	public void writerComment(DiaryComment comment) {
+		drmapper.drcInsertComment(comment);
+		
+	}
+
+	@Override
+	public List<DiaryComment> commentList(int no) {
+		return drmapper.drcSelectComment(no);
+	}
+
+	@Override
+	public void deleteDiaryComment(int drcNo) {
+		drmapper.deleteDiaryComment(drcNo);
+		
+	}
+
+	@Override
+	public void updateDiaryComment(DiaryComment comment) {
+		drmapper.updateDiaryComment(comment);
+		
+	}
+
+	@Override
+	public int selectDiaryCommentCount(int drNo) {
+		return drmapper.selectDiaryCommentCount(drNo);
+	}
+	
 	
 
 }

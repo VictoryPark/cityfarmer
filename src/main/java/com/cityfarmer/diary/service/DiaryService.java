@@ -2,12 +2,13 @@ package com.cityfarmer.diary.service;
 
 import java.util.List;
 
-import com.cityfarmer.repository.domain.Page;
 import com.cityfarmer.repository.domain.diary.DiaryBoard;
+import com.cityfarmer.repository.domain.diary.DiaryComment;
+import com.cityfarmer.repository.domain.diary.drPage;
 
 public interface DiaryService {
 	
-	List<DiaryBoard> list(Page page);
+	List<DiaryBoard> list(drPage drpage);
 	
 	void writer(DiaryBoard board);
 	
@@ -20,6 +21,15 @@ public interface DiaryService {
 	void delete(int no);
 	
 	int count();
+	
+	// 댓글 부분
+	void writerComment(DiaryComment comment);
+	List<DiaryComment> commentList(int no);
+	void deleteDiaryComment(int drcNo);
+	void updateDiaryComment(DiaryComment comment);
+	int selectDiaryCommentCount(int drNo);
+	
+	
 	
 	
 }

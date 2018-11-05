@@ -80,16 +80,16 @@
 
     <div id="slideshow">
         <div id="i1">
-            <img src="<c:url value="/resources/css/diary/img/ga1.jpg"/>" width="100%" height="100%">
+            <img src="<c:url value="/resources/img/diary/ga1.jpg"/>" width="100%" height="100%">
         </div>
         <div id="i2">
-            <img src="<c:url value="/resources/css/diary/img/ga2.jpg"/>" width="100%" height="100%">
+            <img src="<c:url value="/resources/img/diary/ga2.jpg"/>" width="100%" height="100%">
         </div>
         <div id="i3">
-            <img src="<c:url value="/resources/css/diary/img/ga3.jpg"/>" width="100%" height="100%">
+            <img src="<c:url value="/resources/img/diary/ga3.jpg"/>" width="100%" height="100%">
         </div>
         <div id="i4">
-            <img src="<c:url value="/resources/css/diary/img/ga4.jpg"/>" width="100%" height="100%">
+            <img src="<c:url value="/resources/img/diary/ga4.jpg"/>" width="100%" height="100%">
         </div>
     </div>
 	<form action="writer.cf" method="post">
