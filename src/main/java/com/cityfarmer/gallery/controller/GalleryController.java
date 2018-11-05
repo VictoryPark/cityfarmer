@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -37,14 +38,9 @@ public class GalleryController {
 	//갤러리 조회
 	@RequestMapping("/gallerylist1.cf")
 	public void list(Model model, GalleryBoard galleryboard,@RequestParam(value="pageNo", defaultValue="1")int pageNo) throws Exception {
-//		galleryboard.setPageNo(pageNo);
-//		model.addAttribute("list", gaService.list(galleryboard));
-//		model.addAttribute("pageResult", new GaPageResult(pageNo, gaService.count()));
-	
+
 		Map<String,Object> map = gaService.list(pageNo);
 		model.addAttribute("map",map);
-		
-//		model.addAttribute("count", gaService.count());
 	}
 	
 	//등록 폼
@@ -70,24 +66,6 @@ public class GalleryController {
 		gaService.write(galleryboard, file);
 		
 		return "redirect:gallerylist1.cf";
-		
-		/*
-		System.out.println(galleryboard);
-		String fileUrl = galleryboard.getFileUrl();
-		if(fileUrl!="") {
-			fileUrl = fileUrl.substring("http://localhost:8000".length());
-			//board.setFileUrl(fileUrl);
-			String parentUrl = getParentUrl(fileUrl);
-			file.setGafPath(parentUrl);
-//			System.out.println("parent : " +parentUrl);
-			String fileName = fileUrl.substring(parentUrl.length()+1);
-			file.setGafSysName(fileName);
-			
-//			System.out.println("fileName : " +fileName);
-
-			gaService.write(galleryboard, file);
-			
-		 */
 			}
 	
 	@RequestMapping("/gallerydetail.cf")

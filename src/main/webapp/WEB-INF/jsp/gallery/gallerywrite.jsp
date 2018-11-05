@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <!--¼¶¸Ó³ëÆ®-->
+        <!--ì„¬ë¨¸ë…¸íŠ¸-->
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
         
-        <!-- ¸ŞÀÎ css -->
+        <!-- ë©”ì¸ css -->
     	<link href="<c:url value="/resources/css/gallery/gallerywrite.css" />" rel="stylesheet">
 </head>
 <body>
@@ -23,11 +23,11 @@
             <h1><span>City</span>Farmer</h1>
             <nav>
                 <a href="">About</a>
-                <a href="">¹°¹°±³È¯</a>
-                <a href="">²ÜÆÁ</a>
-                <a href="">°øµ¿±¸¸Å</a>
-                <a href="">°¶·¯¸®</a>
-                <a href="">³ª¸¸ÀÇ °¶·¯¸®</a>
+                <a href="">ë¬¼ë¬¼êµí™˜</a>
+                <a href="">ê¿€íŒ</a>
+                <a href="">ê³µë™êµ¬ë§¤</a>
+                <a href="">ê°¤ëŸ¬ë¦¬</a>
+                <a href="">ë‚˜ë§Œì˜ ê°¤ëŸ¬ë¦¬</a>
             </nav>
         </header>
         <div class="top-section">
@@ -41,12 +41,12 @@
                
             </div>
             <div class="main-title">
-                <h2>°Ô½Ã±Û ÀÛ¼º</h2>
+                <h2>ê²Œì‹œê¸€ ì‘ì„±</h2>
             </div>
             
 			<form action="write.cf" method="post">
             <div>
-                <input type="text" class="form-control" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇÏ¿©ÁÖ¼¼¿ë" style="width:99%" name="gaTitle"><br>
+                <input type="text" class="form-control" placeholder="ì œëª©ì„ ì…ë ¥í•˜ì—¬ì£¼ì„¸ìš©" style="width:99%" name="gaTitle"><br>
                 <input type="hidden" class="form-control" value="${user.id}" style="width:99%" name="writer" >
             </div><br>
             <div class="smt">
@@ -55,7 +55,7 @@
             <div id="wirte" > 
                 
                     <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button class="btn btn-primary">±ÛÀÛ¼º</button>
+                    <button class="btn btn-primary">ê¸€ì‘ì„±</button>
 
             </div>
    					<input id="imageBoard" name="fileUrl" type="hidden"/>
@@ -68,7 +68,7 @@
     		</c:forEach> --%>
             
             </form>
-                    <button class="btn btn-primary1" id="cblist">¸ñ·Ï</button>
+                    <button class="btn btn-primary1" id="cblist">ëª©ë¡</button>
             
         </div><br>
         <script>
@@ -79,7 +79,7 @@
              minHeight: null,             // set minimum height of editor
              maxHeight: null,             // set maximum height of editor
              focus: true,
-             placeholder : '³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ¼¼¿ä',
+             placeholder : 'ë‚´ìš©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì„¸ìš”',
              callbacks: {
            		onImageUpload : function(files, editor, welEditable) {
            			console.log(files);

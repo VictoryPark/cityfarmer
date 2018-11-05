@@ -164,16 +164,9 @@
              $("#write").click(function(){
             	 location.href="/cityFarmer/gallery/gallerywrite.cf";
              })
-            
-             /*
-             $("#clickde").click(function(){
-            	 location.href="/cityfamer/gallery/gallerydetail.cf"
-             })
-             */
-             
+       
            // --------------------------------------------------------------------
          	$("nav > ul.pagination > li > a").click(function(e){
-			//기본 이벤트 막기...
 				e.preventDefault();
 		
 				var pageNo = $(this).attr("href")
