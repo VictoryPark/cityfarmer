@@ -79,7 +79,7 @@
 	                     	   	 	</c:choose>
 	                     	   </c:when>
 	                	       <c:otherwise>
-	        		               <td><span><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a></span><span class="cmtCount">[${comment[status.index]}]</span> </td>
+	        		               <td><span><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a></span><span class="cmtCount">[${comment[status.index]}]</span></td>
 	  		                   </c:otherwise>
 	                       </c:choose>
 	                       <td>${gb.writer}</td>
@@ -170,42 +170,90 @@
         		
         		if('${list != null}') {
         			location.href = "gb_board.cf?pageNo=" + pageNo;
-        			return
+        			return false;
         		} 
         		
-        		searchAjax(pageNo)
+		   		searchAjax(pageNo)
         	});
             
             $("#searchBtn").click(function() {
 	       		searchAjax(1)
             });
             
-            
-            
             var searchAjax = function(pageNo) {
             	
             	$("#pageNo").val(pageNo);
             	
-            	$(document).ready(function() {
-	        	var formData = $("#searchForm").serialize();
-	        	
-	        	if(formData.split('&')[0].split('=')[1]=='0') {
-	        		alert("카테고리를 선택해주세요") 
-	        		return;
-	        	}
-	        	
-			          $.ajax({
-			          	url: "<c:url value='/groupbuy/gb_search.cf'/>",
-			          	type: "POST",
-			          	data: formData
-			          }).done(function(result) {
-			          		console.log(result)
-			          		
-			          		$("#list-area").html("")
-			          		
-			          });
-            	})
-            }
+		        	var formData = $("#searchForm").serialize();
+		        	
+		        	if(formData.split('&')[0].split('=')[1]=='0') {
+		        		alert("카테고리를 선택해주세요") 
+		        		return;
+		        	}
+		        	
+				          $.ajax({
+				          	url: "<c:url value='/groupbuy/gb_search.cf'/>",
+				          	type: "POST",
+				          	data: formData
+				          }).done(function(result) {
+				          		console.log(result)
+				          		
+				          		$("#list-area").html(
+				          				 `<table class="table table-hover">
+				                        	<thead>	
+				                            <tr>
+				                                 <td>글 번호</td>
+				                                 <td>제목</td>
+				                                 <td>작성자</td>
+				                                 <td>조회수</td>
+				                            </tr>
+				                         </thead>
+				                         <tbody>
+				                         </tbody>
+				                         </table>
+				                         <div id="paging">
+				                         </div>`
+				          		)
+				          		
+				          		var html = "";
+				          		
+				          		for(let i=0; i<result.list.length; i++) {
+				          			    html += "<" + "fmt:formatDate value='${now}' pattern='yyyy-MM-dd' var='nowDate' />"
+				        					  + "<" + "fmt:formatDate value='${now}' pattern='HH:mm' var='nowTime' />"
+				        					  + "<" + "fmt:parseDate var='endTime' value=" + result.list[i].gbEndTime + " pattern='HH:mm' />"
+				        					  + "<" + "fmt:formatDate value='${endTime}' var='endTime' pattern='HH:mm' />"
+				        					  + "<" + "fmt:parseDate var='endDay' value=" + result.list[i].gbEndDay + " pattern='yyyy-MM-dd' />"
+				        					  + "<" + "fmt:formatDate value='${endDay}' var='endDay' pattern='yyyy-MM-dd' />"
+				        					  + "<tr>"
+				        					  + "<td>"+ result.list[i].gbNo +"</td>"
+				        					    <c:choose>
+				        					    <c:when test='${nowDate > endDay}'>
+				        					  + "<td><img src='/cityFarmer/resources/img/groupbuy/expired.png'><span style='color: gray;'>만료된 공구입니다.</span><span class='cmtCount'>[" + result.comment[i] + "]</span></td>"
+				        					    </c:when>
+				        					    <c:when test='${nowDate == endDay}'>
+				        					   	<c:choose>
+				        					   		<c:when test='${nowTime >= endTime}'>
+				        					  + 			"<td><img src='<c:url value='/resources/img/groupbuy/expired.png' />'><span style='color: gray;'>만료된 공구입니다.</span><span class='cmtCount'>[" + result.comment[i] + "]</span></td>"
+				        					  			</c:when>
+				        					  			<c:otherwise>
+				        					  +				"<td><span><a href='gb_detail.cf?no="+ result.list[i].gbNo +"'>"+ result.list[i].gbTitle +"</a></span><span class='cmtCount'>[" + result.comment[i] + "]</span> </td>"
+				        					  			</c:otherwise>
+				        					  	 	</c:choose>
+				        					    </c:when>
+				        					    <c:otherwise>
+				        					  + 	"<td><span><a href='gb_detail.cf?no="+ result.list[i].gbNo +"'>"+ result.list[i].gbTitle +"</a></span><span class='cmtCount'>[" + result.comment[i] + "]</span></td>"
+				        					  +  </c:otherwise>
+				        					    </c:choose>
+				        					    "<td>" + result.list[i].writer + "</td>"
+				   	                       	  + "<td>" + result.list[i].gbViewCnt + "</td>"
+				   	                       	  + "</tr>"
+				   	                       	 
+				          		}
+				          		$("tbody").html(html);
+				          		
+				          });
+            	
+            } // searchAjax
             
          
         </script>

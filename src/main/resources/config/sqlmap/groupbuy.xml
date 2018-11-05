@@ -64,24 +64,24 @@
 		  from (select rownum rnum, a.* 	
 			      from (select *
 				    	  from cf_group_buy
+				    	    <where>
+						 	 <if test="searchType == 1">
+						 	 	and gb_title like '%'||#{keyword}||'%'		 	 	
+						 	 </if>
+						 	 <if test="searchType == 2">
+						 	 	and gb_content like '%'||#{keyword}||'%'
+						 	 </if>
+						 	 <if test="searchType == 3">
+						 	 	and gb_title like '%'||#{keyword}||'%'
+						 	 	 or gb_content like '%'||#{keyword}||'%'
+						 	 </if>
+						 	 <if test="searchType == 4">
+						 	 	and writer like '%'||#{keyword}||'%'
+						 	 </if>
+						 </where>		 
 					     order by gb_no desc) a
 			     where rownum &lt;= #{end})
-		   <where>
-		 	 rnum &gt;= #{begin}
-		 	 <if test="searchType == 1">
-		 	 	and gb_title like '%'||#{keyword}||'%'		 	 	
-		 	 </if>
-		 	 <if test="searchType == 2">
-		 	 	and gb_content like '%'||#{keyword}||'%'
-		 	 </if>
-		 	 <if test="searchType == 3">
-		 	 	and writer like '%'||#{keyword}||'%'
-		 	 </if>
-		 	 <if test="searchType == 4">
-		 	 	and gb_title like '%'||#{keyword}||'%'
-		 	 	 or gb_content like '%'||#{keyword}||'%'
-		 	 </if>
-		 </where>		
+		   where rnum &gt;= #{begin}
 	</select> 
 	
 	<select id="searchGBBoardCount" parameterType="GroupBuyBoard" resultType="int">
