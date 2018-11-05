@@ -75,7 +75,6 @@
 			set ex_title = #{exTitle},
 				ex_content = #{exContent}
 			where ex_no = #{exNo}	
-				
 	</update>
 	
 	<delete id="deleteBoard" parameterType="int">
@@ -94,6 +93,18 @@
 	<update id="updateViewCnt" parameterType="int">
 		update cf_exchange
 		  set ex_view_cnt = ex_view_cnt + 1
+		 where ex_no = #{exNo}
+	</update>
+	
+	<update id="updateY" parameterType="int">
+		update cf_exchange
+		   set ex_complete = 'y'
+		 where ex_no = #{exNo}
+	</update>
+	
+	<update id="updateN" parameterType="int">
+		update cf_exchange
+		   set ex_complete = 'n'
 		 where ex_no = #{exNo}
 	</update>
 	

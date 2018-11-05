@@ -33,4 +33,8 @@ public interface ExchangeService {
 
 	List<ExchangeComment> writeReply(ExchangeComment comment);
 
+	int updateY(int exNo);
+
+	int updateN(int exNo);
+
 }

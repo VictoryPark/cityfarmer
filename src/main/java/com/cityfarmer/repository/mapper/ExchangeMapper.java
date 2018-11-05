@@ -44,4 +44,9 @@ public interface ExchangeMapper {
 	void insertReply(ExchangeComment comment);
 	
 	List<ExchangeComment> selectAllReply(int exNo);
+	
+	int updateY(int exNo);
+
+	int updateN(int exNo);
+	
 } //end mapper

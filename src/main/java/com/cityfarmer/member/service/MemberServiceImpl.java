@@ -1,5 +1,7 @@
 package com.cityfarmer.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,18 @@ public class MemberServiceImpl implements MemberService {
 	public Member login(Login login) {
 		return mapper.selectMemberwithIdandPass(login);
 	} //로그인
+
+	@Override
+	public boolean checkId(String id) {
+		List<String> idList = mapper.selectId();
+		boolean result = false;
+		for(String oriId : idList) {
+			if(oriId.intern() == id) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
 
 }

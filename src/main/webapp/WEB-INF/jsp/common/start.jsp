@@ -6,18 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login/SignUp</title>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-    <!-- 합쳐지고 최소화된 최신 CSS -->
-    <script src="<c:url value="/resources/js/common/bootstrap.js"/>"></script>
-    <link rel="stylesheet" href="<c:url value="/resources/css/common/bootstrap.min.css"/>">
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="<c:url value="/resources/css/common/bootstrap-theme.min.css"/>">
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <link rel="stylesheet" href="<c:url value="/resources/css/common/login.css"/>">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Do+Hyeon|Sunflower:300" rel="stylesheet">
+<c:import url="./startCSSJS.jsp"/>
 </head>
 <body>
 	 <div class="hero" style="background-image: url(<c:url value="/resources/img/common/sunflower.jpg"/>)">
@@ -39,21 +28,25 @@
 	            <h4 class="modal-title" id="exampleModalLabel">회원 가입</h4>
 	        </div>
 	        <div class="modal-body">
-	            <form action="<c:url value="/member/signup.cf"/>" method="POST">
+	            <form action="<c:url value="/member/signup.cf"/>" method="POST" name="signup">
 	            <div class="form-group">
-	                <label for="recipient-name" class="control-label">이름</label>
+	                <label for="recipient-name" class="control-label" id="name"><span id="red">*</span>이름</label>
+	                <span id='warnname'></span>
 	                <input type="text" class="form-control" name="name">
 	            </div>
 	            <div class="form-group">
-	                <label for="recipient-name" class="control-label">아이디</label>
+	                <label for="recipient-name" class="control-label"><span id="red">*</span>아이디</label>
+	                <span id='warnid'></span>
 	                <input type="text" class="form-control" name="id">
 	            </div>
 	            <div class="form-group">
-	                <label for="recipient-name" class="control-label">비밀번호</label>
+	                <label for="recipient-name" class="control-label"><span id="red">*</span>비밀번호</label>
+	                <span id='warnpass'></span>
 	                <input type="password" class="form-control" name="pass">
 	            </div>
 	            <div class="form-group">
-	                <label for="recipient-name" class="control-label">비밀번호 확인</label>
+	                <label for="recipient-name" class="control-label"><span id="red">*</span>비밀번호 확인</label>
+	                <span id='warnpasscheck'></span>
 	                <input type="password" class="form-control" name="passcheck">
 	            </div>
 	            <div class="modal-footer">
@@ -93,5 +86,6 @@
 	        </div>
 	    </div>
 	</div>
+	<c:import url="./signupJS.jsp"/>
 </body>
 </html>

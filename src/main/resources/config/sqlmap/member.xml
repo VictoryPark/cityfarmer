@@ -22,5 +22,10 @@
 		  where id = #{id} and
 		  		pass = #{pass}
 	</select>
+	
+	<select id="selectId" resultType="string">
+		select id
+		  from cf_member
+	</select>
 
 </mapper>

@@ -11,17 +11,8 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/exchange/listexchange.css"/>">
 </head>
 <body>
-   <header>
-       <h1><span>City</span>Farms</h1>
-       <nav>
-           <a href="">About</a>
-           <a href="">Menu</a>
-           <a href="">Locations</a>
-           <a href="">Gallery</a>
-           <a href="">Reviews</a>
-           <a href="">Contact</a>
-       </nav>
-   </header>
+   <c:import url="../common/header.jsp" />
+   
    <div class="top-section">
        <div class="main-image"><img id="title-img" src="<c:url value="/resources/img/exchange/exchange3_1.jpg"/>" /></div>
        <form method="POST">
@@ -49,7 +40,16 @@
 		                   	</c:when>
 		                   	<c:otherwise>class="hidden"</c:otherwise>
 		                   </c:choose>
-	                   ><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></div>
+	                   >
+	                   <c:choose>
+	                   	<c:when test="${board.writer == user.id}">
+	                   	 <a href="detail.cf?exno=${board.exNo}" ><img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/></a>
+	                   	</c:when>
+	                   	<c:otherwise> 
+	                   		<img id="item" src="<c:url value="/resources/img/exchange/check-circle-solid.png"/>"/>
+	                   	</c:otherwise>
+	                   </c:choose>
+	                   </div>
 	                   <div id="image">
 	                       <a href="detail.cf?exno=${board.exNo}" >
 	                       <c:choose>
@@ -130,9 +130,7 @@
 	       </div>
 	    </div>
 	</c:if>
-   <footer>
-       <h4>Powered by lots of <span>fresh</span> ingredients.</h4>
-   </footer>
+   <c:import url="../common/footer.jsp" />
 
 <script>
 	/* $(document).ready(function() {

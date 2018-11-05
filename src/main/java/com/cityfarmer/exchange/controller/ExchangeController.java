@@ -91,6 +91,19 @@ public class ExchangeController {
 	
 		return "redirect:detail.cf?exno=" + board.getExNo();
 	}
+
+	@PostMapping("/updatey.cf")
+	@ResponseBody
+	public int updateY(@RequestParam("exno")int exNo) {
+		System.out.println("exNo : " + exNo);
+		return service.updateY(exNo);
+	}
+	
+	@PostMapping("/updaten.cf")
+	@ResponseBody
+	public int updateN(@RequestParam("exno")int exNo) {
+		return service.updateN(exNo);
+	}
 	
 	@RequestMapping("/delete.cf")
 	public String delete(@RequestParam("exno")int exNo) {
@@ -144,8 +157,8 @@ public class ExchangeController {
 	
 	@PostMapping("/comment/list.cf")
 	@ResponseBody
-	public List<ExchangeComment> listComment(@RequestParam("exno")int exNo) throws ParseException {
-		List<ExchangeComment> list = convertDate(service.listComment(exNo));
+	public List<ExchangeComment> listComment(@RequestParam("exno")int exNo) {
+		List<ExchangeComment> list = service.listComment(exNo);
 //		for( ExchangeComment ec : list) {
 //			System.out.println(ec.getExcRef() +" - "+ ec.getExcParentNo());
 //		}
@@ -155,45 +168,61 @@ public class ExchangeController {
 
 	@PostMapping("/comment/write.cf")
 	@ResponseBody
-	public List<ExchangeComment> writeComment(ExchangeComment comment) throws ParseException {
-		return convertDate(service.writeComment(comment));
+	public List<ExchangeComment> writeComment(ExchangeComment comment) {
+		return service.writeComment(comment);
 	}
 
 	@GetMapping("/comment/delete.cf")
 	@ResponseBody
-	public List<ExchangeComment> deleteComment(ExchangeComment comment) throws ParseException {
-		return convertDate(service.deleteComment(comment));
+	public List<ExchangeComment> deleteComment(ExchangeComment comment)  {
+		return service.deleteComment(comment);
 	}//deleteComment
 	
 	@PostMapping("/comment/updateform.cf")
 	@ResponseBody
-	public List<ExchangeComment> updateFormComment(@RequestParam("exno")int exNo) throws ParseException {
-		return convertDate(service.listComment(exNo));
+	public List<ExchangeComment> updateFormComment(@RequestParam("exno")int exNo){
+		return service.listComment(exNo);
 	} //updateFormComment
 	
 	@PostMapping("/comment/update.cf")
 	@ResponseBody
-	public List<ExchangeComment> updateComment(ExchangeComment comment) throws ParseException {
+	public List<ExchangeComment> updateComment(ExchangeComment comment) { 
 		//comment.setExcRegDate(new Date());
-		return convertDate(service.updateComment(comment));
+		return service.updateComment(comment);
 	} // updateComment
 	
 	@PostMapping("/comment/writerepl.cf")
 	@ResponseBody
 	public List<ExchangeComment> writeReply(ExchangeComment comment) {
-		
 		return service.writeReply(comment);
 	}
 	
-	
-	private List<ExchangeComment> convertDate(List<ExchangeComment> list) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		for(ExchangeComment co : list) {
-			String date = sdf.format(co.getExcRegDate());
-			co.setRegDateString(date);
-		}
-		return list;
+	@PostMapping("/comment/deleterepl.cf")
+	@ResponseBody
+	public List<ExchangeComment> deleteReply(ExchangeComment comment){
+		return service.deleteComment(comment);
 	}
+	
+	@PostMapping("/comment/updateformrepl.cf")
+	@ResponseBody
+	public List<ExchangeComment> updateFormReply(@RequestParam("exno")int exNo) {
+		return service.listComment(exNo);
+	} //updateFormComment
+	
+	@PostMapping("/comment/updaterepl.cf")
+	@ResponseBody
+	public List<ExchangeComment> updateReply(ExchangeComment comment) {
+		return service.updateComment(comment);
+	}
+	
+//	private List<ExchangeComment> convertDate(List<ExchangeComment> list) throws ParseException {
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//		for(ExchangeComment co : list) {
+//			String date = sdf.format(co.getExcRegDate());
+//			co.setRegDateString(date);
+//		}
+//		return list;
+//	}
 	private static String getExtension(String fileName) {
         int dotPosition = fileName.lastIndexOf('.');
         
@@ -204,15 +233,15 @@ public class ExchangeController {
         }
 	 }
 	 
-	 private static String getParentUrl(String fileUrl) {
-		 int dotPosi = fileUrl.lastIndexOf('/');
-		 
-		 if(dotPosi != -1 && fileUrl.length() -1 > dotPosi) {
-			 return fileUrl.substring(0,dotPosi);
-		 } else {
-			 return "";
-		 }
-	 }
+//	 private static String getParentUrl(String fileUrl) {
+//		 int dotPosi = fileUrl.lastIndexOf('/');
+//		 
+//		 if(dotPosi != -1 && fileUrl.length() -1 > dotPosi) {
+//			 return fileUrl.substring(0,dotPosi);
+//		 } else {
+//			 return "";
+//		 }
+//	 }
 	 
 	
 	

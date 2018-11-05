@@ -69,7 +69,26 @@ button.btn {
   font-size: 24px;
 }
 
+/* 추가 */
 div[class^="modal"] {
   font-family: 'Do Hyeon', sans-serif;
   font-size: 20px;
+}
+
+span#red {
+	font-size :20px;
+	color : red;
+}
+
+span[id^='warn'] {
+	font-family: 'Poor Story', cursive;
+	font-size : 15px;
+	margin-left : 15px;
+	color : #ff7680;
+}
+span.green {
+	font-family: 'Poor Story', cursive;
+	font-size : 15px;
+	margin-left : 15px;
+	color : #389779;
 }

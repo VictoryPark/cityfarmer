@@ -144,5 +144,16 @@ public class ExchangeServiceImpl implements ExchangeService {
 		return mapper.selectAllReply(comment.getExNo());
 	}
 
+
+	@Override
+	public int updateY(int exNo) {
+		return mapper.updateY(exNo);
+	}
+	
+	@Override
+	public int updateN(int exNo) {
+		return mapper.updateN(exNo);
+	}
+
 	
 } //end class
