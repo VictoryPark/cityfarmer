@@ -110,12 +110,19 @@
 			cf_s_gac_no.nextval, #{gaNo}, #{gacWriter}, #{gacContent}
 		)
 	</insert>
+	
 	<!-- 게시글 번호에 대한 모든 댓글 list -->
 	<select id="selectCommentListByGaNo" parameterType="int" resultMap="commentMap">
 		select * from cf_gallery_comment
 			where ga_no = #{gaNo}
 		  order by gac_reg_date
 	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="int">
+		delete from cf_gallery_comment
+			  where gac_no = #{gacNo}	
+	</delete>
 	
 
 

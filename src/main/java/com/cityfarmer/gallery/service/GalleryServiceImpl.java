@@ -100,5 +100,11 @@ public class GalleryServiceImpl implements GalleryService {
 	
 		return gaMapper.selectCommentListByGaNo(gaNo);
 	}
+	@Override
+	public List<GalleryComment> deleteComment(GalleryComment comment) {
+		gaMapper.deleteComment(comment.getGacNo());
+		return gaMapper.selectCommentListByGaNo(comment.getGaNo());
+	}
+	
 
 }

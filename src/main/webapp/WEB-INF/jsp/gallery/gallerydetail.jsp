@@ -137,26 +137,24 @@
               $('#post').click(function() {
                 var post = $('.status-box').val();
                 $('<li class="comment">').text(post).prependTo('.posts');
-                $('<a>').text('수정').appendTo('.comment')
-                $('<a>').text('삭제').appendTo('.comment')
                 $('.status-box').val('');
                 $('.counter').text('250');
-                $('.btn').addClass('disabled');
+                $('#post').addClass('disabled');
               });
               $('.status-box').keyup(function() {
                 var postLength = $(this).val().length;
                 var charactersLeft = 200 - postLength;
                 $('.counter').text(charactersLeft);
                 if (charactersLeft < 0) {
-                  $('.btn').addClass('disabled');
+                  $('#post').addClass('disabled');
                 } else if (charactersLeft === 200) {
-                  $('.btn').addClass('disabled');
+                  $('#post').addClass('disabled');
                 } else {
-                  $('.btn').removeClass('disabled');
+                  $('#post').removeClass('disabled');
                 }
               });
             }
-            $('#post').addClass('disabled');
+            $('#post').addClass('dis abled');
             $(document).ready(main)
 	//--------------------------------------------------------------------------
 	//-----사진 상세 -------------------------------------------------------
@@ -193,6 +191,24 @@
 
     		});
   		 });
+   		//댓글삭제
+   		 $(document).on("click", "ul > a" , function(e) {
+            	e.preventDefault();
+            	var gacNo = $(this).attr("href");
+            	if('${user.id}' !== $(this).data("writer")) {
+            		alert("본인이 작성한 댓글만 삭제할 수 있습니다.")
+        			return;
+            	}
+            	
+            	$.ajax({
+	            	url: "<c:url value='/gallery/comment/delete.cf' />",
+	            	type: "POST",
+	            	data: "gacNo=" + gacNo
+	            }).done(function (result) {
+	            	/* console.log(result) */
+	            	commentList();
+	            });
+            })
    
    			//댓글 조회
     		var commentList = function(){
@@ -205,7 +221,12 @@
     				$("ul.posts").html("");
     				for(let i=0; i<result.length; i++){
   			  				$("ul.posts").append(
-								"<li class='comment'>"+result[i].gacContent+"</li>"
+								"<li class='comment' data-writer=" + result[i].gacWriter + " data-no=" + result[i].gacNo +">"
+								+"작성자:"+ result[i].gacWriter 
+								+"<br>"+
+								"내용:"+ result[i].gacContent+"</li>"+
+	                           	"<a href=" + result[i].gacNo + " data-writer=" + result[i].gacWriter + "><img id='deleteicon' src='<c:url value='/resources/img/groupbuy/v-42-512.png'/>' /></a>"
+
   			  				);
     					
     				}

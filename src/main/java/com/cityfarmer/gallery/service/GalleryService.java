@@ -32,4 +32,6 @@ public interface GalleryService {
 	List<GalleryComment> writeComment(GalleryComment comment);
 
 	List<GalleryComment> listComment(int gaNo);
+	
+	List<GalleryComment> deleteComment(GalleryComment comment);
 }

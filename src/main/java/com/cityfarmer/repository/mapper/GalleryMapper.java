@@ -31,5 +31,6 @@ public interface GalleryMapper {
 	
 	List<GalleryComment> selectCommentListByGaNo(int gaNo);
 	
+	void deleteComment(int gacNo);
 
 }
