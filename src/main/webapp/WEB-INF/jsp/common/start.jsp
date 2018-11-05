@@ -51,7 +51,7 @@
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default" data-dismiss="modal">창 닫기</button>
-	                <button class="btn btn-default">회원가입 하기</button>
+	                <button type="button" class="btn btn-default" id="newmember">회원가입 하기</button>
 	            </div>
 	        	</form>
 	        </div>
