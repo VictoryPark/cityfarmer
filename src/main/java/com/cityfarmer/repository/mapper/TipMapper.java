@@ -3,16 +3,25 @@ package com.cityfarmer.repository.mapper;
 import java.util.List;
 
 import com.cityfarmer.repository.domain.tip.TipBoard;
+import com.cityfarmer.repository.domain.tip.TipBoardComment;
 
 public interface TipMapper {
-	//ï¿½ï¿½Ã¼ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È¸
+	
 	List<TipBoard> selectBoard();
-	//ï¿½Û»ï¿½ï¿½ï¿½È¸
+	int selectBoardCount();
+	
 	TipBoard selectBoardByNo(int no);
-	//ï¿½Ûµï¿½ï¿½
 	void insertBoard(TipBoard board);
 	void deleteBoard(int no);
-	void updateBoard(int no);
+	void updateBoard(TipBoard board);
 	
+
+	
+	List<TipBoardComment> selectComment(int no);
+	void insertComment(TipBoardComment tipBoardComment);
+	void deleteComment(int no);
+/*	void updateComment(TipBoardComment tipBoardComment);*/
+	//´ñ±Û ÀüÃ¼ °¹¼ö
+/*	int selectCommentCountNo(int no);*/
 	
 }
