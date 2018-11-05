@@ -9,7 +9,6 @@ import com.cityfarmer.repository.domain.groupbuy.GroupBuyFile;
 
 public interface GroupBuyService {
 	
-	
 	void write(GroupBuyBoard gbb, List<GroupBuyFile> fileList); // 글 등록
 	void uploadFile(GroupBuyFile file); // 파일 업로드
 	List<GroupBuyFile> listFile(int gbNo); // 파일리스트
@@ -19,6 +18,8 @@ public interface GroupBuyService {
 	GroupBuyBoard detail(int no); // 글 상세
 	void update(GroupBuyBoard gbb, List<GroupBuyFile> fileList); // 글 수정
 	void delete(int no); // 글 삭제
+	List<GroupBuyBoard> search(GroupBuyBoard gbb); // 검색
+	int searchCount(GroupBuyBoard gbb); // 검색결과 개수
 	
 	/* 코멘트 */
 	void writeComment(GroupBuyComment gbc);	// 코멘트작성

@@ -85,9 +85,19 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		mapper.gbDeleteBoard(no);
 	}
 	
+	// 검색
+	@Override
+	public List<GroupBuyBoard> search(GroupBuyBoard gbb) {
+		return mapper.searchGBBoard(gbb);
+	}
+	
+	// 검색결과 개수
+	@Override
+	public int searchCount(GroupBuyBoard gbb) {
+		return mapper.searchGBBoardCount(gbb);
+	}
+	
 	/* 코멘트 */
-	
-	
 	// 코멘트 작성
 	@Override
 	public void writeComment(GroupBuyComment gbc) {

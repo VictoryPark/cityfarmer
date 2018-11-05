@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
+<jsp:useBean id="now" class="java.util.Date" />
  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -43,6 +42,7 @@
         </div>
         <div class="bottom-section">
             <div class="section-one">
+            <div id="list-area">
                <table class="table table-hover">
                	<thead>	
                    <tr>
@@ -53,19 +53,45 @@
                    </tr>
                 </thead>
                 <tbody>
-                   <c:forEach var="gb" items="${list}" varStatus="status"> 
-                   <tr>
-                   	   <td>${gb.gbNo}</td>
-                       <td><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a> <span class="cmtCount">[${comment[status.index]}]</span> </td>
-                       <td>${gb.writer}</td>
-                       <td>${gb.gbViewCnt}</td>
-                   </tr>
-                   </c:forEach>
-                   <c:if test="${empty list}">
-					<tr>
-						<td colspan='4'>입력된 게시물이 없습니다.</td>
-					</tr>
-					</c:if>
+                       <c:forEach var="gb" items="${list}" varStatus="status"> 
+	                   <!-- 현재시간 날짜, 시간으로 나눔 -->
+						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" />
+						<fmt:formatDate value="${now}" pattern="HH:mm" var="nowTime" />
+						<!-- 종료시간 String 에서 Date로 --> 
+	                   <fmt:parseDate var="endTime" value="${gb.gbEndTime}" pattern="HH:mm" />
+	                   <fmt:formatDate value="${endTime}" var="endTime" pattern="HH:mm" />
+	                   <fmt:parseDate var="endDay" value="${gb.gbEndDay}" pattern="yyyy-MM-dd" />
+	                   <fmt:formatDate value="${endDay}" var="endDay" pattern="yyyy-MM-dd" />
+	                   <tr>
+	                   	   <td>${gb.gbNo}</td>
+	                   	   <c:choose>
+	                   		   <c:when test="${nowDate > endDay}">
+	                   		   		 <td><img src='<c:url value='/resources/img/groupbuy/expired.png' />'><span style="color: gray;">만료된 공구입니다.${gb.gbTitle}</span><span class="cmtCount">[${comment[status.index]}]</span></td>
+	                     	   </c:when>
+	                     	   <c:when test="${nowDate == endDay}">
+	                     	   		<c:choose>
+	                     	   	 	<c:when test="${nowTime >= endTime}">
+	                     	   	 	  <td><img src='<c:url value='/resources/img/groupbuy/expired.png' />'><span style="color: gray;">만료된 공구입니다.${gb.gbTitle}</span><span class="cmtCount">[${comment[status.index]}]</span></td>	
+	                     	   	 	</c:when>
+	                     	   	 	<c:otherwise>
+	                     	   	 	   <td><span><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a></span><span class="cmtCount">[${comment[status.index]}]</span> </td>
+	                     	   	 	</c:otherwise>
+	                     	   	 	</c:choose>
+	                     	   </c:when>
+	                	       <c:otherwise>
+	        		               <td><span><a href="gb_detail.cf?no=${gb.gbNo}">${gb.gbTitle}</a></span><span class="cmtCount">[${comment[status.index]}]</span> </td>
+	  		                   </c:otherwise>
+	                       </c:choose>
+	                       <td>${gb.writer}</td>
+	                       <td>${gb.gbViewCnt}</td>
+	                   </tr>
+	                   </c:forEach>
+	                   <c:if test="${empty list}">
+						<tr>
+							<td colspan='4'>입력된 게시물이 없습니다.</td>
+						</tr>
+						</c:if>
+					
 				 </tbody>
                </table>
               
@@ -92,20 +118,22 @@
 					</nav>
 				</c:if>
                 </div>
-                <form class="navbar-form navbar" role="search">
+                </div>
+                <form id="searchForm" class="navbar-form navbar" role="search">
                     <div id="search">
                             <div class="form-group">
-                                <select class="form-control"> 
-                                    <option>선택</option>
-                                    <option>제목</option>
-                                    <option>내용</option>
-                                    <option>제목+내용</option>
-                                    <option>작성자</option>
+                                <select name="searchType" class="form-control"> 
+                                    <option value="0">선택</option>
+                                    <option value="1">제목</option>
+                                    <option value="2">내용</option>
+                                    <option value="3">제목+내용</option>
+                                    <option value="4">작성자</option>
                                 </select>                                   
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input type="text" name="keyword" class="form-control" placeholder="Search">
                             </div>
-                            <button type="submit" class="btn btn-default">검색</button>
+                            <button type="button" id="searchBtn" class="btn btn-default">검색</button>
                         </div>
+                        <input id="pageNo" type="hidden" name="pageNo" value="1">
                     </form>    
                     <div id="writebtn">
                             <button type="button" id="writeButton" class="btn btn-default">글 쓰기</button>
@@ -140,8 +168,44 @@
 //         		alert(pageNo)
         		if (pageNo == 0 || pageNo == '${pageResult.lastPage+1}') return false;
         		
-        		location.href = "gb_board.cf?pageNo=" + pageNo;
+        		if('${list != null}') {
+        			location.href = "gb_board.cf?pageNo=" + pageNo;
+        			return
+        		} 
+        		
+        		searchAjax(pageNo)
         	});
+            
+            $("#searchBtn").click(function() {
+	       		searchAjax(1)
+            });
+            
+            
+            
+            var searchAjax = function(pageNo) {
+            	
+            	$("#pageNo").val(pageNo);
+            	
+            	$(document).ready(function() {
+	        	var formData = $("#searchForm").serialize();
+	        	
+	        	if(formData.split('&')[0].split('=')[1]=='0') {
+	        		alert("카테고리를 선택해주세요") 
+	        		return;
+	        	}
+	        	
+			          $.ajax({
+			          	url: "<c:url value='/groupbuy/gb_search.cf'/>",
+			          	type: "POST",
+			          	data: formData
+			          }).done(function(result) {
+			          		console.log(result)
+			          		
+			          		$("#list-area").html("")
+			          		
+			          });
+            	})
+            }
             
          
         </script>

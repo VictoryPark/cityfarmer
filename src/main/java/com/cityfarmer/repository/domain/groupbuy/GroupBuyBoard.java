@@ -17,6 +17,8 @@ public class GroupBuyBoard {
 	private String gbStartTime; // 글 작성시간
 	private String gbEndTime; // 종료 시간
 	private int pageNo;
+	private String searchType;
+	private String keyword;
 	
 	public int getPageNo() {
 		return pageNo;

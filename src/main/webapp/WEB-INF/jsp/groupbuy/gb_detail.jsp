@@ -147,6 +147,7 @@
 	            });
             });
             
+            
             // 댓글삭제 ajax
             $(document).on("click", "div.cmt_btns > a:odd" , function(e) {
             	e.preventDefault();

@@ -18,6 +18,9 @@ public interface GroupBuyMapper {
 	void gbUpdateViewCnt(int no); // 조회수
 	void gbUpdateBoard(GroupBuyBoard gbb); // 게시글 수정
 	void gbDeleteBoard(int no); // 게시글 삭제
+	List<GroupBuyBoard> searchGBBoard(GroupBuyBoard gbb); // 검색
+	int searchGBBoardCount(GroupBuyBoard gbb); // 검색결과 개수
+	
 	
 	
 	// 코멘트

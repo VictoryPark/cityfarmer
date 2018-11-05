@@ -38,6 +38,7 @@ public class GroupBuyController {
 	@RequestMapping("/cf_main.cf")
 	public void mainForm() {}
 	
+	// 리스트
 	@RequestMapping("/gb_board.cf")
 	public void list(Model model, @RequestParam(value="pageNo", defaultValue="1") int pageNo) {
 		GroupBuyBoard gbb = new GroupBuyBoard();
@@ -59,6 +60,31 @@ public class GroupBuyController {
 		model.addAttribute("list", service.list(gbb));
 		model.addAttribute("pageResult", new PageResult(pageNo, service.listCount()));
 	}
+	
+	// 검색
+		@RequestMapping("/gb_search.cf") 
+		@ResponseBody
+		public Map<String, Object> search(GroupBuyBoard gbb) {
+			
+			List<GroupBuyBoard> gbList =  service.search(gbb);
+			List<Integer> cmtList = new ArrayList<>();
+			
+			for(int i=0; i<gbList.size(); i++) {
+				cmtList.add(service.countComment(gbList.get(i).getGbNo()));
+			}
+			
+			Map<String,Object> map = new HashMap<>();
+			
+			System.out.println("키워드:" + gbb.getKeyword());
+			System.out.println("타입:" + gbb.getSearchType());
+			System.out.println("검색개수:" + service.searchCount(gbb));
+			
+			map.put("comment", cmtList);
+			map.put("list", service.search(gbb));
+			map.put("pageResult", new PageResult(gbb.getPageNo(), service.searchCount(gbb)));
+			
+			return map;
+		}
 	
 	// 게시글 상세
 	@RequestMapping("/gb_detail.cf")
@@ -147,7 +173,6 @@ public class GroupBuyController {
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
 	public GroupBuyFile uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
-//		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/groupbuy";
 		String uploadPath = "/app/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
