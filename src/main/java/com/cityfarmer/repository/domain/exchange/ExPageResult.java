@@ -9,6 +9,8 @@ public class ExPageResult {
 	private int pageNo;
 	private int beginPage;
 	private int endPage;
+	private boolean prevAll;
+	private boolean nextAll;
 	private boolean prev;
 	private boolean next;
 	
@@ -27,8 +29,10 @@ public class ExPageResult {
 		beginPage = (currTab - 1) * tabSize + 1;
 		endPage = (currTab * tabSize < lastPage) ? currTab * tabSize
 				: lastPage;
-		prev = beginPage != 1;
-		next = endPage != lastPage;
+		prevAll = pageNo != 1;
+		nextAll = pageNo != lastPage;
+		prev = pageNo != 1;
+		next = pageNo != endPage;
 	}
 
 	public int getCount()     { return count; }
@@ -36,6 +40,8 @@ public class ExPageResult {
 	public int getPageNo()    { return pageNo; }
 	public int getBeginPage() { return beginPage; }
 	public int getEndPage()   { return endPage; }
+	public boolean isPrevAll()   { return prevAll; }
+	public boolean isNextAll()   { return nextAll; }
 	public boolean isPrev()   { return prev; }
 	public boolean isNext()   { return next; }
 }

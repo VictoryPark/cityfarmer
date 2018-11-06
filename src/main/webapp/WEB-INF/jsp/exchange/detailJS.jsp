@@ -64,7 +64,7 @@ $("select").change(function(){
 		}).done(function(list) {
 			showcommentList(list)
 		}) //done
-	} else {
+	} else {ㅂ
 		$.ajax({
 			url : "<c:url value='/exchange/comment/list.cf'/>",
 			data : "exno=${map.board.exNo}", 

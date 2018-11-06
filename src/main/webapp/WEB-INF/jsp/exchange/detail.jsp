@@ -112,6 +112,7 @@ $(document).ready(function(){
 
         </div>
     </div>
+    <c:import url="../common/footer.jsp" />
 	<c:import url="./detailJS.jsp" />
 </body>
 </html>

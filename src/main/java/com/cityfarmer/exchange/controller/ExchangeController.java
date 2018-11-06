@@ -60,21 +60,8 @@ public class ExchangeController {
 	}
 	
 	@RequestMapping("/write.cf")
-	public String write(FormVO form) {
-		//System.out.println(form);
-		ExchangeBoard board = new ExchangeBoard();
-		ExchangeFile file = new ExchangeFile();
-		
-		board.setExTitle(form.getTitle());
-		board.setExContent(form.getContent());
-		board.setWriter(form.getWriter());
-		file.setExfOriName(form.getOriName());
-		file.setExfSysName(form.getSysName());
-		file.setExfPath(form.getPath());
-		file.setExfSize(form.getSize());
-		
+	public String write(ExchangeBoard board, ExchangeFile file) {
 		service.write(board, file);
-		
 		return "redirect:list.cf";
 	}
 	
@@ -119,7 +106,7 @@ public class ExchangeController {
 	
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
-	public ExchangeFile uploadFile(@RequestParam("file") List<MultipartFile> attach) throws IllegalStateException, IOException {
+	public ExchangeFile uploadFile(@RequestParam("file") MultipartFile attach) throws IllegalStateException, IOException {
 //		String uploadPath = "/app/tomcat-work/wtpwebapps/cityFarmer/img/exchange";
 		String uploadPath = "/app/upload";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
@@ -131,27 +118,27 @@ public class ExchangeController {
 		String fileExtension ="";
 		String fileSysName = "";
 
-		System.out.println(attach);
+		System.out.println("attach : " +attach);
 		
 		ExchangeFile exFile = new ExchangeFile();
 		
-		for(MultipartFile file : attach) {
-			if(file.isEmpty()==true) continue;
-			fileExtension = getExtension(file.getOriginalFilename());
+		
+		if(attach.isEmpty() == false) {
+			fileExtension = getExtension(attach.getOriginalFilename());
 			fileSysName = newName + "." + fileExtension;
 			System.out.println(uploadPath + datePath + "/"+fileSysName);
 			
-			exFile.setExfOriName(file.getOriginalFilename());
+			exFile.setExfOriName(attach.getOriginalFilename());
 			exFile.setExfSysName(fileSysName);
 			exFile.setExfPath(uploadPath + datePath);
-			exFile.setExfSize(file.getSize());
+			exFile.setExfSize(attach.getSize());
 			
 			File img = new File(uploadPath + datePath, fileSysName);
 			
 			if(img.exists() == false) {
 				img.mkdirs();
 			}
-			file.transferTo(img);
+			attach.transferTo(img);
 			//service.uploadFile(ef);
 			exFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
 		} //enhanced for문

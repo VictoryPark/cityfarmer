@@ -17,17 +17,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/exchange/writeexchange.css"/>">
 </head>
 <body>
-	<header>
-        <h1><span>City</span>Farms</h1>
-        <nav>
-            <a href="">About</a>
-            <a href="">Menu</a>
-            <a href="">Locations</a>
-            <a href="">Gallery</a>
-            <a href="">Reviews</a>
-            <a href="">Contact</a>
-        </nav>
-    </header>
+	<c:import url="../common/header.jsp" />
     <div class="top-section">
         <div class="main-image"><img id="title-img" src="<c:url value="/resources/img/exchange/exchange3_1.jpg"/>" /></div>
     </div>
@@ -39,22 +29,22 @@
             <tr>
                 <td><label for="exampleInputEmail1">제목</label></td>
                 <td><input type="text" class="form-control input-lg" 
-                	name="title" placeholder="제목을 입력하세요"></td>
+                	name="exTitle" placeholder="제목을 입력하세요"></td>
             </tr>
             <tr>
                 <td><label for="exampleInputEmail1">내용</label></td>
-                <td><textarea id="summernote" name="content"></textarea></td>
+                <td><textarea id="summernote" name="exContent"></textarea></td>
             </tr>
         </table>
 
         <div id="buttonbox">
             <button class="btn btn-success btn-lg" id="submit">등록하기</button>
         </div>
-    	<input id="imageBoard" name="fileUrl" type="hidden"/>
-    	<input id="imageoriname" name="oriName" type="hidden"/>
-    	<input id="imagesysname" name="sysName" type="hidden"/>
-    	<input id="imagepath" name="path" type="hidden"/>
-    	<input id="imagesize" name="size" type="hidden"/>
+    	<input id="imageBoard" name="url" type="hidden"/>
+    	<input id="imageoriname" name="exfOriName" type="hidden"/>
+    	<input id="imagesysname" name="exfSysName" type="hidden"/>
+    	<input id="imagepath" name="exfPath" type="hidden"/>
+    	<input id="imagesize" name="exfSize" type="hidden"/>
     	
     		<%-- <c:forEach items="${files}" var="file">
     			<li><img src="<c:url value='/resources/file/${file}'/>" width="480" height="auto"/>"></li>
@@ -62,9 +52,7 @@
         </form>
                   
     </div>
-    <footer>
-        <h4>Powered by lots of <span>fresh</span> ingredients.</h4>
-    </footer>
+    <c:import url="../common/footer.jsp" />
   <script>
     $(document).ready(function() {
         $('#summernote').summernote({
@@ -81,7 +69,7 @@
           			console.log(this);
           			for(let i=files.length -1; i>=0; i--){
           				sendFile(files[i], this);
-          			}
+          			} 
           		}
           	} // callbacks
                 
@@ -89,6 +77,7 @@
     });
     
     function sendFile(file, ele) {
+    	var count = 0;
     	var form_data = new FormData();
     	console.log("form_data", form_data)
     	form_data.append('file', file);
@@ -101,18 +90,21 @@
     		enctype : "multipart/form_data",
     		processData : false,
     		success : function(exFile) {
-    			console.log(exFile.url);
-    			$("input#imageBoard").val(exFile.url)
-    			$("input#imageoriname").val(exFile.exfOriName)
-    			$("input#imagesysname").val(exFile.exfSysName)
-    			$("input#imagepath").val(exFile.exfPath)
-    			$("input#imagesize").val(exFile.exfSize)
-    			/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
-    			$(ele).summernote("editor.insertImage", exFile.url);
+    			manageFile(exFile, ele);
+    			//console.log(exFile.url);
     		}
     	})//ajax
+    } //sendFile
+
+    function manageFile(exFile, ele){
+    	$("input#imageBoard").val(exFile.url)
+		$("input#imageoriname").val(exFile.exfOriName)
+		$("input#imagesysname").val(exFile.exfSysName)
+		$("input#imagepath").val(exFile.exfPath)
+		$("input#imagesize").val(exFile.exfSize)
+		/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
+		$(ele).summernote("editor.insertImage", exFile.url);
     }
- 
     /* $("button#submit").click(function(){
     	var result = $("form#write").serializeArray();
     	console.log("result", result)

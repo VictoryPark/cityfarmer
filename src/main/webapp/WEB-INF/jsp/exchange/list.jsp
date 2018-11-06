@@ -89,16 +89,16 @@
    <c:if test="${map.pageResult.count != 0}">
 	   <div id="paging" class="text-center">
 	       <div class="pagination">
-	           <a <c:if test="${map.pageResult.prev eq false}"> class="disabled"</c:if>
+	           <a <c:if test="${map.pageResult.prevAll eq false}"> class="disabled"</c:if>
 	          		 <c:choose>
-			      		<c:when test="${map.pageResult.prev eq true}">href="list.cf?pageNo=${map.pageResult.beginPage}" </c:when>
-			      		<c:otherwise>href="#${map.pageResult.beginPage - 1}"</c:otherwise>
+			      		<c:when test="${map.pageResult.prevAll eq true}">href="list.cf?pageNo=${map.pageResult.beginPage}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.beginPage}"</c:otherwise>
 			      	</c:choose>
 			      		 aria-label="PreviousAll">
 	           <span aria-hidden="true">&laquo;</span></a>
 	           <a <c:choose>
-			      		<c:when test="${map.pageResult.prev eq true}">href="list.cf?pageNo=${map.pageResult.beginPage - 1}" </c:when>
-			      		<c:otherwise>href="#${map.pageResult.beginPage - 1}"</c:otherwise>
+			      		<c:when test="${map.pageResult.prev eq true}">href="list.cf?pageNo=${map.pageResult.pageNo - 1}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.pageNo - 1}"</c:otherwise>
 			      	</c:choose>
 			      		 aria-label="Previous">
 	           <span aria-hidden="true">&lt;</span></a>
@@ -116,14 +116,14 @@
 	           
 	           
 	           <a <c:choose>
-			      		<c:when test="${map.pageResult.next eq true}">href="list.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
-			      		<c:otherwise>href="#${map.pageResult.endPage+1}"</c:otherwise>
+			      		<c:when test="${map.pageResult.next eq true}">href="list.cf?pageNo=${map.pageResult.pageNo+1}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.pageNo + 1}"</c:otherwise>
 			      	</c:choose>
 			      	aria-label="Next">
 			      	<span aria-hidden="true">&gt;</span></a>
-	           <a <c:if test="${map.pageResult.next eq false}"> class="disabled"</c:if>
+	           <a <c:if test="${map.pageResult.nextAll eq false}"> class="disabled"</c:if>
 	           		<c:choose>
-			      		<c:when test="${map.pageResult.next eq true}">href="list.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
+			      		<c:when test="${map.pageResult.nextAll eq true}">href="list.cf?pageNo=${map.pageResult.endPage}" </c:when>
 			      		<c:otherwise>href="#${map.pageResult.endPage}"</c:otherwise>
 			      	</c:choose>
 			      		aria-label="NextAll">
@@ -133,6 +133,10 @@
 	</c:if>
    <c:import url="../common/footer.jsp" />
    <c:import url="./listJS.jsp" />
-
+<script>
+	/* $(document).ready(function(){
+		alert("${map.pageResult.next}")
+	}) */
+</script>
 </body>
 </html>
