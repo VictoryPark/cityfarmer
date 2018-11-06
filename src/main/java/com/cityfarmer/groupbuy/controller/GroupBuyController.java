@@ -32,6 +32,8 @@ public class GroupBuyController {
 	
 	@Autowired
 	private GroupBuyService service;
+	private String keyword =""; // 검색어를 유지시키기 위한 필드
+	private String searchType=""; // 검색타입을 유지시키기 위한 필드
 	
 	private List<GroupBuyFile> fileList = new ArrayList<>();
 	
@@ -52,10 +54,6 @@ public class GroupBuyController {
 			cmtList.add(service.countComment(gbList.get(i).getGbNo()));
 		}
 		
-//		Date today = new Date();
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm");
-//		model.addAttribute("today", sdf.format(today));
-		
 		model.addAttribute("comment", cmtList);
 		model.addAttribute("list", service.list(gbb));
 		model.addAttribute("pageResult", new PageResult(pageNo, service.listCount()));
@@ -63,8 +61,17 @@ public class GroupBuyController {
 	
 	// 검색
 		@RequestMapping("/gb_search.cf") 
-		@ResponseBody
-		public Map<String, Object> search(GroupBuyBoard gbb) {
+		public void search(Model model, GroupBuyBoard gbb, @RequestParam(value="pageNo", defaultValue="1") int pageNo) {
+			
+			if(gbb.getKeyword() != null && gbb.getKeyword() != null) {
+				keyword = gbb.getKeyword();
+				searchType = gbb.getSearchType();
+			} else {
+				gbb.setKeyword(keyword);
+				gbb.setSearchType(searchType);
+			}
+			
+			gbb.setPageNo(pageNo);
 			
 			List<GroupBuyBoard> gbList =  service.search(gbb);
 			List<Integer> cmtList = new ArrayList<>();
@@ -73,17 +80,14 @@ public class GroupBuyController {
 				cmtList.add(service.countComment(gbList.get(i).getGbNo()));
 			}
 			
-			Map<String,Object> map = new HashMap<>();
+//			System.out.println("키워드:" + gbb.getKeyword());
+//			System.out.println("타입:" + gbb.getSearchType());
+//			System.out.println("검색개수:" + service.searchCount(gbb));
 			
-			System.out.println("키워드:" + gbb.getKeyword());
-			System.out.println("타입:" + gbb.getSearchType());
-			System.out.println("검색개수:" + service.searchCount(gbb));
+			model.addAttribute("comment", cmtList);
+			model.addAttribute("list", service.search(gbb));
+			model.addAttribute("pageResult", new PageResult(gbb.getPageNo(), service.searchCount(gbb)));
 			
-			map.put("comment", cmtList);
-			map.put("list", service.search(gbb));
-			map.put("pageResult", new PageResult(gbb.getPageNo(), service.searchCount(gbb)));
-			
-			return map;
 		}
 	
 	// 게시글 상세
@@ -183,7 +187,7 @@ public class GroupBuyController {
 		String fileExtension ="";
 		String fileSysName = "";
 
-		System.out.println(attach);
+//		System.out.println(attach);
 		
 		GroupBuyFile gbFile = new GroupBuyFile();
 		
@@ -191,14 +195,14 @@ public class GroupBuyController {
 			if(file.isEmpty()==true) continue;
 			fileExtension = getExtension(file.getOriginalFilename());
 			fileSysName = newName + "." + fileExtension;
-			System.out.println(uploadPath + datePath + "/"+fileSysName);
+//			System.out.println(uploadPath + datePath + "/"+fileSysName);
 			
 			gbFile.setGbfOriName(file.getOriginalFilename());
 			gbFile.setGbfSysName(fileSysName);
 			gbFile.setGbfPath(uploadPath + datePath);
 			gbFile.setGbfSize(file.getSize());
 			
-			System.out.println("파일 크기: " + file.getSize());
+//			System.out.println("파일 크기: " + file.getSize());
 			
 			File img = new File(uploadPath + datePath, fileSysName);
 			
@@ -246,7 +250,4 @@ public class GroupBuyController {
 				gbb.setGbEndTime(endArr[1]);
 			}
 		}
-	 
-	 
-	
 }

@@ -50,7 +50,7 @@
                     <div class="panel-body">
 <!--                             <img src="https://steptohealth.co.kr/wp-content/uploads/2017/09/consumir-tomate-500x332.jpeg" /> -->
                             ${gbb.gbContent}
-                            <div style="font-weight: bold;">공구종료날짜: ${gbb.gbEndDay} ${gbb.gbEndTime}</div>
+<%--                             <div style="font-weight: bold;">공구종료날짜: ${gbb.gbEndDay} ${gbb.gbEndTime}</div> --%>
                             <div id="timeLimit" style="color: red;"></div>
                     </div>
                     <div class="panel-footer">댓글 목록</div>
@@ -242,7 +242,7 @@
             if(m<10) m = "0" + m;
             
             //id가 d-day인 HTML코드에 내용 삽입 
-            $("#timeLimit").html(d +"일" + h + ":" + m + ":" + s + "남았습니다.");
+            $("#timeLimit").html("공구 종료까지 "+ d +"일" + h + ":" + m + ":" + s + "남았습니다.");
             });
             
             $("#deleteBtn").click(function() {
