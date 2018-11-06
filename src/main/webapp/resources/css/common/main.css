@@ -1,4 +1,5 @@
 @import "https://fonts.googleapis.com/css?family=Economica";
+
 html, body {
   margin: 0;
   max-width: 100%;
@@ -112,7 +113,7 @@ a {
   transition: flex 0.2s;
 }
 .container .section:hover > .cont_title h1 {
-  font-size: 5.3vw;
+  font-size: 4.3vw;
   transition: font-size 0.4s;
 }
 .container .section:hover > .cont_title h3 {
@@ -130,17 +131,22 @@ a {
   transition-delay: 0s, 0.1s, 0s;
 }
 .container .section:nth-child(1) {
-  background: url("https://artsandculture.withgoogle.com/gcs/national-parks-service/en-us/Asset-Kenai-desktop.jpg") center;
+  background: url("/cityFarmer/resources/img/common/honey-1958464_960_720.jpg") center;
+  background-size: auto 100%;
 }
 .container .section:nth-child(2) {
-  background: url("https://artsandculture.withgoogle.com/gcs/national-parks-service/en-us/Asset-Hawaii-desktop.jpg") center;
+  background: url("/cityFarmer/resources/img/common/tomatoes-320860_960_720.jpg") center;
+  background-size: auto 100%;
 }
 .container .section:nth-child(3) {
-  background: url("https://res.cloudinary.com/bigboydesign1/image/upload/v1476647899/download_schjib.jpg") center;
+  background: url("/cityFarmer/resources/img/common/atelier-mave-tote-bag-fruit-and-vegetables-01.jpg") center;  
+  background-size: auto 100%;
 }
 .container .section:nth-child(4) {
-  background: url("https://artsandculture.withgoogle.com/gcs/national-parks-service/en-us/Asset-Bryce-desktop.jpg") center;
+  background: url("/cityFarmer/resources/img/common/picture-2281202_960_720.jpg") center;
+   background-size: auto 100%;
 }
 .container .section:nth-child(5) {
-  background: url("https://artsandculture.withgoogle.com/gcs/national-parks-service/en-us/Asset-Tortugas-desktop.jpg") center;
+  background: url("/cityFarmer/resources/img/common/notebook-3397136_960_720.jpg") center;
+   background-size: auto 100%;
 }
