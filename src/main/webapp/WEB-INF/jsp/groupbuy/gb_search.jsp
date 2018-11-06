@@ -146,8 +146,8 @@
 				</div>
 			</form>
 			<div id="writebtn">
-				<button type="button" id="writeButton" class="btn btn-default">글
-					쓰기</button>
+				<div style="float: left;"><button type="button" id="listButton" class="btn btn-default">전체글</button></div>
+				<div style="float: right;"><button type="button" id="writeButton" class="btn btn-default">글쓰기</button></div>
 			</div>
 		</div>
 	</div>
@@ -167,6 +167,10 @@
        			
             	location.href = "gb_writeForm.cf"
             });
+        	
+        	$("#listButton").click(function() {
+        		location.href = "gb_board.cf"
+        	})
             
             $("nav > ul.pagination > li > a").click(function(e) {
         		// 기본 이벤트 막기...

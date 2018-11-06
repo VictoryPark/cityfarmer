@@ -173,8 +173,9 @@ footer span {
 #writebtn{
     text-align: right;
     margin-top: -20px;
+    margin-left: 30px;
     margin-right: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .cmtCount {

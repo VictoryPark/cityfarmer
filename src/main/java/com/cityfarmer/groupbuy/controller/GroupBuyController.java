@@ -35,10 +35,7 @@ public class GroupBuyController {
 	private String keyword =""; // 검색어를 유지시키기 위한 필드
 	private String searchType=""; // 검색타입을 유지시키기 위한 필드
 	
-	private List<GroupBuyFile> fileList = new ArrayList<>();
-	
-	@RequestMapping("/cf_main.cf")
-	public void mainForm() {}
+	private List<GroupBuyFile> fileList = new ArrayList<>(); // 다중 파일첨부를 위한 필드
 	
 	// 리스트
 	@RequestMapping("/gb_board.cf")
@@ -87,7 +84,6 @@ public class GroupBuyController {
 			model.addAttribute("comment", cmtList);
 			model.addAttribute("list", service.search(gbb));
 			model.addAttribute("pageResult", new PageResult(gbb.getPageNo(), service.searchCount(gbb)));
-			
 		}
 	
 	// 게시글 상세
@@ -150,7 +146,6 @@ public class GroupBuyController {
 	public List<GroupBuyComment> commentList(int no) {
 		return service.commentList(no);
 	}
-	
 	
 	// 댓글 작성
 	@RequestMapping("/gb_writeComment.cf")
