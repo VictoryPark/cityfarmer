@@ -37,12 +37,44 @@ $("input[type='checkbox']").click(function(){
 		}, 1500);
 		
 	} else {
-		alert("거래 취소되었습니다.")
-		$(this).removeAttr("checked")
+		$.ajax({
+			url : "<c:url value='/exchange/updaten.cf'/>",
+			data : "exno=${map.board.exNo}", 
+			type : "POST"
+		}).done(function(updateno) {
+			if(updateno = 1){
+				alert("거래 취소되었습니다.")
+				$(this).removeAttr("checked")
+				location.href = "<c:url value='/exchange/list.cf'/>" +"?pageNo=1"				
+			}
+		}) //done
 	} //체크를 uncheck 했을때..
 }) // 거래완료 체크 ..
 
 
+$("select").change(function(){
+	var $selected = $("select option:selected").val();
+	//alert($selected)
+	
+	if($selected == "desc") {
+		$.ajax({
+			url : "<c:url value='/exchange/comment/order.cf'/>",
+			data : "exno=${map.board.exNo}", 
+			type : "POST"
+		}).done(function(list) {
+			showcommentList(list)
+		}) //done
+	} else {
+		$.ajax({
+			url : "<c:url value='/exchange/comment/list.cf'/>",
+			data : "exno=${map.board.exNo}", 
+			type : "POST"
+		}).done(function(list) {
+			showcommentList(list)
+		}) //done
+	}
+	
+})
 
 $("a.submit").click(function() {
 	$.ajax({
@@ -53,10 +85,11 @@ $("a.submit").click(function() {
 			"exNo" : "${map.board.exNo}"
 			   },
 		type : "POST"
-	}).done(function(list){
+	}).done(function(map){
 		//console.log(list)
-		if(list != null) {
-			showcommentList(list);
+		if(map != null) {
+			$("span#count2").html(map.count)
+			showcommentList(map.list);
 		} //not null
 	}) //done
 	
@@ -67,6 +100,7 @@ $("a.submit").click(function() {
 function deleteComment(excNo, exNo){
 	var check = confirm("정말 댓글을 삭제하시겠습니까?")
 	if(check ==true) {
+	
 		//alert(check)
 		$.ajax({
 			url : "<c:url value='/exchange/comment/delete.cf'/>",
@@ -74,10 +108,12 @@ function deleteComment(excNo, exNo){
 				"excNo" : excNo,
 				"exNo" : exNo
 					}
-		}).done(function(list){
-			showcommentList(list)
-		})
+		}).done(function(map){
+			$("span#count2").html(map.count)
+			showcommentList(map.list)
+		}) //done
 	} 
+	
 	//alert(excNo);
 } // deleteComment
 
@@ -180,12 +216,14 @@ function updateComment(excNo, exNo) {
 				"excContent" : $("textarea#excContent").val()
 				},
 		type : "POST"
-	}).done(function(list){
-		showcommentList(list)
+	}).done(function(map){
+		$("span#count2").html(map.count)
+		showcommentList(map.list)
+		
 	}) //done
 }//updateComment
 
-function insertformReply(excNo, exNo) {
+function insertformReply(excNo, exNo, list) {
 	var text = '<tr><td id="rere" colspan="2">';
 	text += '<div id="rere">'
 	text += '<input id="reWriter" type="hidden" value="${user.id}"/>'
@@ -201,7 +239,7 @@ function insertformReply(excNo, exNo) {
 		insertReply(excNo, exNo);
 	})
 	$("button#cancelRepl").click(function (){
-		showcommentList(excNo, exNo);
+		showcommentList(list);
 	})
 	
 } // insertReply
@@ -217,8 +255,9 @@ function insertReply(excNo, exNo) {
 				"excWriter" : $("input#reWriter").val()
 				},
 		type : "POST"
-	}).done(function(list){
-		showcommentList(list)
+	}).done(function(map){
+		$("span#count2").html(map.count)
+		showcommentList(map.list)
 	}) //done
 } //insertRepl
 
@@ -232,8 +271,9 @@ function deleteReply(excNo, exNo) {
 					"exNo" : exNo
 					},
 			type : "POST"
-		}).done(function(list){
-			showcommentList(list)
+		}).done(function(map){
+			$("span#count2").html(map.count)
+			showcommentList(map.list)
 		}) //done
 	}
 } //deleteReply
@@ -328,8 +368,9 @@ function updateRepl(excNo, exNo){
 				"excContent" : $("textarea#reContent").val()
 				},
 		type : "POST"
-	}).done(function(list){
-		showcommentList(list)
+	}).done(function(map){
+		$("span#count2").html(map.count)
+		showcommentList(map.list)
 	}) //done
 } //updateRepl
 
@@ -428,7 +469,7 @@ function showcommentList(list) {
 	
 	//답글 form 버튼
 	$("a#reply").click(function() {
-		insertformReply($(this).attr("href").substring(1), "${map.board.exNo}");
+		insertformReply($(this).attr("href").substring(1), "${map.board.exNo}", list);
 	})
 	
 	//답글의 삭제 버튼

@@ -2,7 +2,6 @@ package com.cityfarmer.exchange.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +28,7 @@ import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
 import com.cityfarmer.repository.domain.exchange.FormVO;
+import com.cityfarmer.repository.domain.exchange.SearchVO;
 
 @Controller
 @RequestMapping("/exchange")
@@ -48,6 +48,11 @@ public class ExchangeController {
 		Map<String, Object>  map = service.list(pageNo);
 		model.addAttribute("map", map);
 	}
+	
+	@RequestMapping("/listsearch.cf")
+	public void searchList(SearchVO search, Model model) {
+		model.addAttribute("map", service.searchList(search));
+	} //searchList
 	
 	@RequestMapping("/writeform.cf")
 	public void writeForm() {
@@ -157,8 +162,8 @@ public class ExchangeController {
 	
 	@PostMapping("/comment/list.cf")
 	@ResponseBody
-	public List<ExchangeComment> listComment(@RequestParam("exno")int exNo) {
-		List<ExchangeComment> list = service.listComment(exNo);
+	public List<ExchangeComment> listCommentByRegister(@RequestParam("exno")int exNo) {
+		List<ExchangeComment> list = service.listCommentByRegister(exNo);
 //		for( ExchangeComment ec : list) {
 //			System.out.println(ec.getExcRef() +" - "+ ec.getExcParentNo());
 //		}
@@ -168,50 +173,56 @@ public class ExchangeController {
 
 	@PostMapping("/comment/write.cf")
 	@ResponseBody
-	public List<ExchangeComment> writeComment(ExchangeComment comment) {
+	public Map<String, Object> writeComment(ExchangeComment comment) {
 		return service.writeComment(comment);
 	}
 
 	@GetMapping("/comment/delete.cf")
 	@ResponseBody
-	public List<ExchangeComment> deleteComment(ExchangeComment comment)  {
+	public Map<String, Object> deleteComment(ExchangeComment comment)  {
 		return service.deleteComment(comment);
 	}//deleteComment
 	
 	@PostMapping("/comment/updateform.cf")
 	@ResponseBody
 	public List<ExchangeComment> updateFormComment(@RequestParam("exno")int exNo){
-		return service.listComment(exNo);
+		return service.listCommentByRegister(exNo);
 	} //updateFormComment
 	
 	@PostMapping("/comment/update.cf")
 	@ResponseBody
-	public List<ExchangeComment> updateComment(ExchangeComment comment) { 
+	public Map<String, Object> updateComment(ExchangeComment comment) { 
 		//comment.setExcRegDate(new Date());
 		return service.updateComment(comment);
 	} // updateComment
 	
+	@PostMapping("/comment/order.cf")
+	@ResponseBody
+	public List<ExchangeComment> listCommentByDate(@RequestParam("exno")int exNo){
+		return service.listCommentByDate(exNo);
+	}
+	
 	@PostMapping("/comment/writerepl.cf")
 	@ResponseBody
-	public List<ExchangeComment> writeReply(ExchangeComment comment) {
+	public Map<String, Object> writeReply(ExchangeComment comment) {
 		return service.writeReply(comment);
 	}
 	
 	@PostMapping("/comment/deleterepl.cf")
 	@ResponseBody
-	public List<ExchangeComment> deleteReply(ExchangeComment comment){
+	public Map<String, Object> deleteReply(ExchangeComment comment){
 		return service.deleteComment(comment);
 	}
 	
 	@PostMapping("/comment/updateformrepl.cf")
 	@ResponseBody
 	public List<ExchangeComment> updateFormReply(@RequestParam("exno")int exNo) {
-		return service.listComment(exNo);
+		return service.listCommentByRegister(exNo);
 	} //updateFormComment
 	
 	@PostMapping("/comment/updaterepl.cf")
 	@ResponseBody
-	public List<ExchangeComment> updateReply(ExchangeComment comment) {
+	public Map<String, Object> updateReply(ExchangeComment comment) {
 		return service.updateComment(comment);
 	}
 	

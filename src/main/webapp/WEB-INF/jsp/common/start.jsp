@@ -68,18 +68,20 @@
 	            <h4 class="modal-title" id="exampleModalLabel">로그인</h4>
 	        </div>
 	        <div class="modal-body">
-	            <form action="<c:url value="/member/login.cf"/>" method="POST">
+	            <form name="login">
 	            <div class="form-group">
 	                <label for="recipient-name" class="control-label">아이디</label>
-	                <input type="text" class="form-control" name="id">
+	                <span id='loginId'></span>
+	                <input type="text" class="form-control" name="loginid">
 	            </div>
 	            <div class="form-group">
 	                <label for="recipient-name" class="control-label">비밀번호</label>
-	                <input type="password" class="form-control" name="pass">
+	                <span id='loginPass'></span>
+	                <input type="password" class="form-control" name="loginpass">
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default" data-dismiss="modal">창 닫기</button>
-	                <button class="btn btn-default">로그인</button>
+	                <button type="button" class="btn btn-default" id="login">로그인</button>
 	            </div>
 	            </form>
 	        </div>
@@ -87,5 +89,6 @@
 	    </div>
 	</div>
 	<c:import url="./signupJS.jsp"/>
+	<c:import url="./loginJS.jsp"/>
 </body>
 </html>

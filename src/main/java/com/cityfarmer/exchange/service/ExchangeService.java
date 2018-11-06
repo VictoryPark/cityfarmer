@@ -6,6 +6,7 @@ import java.util.Map;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
+import com.cityfarmer.repository.domain.exchange.SearchVO;
 
 public interface ExchangeService {
 
@@ -23,18 +24,22 @@ public interface ExchangeService {
 
 	void delete(int exNo);
 
-	List<ExchangeComment> writeComment(ExchangeComment comment);
+	Map<String, Object> writeComment(ExchangeComment comment);
 
-	List<ExchangeComment> listComment(int exNo);
+	List<ExchangeComment> listCommentByRegister(int exNo);
 
-	List<ExchangeComment> deleteComment(ExchangeComment comment);
+	Map<String, Object> deleteComment(ExchangeComment comment);
 
-	List<ExchangeComment> updateComment(ExchangeComment comment);
+	Map<String, Object> updateComment(ExchangeComment comment);
 
-	List<ExchangeComment> writeReply(ExchangeComment comment);
+	Map<String, Object> writeReply(ExchangeComment comment);
 
 	int updateY(int exNo);
 
 	int updateN(int exNo);
+
+	Map<String, Object> searchList(SearchVO search);
+
+	List<ExchangeComment> listCommentByDate(int exNo);
 
 }

@@ -20,10 +20,18 @@
            <a class="btn btn-default" href="<c:url value="/exchange/writeform.cf"/>" role="button">글쓰기</a>
            <div class="col-xs-3 form-inline" id="search">
                <select id="searchsel" name="type" class="searchselect">
-                   <option value="title">제목</option>
+	           <c:choose>
+	           <c:when test="${map.search.type == 'title'}">
+                   <option value="title" selected="selected">제목</option>
                    <option value="writer">작성자</option>
+               </c:when>
+               <c:otherwise>
+               	   <option value="title" >제목</option>
+                   <option value="writer" selected="selected">작성자</option>
+               </c:otherwise>
+               </c:choose>
                </select>
-               <input type="text" name="keyword" class="form-control"/>
+               <input type="text" name="keyword" class="form-control" value="${map.search.keyword }"/>
                <button type="button" class="btn btn-default" id="search">검색</button>
            </div>
        </form>
@@ -91,13 +99,13 @@
 	       <div class="pagination">
 	           <a <c:if test="${map.pageResult.prev eq false}"> class="disabled"</c:if>
 	          		 <c:choose>
-			      		<c:when test="${map.pageResult.prev eq true}">href="list.cf?pageNo=${map.pageResult.beginPage}" </c:when>
+			      		<c:when test="${map.pageResult.prev eq true}">href="listsearch.cf?pageNo=${map.pageResult.beginPage}&type=${map.search.type}" </c:when>
 			      		<c:otherwise>href="#${map.pageResult.beginPage - 1}"</c:otherwise>
 			      	</c:choose>
 			      		 aria-label="PreviousAll">
 	           <span aria-hidden="true">&laquo;</span></a>
 	           <a <c:choose>
-			      		<c:when test="${map.pageResult.prev eq true}">href="list.cf?pageNo=${map.pageResult.beginPage - 1}" </c:when>
+			      		<c:when test="${map.pageResult.prev eq true}">href="listsearch.cf?pageNo=${map.pageResult.beginPage - 1}&type=${map.search.type}" </c:when>
 			      		<c:otherwise>href="#${map.pageResult.beginPage - 1}"</c:otherwise>
 			      	</c:choose>
 			      		 aria-label="Previous">
@@ -109,21 +117,21 @@
 	           			<a href="#1">${i}</a>
 	           		</c:when>
 	           		<c:otherwise>
-	           			<a href="list.cf?pageNo=${i}">${i}</a>
+	           			<a href="listsearch.cf?pageNo=${i}">${i}</a>
 	           		</c:otherwise>
 	           	</c:choose>
 	           </c:forEach>
 	           
 	           
 	           <a <c:choose>
-			      		<c:when test="${map.pageResult.next eq true}">href="list.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
+			      		<c:when test="${map.pageResult.next eq true}">href="listsearch.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
 			      		<c:otherwise>href="#${map.pageResult.endPage+1}"</c:otherwise>
 			      	</c:choose>
 			      	aria-label="Next">
 			      	<span aria-hidden="true">&gt;</span></a>
 	           <a <c:if test="${map.pageResult.next eq false}"> class="disabled"</c:if>
 	           		<c:choose>
-			      		<c:when test="${map.pageResult.next eq true}">href="list.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
+			      		<c:when test="${map.pageResult.next eq true}">href="listsearch.cf?pageNo=${map.pageResult.endPage+1}" </c:when>
 			      		<c:otherwise>href="#${map.pageResult.endPage}"</c:otherwise>
 			      	</c:choose>
 			      		aria-label="NextAll">
@@ -133,6 +141,11 @@
 	</c:if>
    <c:import url="../common/footer.jsp" />
    <c:import url="./listJS.jsp" />
-
+<script>
+	$(".pagination a").click(function(e){
+		e.preventDefault();
+		location.href= $(this).attr("href") + "&type=${map.search.type}&keyword=${map.search.keyword}"
+	})
+</script>
 </body>
 </html>

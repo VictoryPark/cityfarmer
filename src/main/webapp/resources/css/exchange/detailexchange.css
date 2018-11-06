@@ -293,7 +293,7 @@ table#replysummary span {
 span.label {
 	margin-left : 5px;
 }
-span#count {
+span[id^='count'] {
 	color : #10806b;
 }
 span#reContent {
