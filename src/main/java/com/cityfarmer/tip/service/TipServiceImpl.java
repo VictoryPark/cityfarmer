@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cityfarmer.repository.domain.tip.TipBoard;
 import com.cityfarmer.repository.domain.tip.TipBoardComment;
+import com.cityfarmer.repository.domain.tip.TipFile;
 import com.cityfarmer.repository.mapper.TipMapper;
 
 @Service
@@ -16,8 +17,8 @@ public class TipServiceImpl implements TipService {
 	private TipMapper mapper;
 
 	@Override
-	public List<TipBoard> selectBoard() {
-		return mapper.selectBoard();
+	public List<TipBoard> selectBoard(TipBoard board) {
+		return mapper.selectBoard(board);
 	}
 
 	@Override
@@ -27,14 +28,18 @@ public class TipServiceImpl implements TipService {
 	}
 
 	@Override
-	public void insertBoard(TipBoard board) {
+	public void insertBoard(TipBoard board, TipFile file) {
+		
 		mapper.insertBoard(board);
+		file.setTipNo(board.getTipNo());
+		mapper.insertTipFile(file);
 	}
 
 
 
 	@Override
 	public TipBoard selectBoardByNo(int no) {
+		mapper.updateBoardViewCnt(no);
 		return mapper.selectBoardByNo(no);
 	}
 
@@ -49,7 +54,12 @@ public class TipServiceImpl implements TipService {
 		mapper.updateBoard(board);
 
 	}
-	// �뙎湲�
+	
+
+	@Override
+	public int updateBoardViewCnt(int no) {
+		return mapper.updateBoardViewCnt(no);
+	}
 
 	@Override
 	public List<TipBoardComment> selectComment(int no) {
@@ -69,6 +79,23 @@ public class TipServiceImpl implements TipService {
 	mapper.insertComment(tipBoardComment);
 		
 	}
+//파일 첨부
+	@Override
+	public void insertTipFile(TipFile file) {
+	mapper.insertTipFile(file);
+	}
+	
+//파일 갖고오기
+
+	/*@Override
+	public TipFile selectTipFile(int no) {
+		mapper.selectTipFile(no);
+		return mapper.selectTipFile(no);
+	}
+	*/
+	
+	
+	
 	/*@Override
 	public void updateComment(TipBoardComment tipBoardComment) {
 		mapper.updateComment(tipBoardComment);

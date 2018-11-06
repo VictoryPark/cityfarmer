@@ -181,8 +181,9 @@ header nav a {
 #summernote {
 	position: fixed;
 }
-#name{
-	color : black;
+
+#name {
+	color: black;
 }
 </style>
 <body>
@@ -193,18 +194,20 @@ header nav a {
 	<nav> <a href="">꿀팁게시판</a> <a href="">공구게시판</a> <a href="">물물교환
 		게시판</a> <a href="">식물자랑 갤러리</a> <a href="">달력게시판</a> <a href="">로그인/마이페이지</a>
 	</nav> </header>
-	
-<form action="write.cf" method="post">
+
+	<form action="update.cf" method="post">
 		<div class="top-section">
 			<div class="main-image">
-				<img src="<c:url value="./hummel-1353423_1920.jpg"/>" width="1200" height="300" />
+				<img src="<c:url value="./hummel-1353423_1920.jpg"/>" width="1200"
+					height="300" />
 			</div>
 			<div class="main-title">
 				<h3>
-					
-						<input type="text" id="name" name="tipTitle" value = "${tipBoard.tipTitle}" class="form-control"/>
+
+					<input type="text" id="name" name="tipTitle"
+						value="${tipBoard.tipTitle}" class="form-control" />
 				</h3>
-<!-- 				<input type="hidden" name="writer" value="aaa" /> -->
+				<!-- 				<input type="hidden" name="writer" value="aaa" /> -->
 				<p></p>
 			</div>
 		</div>
@@ -212,9 +215,10 @@ header nav a {
 			<div class="section-one">
 
 
-				<textarea id="summernote" name = "tipContent">
+				<textarea id="summernote" name="tipContent">
 					${tipBoard.tipContent}
 				</textarea>
+				<input type = "hidden" name = "tipNo" value = "${tipBoard.tipNo}">
 			</div>
 		</div>
 
@@ -226,13 +230,9 @@ header nav a {
 		</div>
 
 
-</form>
+	</form>
 
 	<script>
-	
-	
-	
-	
 		$(document).ready(function() {
 			$('#summernote').summernote({
 				height : 300,
@@ -241,11 +241,11 @@ header nav a {
 				focus : true
 			});
 		});
-		 $(".updateBoard").click(function(){
-			 
-			   location.href="update.cf?no=${tipBoard.tipNo}";
-			 
-		 });
+	/* 	$(".updateBoard").click(function() {
+			
+			location.href = "update.cf?no="+${tipBoard.tipNo};
+
+		}); */
 		/* $("button:eq(0)").click(function(){
 		location.href="MainPage.html";
 		 });

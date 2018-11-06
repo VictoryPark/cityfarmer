@@ -181,8 +181,9 @@ header nav a {
 #summernote {
 	position: fixed;
 }
-#name{
-	color : black;
+
+#name {
+	color: black;
 }
 </style>
 <body>
@@ -193,18 +194,20 @@ header nav a {
 	<nav> <a href="">꿀팁게시판</a> <a href="">공구게시판</a> <a href="">물물교환
 		게시판</a> <a href="">식물자랑 갤러리</a> <a href="">달력게시판</a> <a href="">로그인/마이페이지</a>
 	</nav> </header>
-	
-<form action="write.cf" method="post">
+
+	<form action="write.cf" method="post">
 		<div class="top-section">
 			<div class="main-image">
-				<img src="<c:url value="./hummel-1353423_1920.jpg"/>" width="1200" height="300" />
+				<img src="<c:url value="./hummel-1353423_1920.jpg"/>" width="1200"
+					height="300" />
 			</div>
 			<div class="main-title">
 				<h3>
-					
-						<input type="text" id="name" name="tipTitle"  class="form-control" placeholder="제목을 입력하세요.">
+
+					<input type="text" id="name" name="tipTitle" class="form-control"
+						placeholder="제목을 입력하세요.">
 				</h3>
-<!-- 				<input type="hidden" name="writer" value="aaa" /> -->
+				<!-- 				<input type="hidden" name="writer" value="aaa" /> -->
 				<p></p>
 			</div>
 		</div>
@@ -212,7 +215,7 @@ header nav a {
 			<div class="section-one">
 
 
-				<textarea id="summernote" name = "tipContent">
+				<textarea id="summernote" name="tipContent">
 					
 				</textarea>
 			</div>
@@ -224,12 +227,16 @@ header nav a {
 			</button>
 
 		</div>
+		<input id="imageBoard" name="fileUrl" type="hidden" /> <input
+			id="imageoriname" name="oriName" type="hidden" /> <input
+			id="imagesysname" name="sysName" type="hidden" /> <input
+			id="imagepath" name="path" type="hidden" /> <input id="imagesize"
+			name="size" type="hidden" />
 
-
-</form>
+	</form>
 
 	<script>
-		$(document).ready(function() {
+		/* $(document).ready(function() {
 			$('#summernote').summernote({
 				height : 300,
 				minHeight : null,
@@ -237,6 +244,51 @@ header nav a {
 				focus : true
 			});
 		});
+		 */
+		$(document).ready(function() {
+			$('#summernote').summernote({
+			   
+				height : 300,
+				minHeight : null,
+				maxHeight : null,
+				focus : true,
+				placeholder : '내용을 입력하여 주세요',
+				callbacks : {
+					onImageUpload : function(files, editor, welEditable) {
+						console.log(files);
+						console.log(this);
+						for (let i = files.length - 1; i >= 0; i--) {
+							sendFile(files[i], this);
+						}
+					}
+				}
+			// callbacks
+			});
+		});
+		function sendFile(file, ele) {
+			var form_data = new FormData();
+			console.log("form_data", form_data)
+			form_data.append('file', file);
+			$.ajax({
+				data : form_data,
+				type : "POST",
+				url : "<c:url value='/tip/insertFile.cf'/>",
+				cache : false,
+				contentType : false,
+				enctype : "multipart/form_data",
+				processData : false,
+				success : function(tipFile) {
+					console.log(tipFile.url);
+					$("input#imageBoard").val(tipFile.url)
+					$("input#imageoriname").val(tipFile.tipfOriName)
+					$("input#imagesysname").val(tipFile.tipfSysName)
+					$("input#imagepath").val(tipFile.tipfPath)
+					$("input#imagesize").val(tipFile.tipfSize)
+					/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
+					$(ele).summernote("editor.insertImage", tipFile.url);
+				}
+			})//ajax
+		}
 
 		/* $("button:eq(0)").click(function(){
 		location.href="MainPage.html";

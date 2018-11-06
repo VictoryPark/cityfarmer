@@ -12,6 +12,8 @@ public class TipBoardComment {
 	private int tipcNo;
 	private String tipcWriter;
 	private String tipcContent;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date tipcRegDate;
 
 }

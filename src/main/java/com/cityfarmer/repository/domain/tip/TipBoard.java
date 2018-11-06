@@ -2,6 +2,8 @@ package com.cityfarmer.repository.domain.tip;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class TipBoard {
 
 	private int tipNo;
@@ -11,9 +13,11 @@ public class TipBoard {
 	private String tipTitle;
 	private String tipContent;
 	private int tipViewCnt;
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date tipRegDate;
 	
-	//´ñ±Û »èÁ¦¸¦ À§ÇØ tipcNoºÒ·¯ÁÖ±â
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ tipcNoï¿½Ò·ï¿½ï¿½Ö±ï¿½
 	public int getTipcNo() {
 		return tipcNo;
 	}
@@ -64,10 +68,29 @@ public class TipBoard {
 				+ tipContent + ", tipViewCnt=" + tipViewCnt + ", tipRegDate=" + tipRegDate + "]";
 	}
 	
+	//-------------------------------------------ï¿½ï¿½ï¿½ï¿½Â¡
 	
 	
+	private int pageNo;
+	private int begin;
+	private int end;
 	
+	public int getPageNo() {
+		return pageNo;
+	}
 	
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	//#{begin} -> board.xml
+	public int getBegin() {
+		return (pageNo - 1 )* 10 + 1;
+	}
+	
+	//#{end} -> board.xml
+	public int getEnd() {
+		return pageNo * 10;
+	}
 	
 
 }

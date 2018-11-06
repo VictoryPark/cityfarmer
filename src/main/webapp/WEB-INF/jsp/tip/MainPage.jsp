@@ -50,7 +50,7 @@ h4 {
 	text-align: left;
 	padding: 5px 0px;
 	text-transform: uppercase;
-	color: yellow;
+	color: gray;
 }
 
 p {
@@ -186,12 +186,10 @@ footer span {
     content:'';
 } */
 .pagination {
-	margin-left: 40%
+	margin-left: 35%
 }
 
-.forhover {
-	border-bottom: 3px solid #7dad47;
-}
+
 
 a:hover {
 	text-decoration: none;
@@ -219,7 +217,7 @@ a:hover {
 	</nav> </header>
 	<div class="top-section">
 		<div class="main-image">
-			<img src="<c:url value ="/img/tip/img/123.jpg"/>" width="1200"
+			<img src="<c:url value ="/publishing/bg/img/1.jpg"/>" width="1200"
 				height="300" />
 		</div>
 		<div class="main-title">
@@ -241,8 +239,8 @@ a:hover {
 					<th>번호</th>
 					<th>이름</th>
 					<th>날짜</th>
-					<th>조회</th>
-					<th>추천</th>
+					<th>제목</th>
+					<th>조회수</th>
 				</tr>
 				<c:forEach var="b" items="${list}">
 					<tr>
@@ -262,65 +260,31 @@ a:hover {
 			</table>
 			
 			
-			 <nav>
-                                        <ul class="pagination">
-                                          <li>
-                                            <a href="#" aria-label="Previous">
-                                              <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                          </li>
-                                          <li><a href="#">1</a></li>
-                                          <li><a href="#">2</a></li>
-                                          <li><a href="#">3</a></li>
-                                          <li><a href="#">4</a></li>
-                                          <li><a href="#">5</a></li>
-                                          <li>
-                                            <a href="#" aria-label="Next">
-                                              <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                          </li>
-                                        </ul>
-                                      </nav>
+
+              	<c:if test="${pageResult.count != 0}">
+					<nav>
+					  <ul class="pagination">
+					    <li <c:if test="${pageResult.prev eq false}">class="disabled"</c:if> >
+					      <a href='MainPage.cf?pageNo=${pageResult.beginPage - 1}' aria-label="Previous" >
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+						<c:forEach var="i" begin="${pageResult.beginPage}" end="${pageResult.endPage}">
+							<li <c:if test="${i eq pageResult.pageNo}">class="active"</c:if> >
+								<a href='MainPage.cf?pageNo=${i}'>${i}</a>
+							</li>
+						</c:forEach>
+					    <li <c:if test="${pageResult.next eq false}">class="disabled"</c:if> >
+					      <a href='MainPage.cf?pageNo=${pageResult.endPage + 1}' aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
+				</c:if>
+             
 			
-			<!-- 페이징 하다가 실패 부적합한 열유형 1111 개빡 -->
-
-			<%-- <c:if test="${pageResult.count != 0 }">
-				<nav>
-				<ul class="pagination">
-					<li
-						<c:if test="${pageResult.prev eq false }"> class="disabled"</c:if>>
-						<a href="${pageResult.beginPage-1 }" aria-label="Previous"> <span
-							aria-hidden="true">&laquo;</span>
-					</a>
-					</li>
-
-					<c:forEach var="i" begin="${pageResult.beginPage}"
-						end="${pageResult.endPage}">
-						<li <c:if test="${i eq pageResult.pageNo }"> class="active"</c:if>>
-							<a href="${i}">${i}</a>
-						</li>
-					</c:forEach>
-					<li
-						<c:if test="${pageResult.next eq false}"> class="disabled"</c:if>>
-						<a href="${pageResult.endPage+1 }" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span>
-					</a>
-					</li>
-				</ul>
-				<div id="wirte">
-					<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-					<button type="button" class="btn btn-primary" id="write">글작성</button>
-				</div>
-				</nav>
-			</c:if> --%>
-
-
-
-
-
-
-
-
+		
 
 		</div>
 	</div>
@@ -343,6 +307,12 @@ a:hover {
 		$(this).removeClass("forhover");
 
 	});
+    $("nav > ul.pagination > li > a").click(function() {
+		var pageNo = $(this).attr("href")
+		/* if (pageNo == 0 || pageNo == '${pageResult.lastPage+1}') return false; */
+		location.href = "MainPage.cf?pageNo=" + pageNo;
+	});
+    
 </script>
 
 </body>
