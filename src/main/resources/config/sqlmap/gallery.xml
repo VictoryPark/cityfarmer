@@ -30,6 +30,14 @@
 		<result column="gac_reg_date" property="gacRegDate"/>
 	</resultMap>
 
+	<resultMap id="memberMap" type="Member">
+		<result column="member_no" property="memberNo" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="pass" property="pass" />
+		<result column="file_path" property="filePath" />
+		<result column="file_name" property="fileName" />
+	</resultMap>
 	<!-- 게시물 조회 -->
 	<select id="selectGalleryBoard" parameterType="GalleryBoard" resultMap="galleryMap">
 <!-- 		select * -->
@@ -124,8 +132,46 @@
 			  where gac_no = #{gacNo}	
 	</delete>
 	
+	
+	<!-- 추천 라인 -->
 
+	<!-- 게시글 추천수 -->
+	<select id="rec" resultType="int">
+		select count(*)
+		from cf_gallery_rec
+		where ga_no = #{gaNo}
+	</select>
 
+	<!-- 추천여부 확인 -->
+	<select id="recCount" resultType="int" parameterType="RecVO">
+		select
+		count(*)
+		from cf_gallery_rec
+		where id = #{id} AND ga_no = #{gaNo}
+	</select>
+
+	<!-- 추천하기 -->
+	<insert id="insertRec" parameterType="RecVO">
+		INSERT INTO cf_gallery_rec(ga_no, id)
+            VALUES (#{gaNo}, #{id})
+		
+	</insert>
+	<update id="updateRec" parameterType="int">
+		update cf_gallery
+		   set ga_rec_cnt= ga_rec_cnt+ 1
+		 where ga_no = #{gaNo}  
+	</update>
+
+	<!-- 추천취소 -->
+	<delete id="deleteRec" parameterType="RecVO">
+		delete cf_gallery_rec
+		where id = #{id} AND ga_no = #{gaNo}
+	</delete>
+	<update id="cancelRec" parameterType="int">
+		update cf_gallery
+		   set ga_rec_cnt= ga_rec_cnt- 1
+		 where ga_no = #{gaNo}  
+	</update>
 
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
+import com.cityfarmer.repository.domain.gallery.RecVO;
 
 
 public interface GalleryMapper {
@@ -33,4 +34,13 @@ public interface GalleryMapper {
 	
 	void deleteComment(int gacNo);
 
+	//----------------------------------추천
+	
+	int rec(int gaNo); // 게시글 추천수
+	int recCount(RecVO recVO); // 게시글 추천여부 확인
+	void insertRec(RecVO recVO); //게시글 추천
+	void updateRec(int gaNo); //게시글 총 추천수 증가
+	void deleteRec(RecVO recVO); //게시글 추천 취소
+	void cancelRec(int gaNo);  // 게시글 총 추천수 감소
+	
 }

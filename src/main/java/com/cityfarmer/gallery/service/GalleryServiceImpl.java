@@ -11,6 +11,7 @@ import com.cityfarmer.repository.domain.gallery.GaPageResult;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
+import com.cityfarmer.repository.domain.gallery.RecVO;
 import com.cityfarmer.repository.mapper.GalleryMapper;
 
 @Service
@@ -104,6 +105,35 @@ public class GalleryServiceImpl implements GalleryService {
 	public List<GalleryComment> deleteComment(GalleryComment comment) {
 		gaMapper.deleteComment(comment.getGacNo());
 		return gaMapper.selectCommentListByGaNo(comment.getGaNo());
+	}
+	
+	@Override
+	public int rec(int gaNo) {
+		// TODO Auto-generated method stub
+		return gaMapper.rec(gaNo);
+	}
+	@Override
+	public int recCount(RecVO recVO) {
+		return gaMapper.recCount(recVO);
+	}
+	@Override
+	public void insertRec(RecVO recVO) {
+		gaMapper.insertRec(recVO);
+	}
+	@Override
+	public void updateRec(int gaNo) {
+
+		gaMapper.updateRec(gaNo);
+	}
+	@Override
+	public void deleteRec(RecVO recVO) {
+
+		gaMapper.deleteRec(recVO);
+	}
+	@Override
+	public void cancelRec(int gaNo) {
+
+		gaMapper.cancelRec(gaNo);
 	}
 	
 

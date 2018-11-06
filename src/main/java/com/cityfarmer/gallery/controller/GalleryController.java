@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +24,7 @@ import com.cityfarmer.repository.domain.gallery.GFormVO;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
+import com.cityfarmer.repository.domain.gallery.RecVO;
 
 @Controller
 @RequestMapping("/gallery")
@@ -91,8 +90,34 @@ public class GalleryController {
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "gallerylist1.cf";
 	}
 	
-//---------------------------------------------------------------
+//------------------------추천---------------------------------------
+	@RequestMapping("/insertRec.cf")
+	@ResponseBody
+	public int insertRec(RecVO recVO, @RequestParam("gaNo")int gaNo) {
+		gaService.insertRec(recVO);
+		gaService.updateRec(gaNo);
+		return gaService.recCount(recVO);
+	}
+	@RequestMapping("/deleteRec.cf")
+	@ResponseBody
+	public int deleteRec(RecVO recVO, @RequestParam("gaNo")int gaNo) {
+		gaService.cancelRec(gaNo);
+		gaService.deleteRec(recVO);;
+		return gaService.recCount(recVO);
+	}
+	@RequestMapping("/rec.cf")
+	@ResponseBody
+	public int rec(int gaNo) {
+		return gaService.rec(gaNo);
+	}
+	@RequestMapping("/recount.cf")
+	@ResponseBody
+	public int recount(RecVO recVO) {
+		return gaService.recCount(recVO);
+	}
 	
+	
+//--------------------------------------------------------------
 	@PostMapping("/uploadfile.cf")
 	@ResponseBody
 	public GalleryFile uploadFile(@RequestParam("file") List<MultipartFile> attach, GalleryFile gaFile) throws IllegalStateException, IOException {

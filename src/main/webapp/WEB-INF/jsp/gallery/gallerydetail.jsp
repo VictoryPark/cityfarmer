@@ -36,7 +36,7 @@
                
             </div>
             <div class="main-title"> 
-                <h3>글제목 : ${map.b.gaTitle} <button class="glyphicon glyphicon-heart" aria-hidden="true" style="float: right;"></button></h3><br>
+                <h3>글제목 : ${map.b.gaTitle} <button class="rec-button" aria-hidden="true" style="float: right;"></button><span id="rc" style="float:right;">${map.b.gaRecCnt}</span></h3><br>
                 <p>작성자 : ${map.b.writer}</p>
                 <div id="carousel" >
                     <figure id="spinner" >
@@ -236,10 +236,64 @@
     		
     		//댓글뿌려주기
          	commentList();
-
+         	recCount();
     		
-
-    	
+//--------------------------------------------------------------------------------------------------
+		var gaRecCnt = ${map.b.gaRecCnt};
+	/* 
+		$(document).ready(function() {
+		if (gaRecCnt == 1){
+			$(".rec-button").html("<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>")
+		} else {
+			$(".rec-button").html("<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>")
+		}
+		});
+ */		
+		$(".rec-button").click(function(){
+			var rUrl = "insertRec";
+		if (gaRecCnt == 1) {
+			rUrl = "deleteRec";
+		}
+		
+		$.ajax({
+			url : '/cityFarmer/gallery/' + rUrl + '.cf',
+			data : {"gaNo" : "${map.b.gaNo}","id":"${user.id}"}
+		
+		}).done(function(){
+			if (gaRecCnt == 0){
+				alert("추천되었습니다.");
+				gaRecCnt = 1;
+				$(".rec-button").html("<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>");
+			} else {
+				alert("추천이 취소되었습니다.")
+				gaRecCnt = 0;
+				$(".rec-button").html("<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>");
+			}
+			rec();
+		});
+		
+		function rec () {			
+		$.ajax({
+			url: "<c:url value='/gallery/rec.cf'/>",
+			data : {"gaNo" : "${map.b.gaNo}"}
+		}).done(function(result){
+			$("#rc").html(result);
+		});
+		}
+		
+	});
+		function recCount(){
+			$.ajax({
+				url: "<c:url value='/gallery/recount.cf'/>",
+				data : {"gaNo" : "${map.b.gaNo}","id":"${user.id}"}
+			}).done(function(result){
+				if (result == 1){
+					$(".rec-button").html("<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>")
+				} else {
+					$(".rec-button").html("<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>")
+				}
+			})
+		}
         </script>
 </body>
 </html>
