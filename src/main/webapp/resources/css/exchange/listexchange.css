@@ -175,6 +175,10 @@ div#blur {
 .pagination a:hover:not(.active) {
 	background-color : #ddd;
 }
+
+div#paging {
+	margin-top : 60px;
+}
 /*The widths are in a percentage!*/
 .top-section, 
 .bottom-section {

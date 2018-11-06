@@ -28,11 +28,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean checkId(String id) {
 		List<String> idList = mapper.selectId();
-		System.out.println("id : " + id);
-		System.out.println("idList : " + idList);
+		//System.out.println("id : " + id);
+		//System.out.println("idList : " + idList);
 		boolean result = false;
 		for(String oriId : idList) {
-			System.out.println("oriId : " + oriId.intern());
+			//System.out.println("oriId : " + oriId.intern());
 			if(oriId.equals(id)) {
 				result = true;
 				break;

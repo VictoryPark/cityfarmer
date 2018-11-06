@@ -16,3 +16,7 @@
     <!-- font -->
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Do+Hyeon|Sunflower:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poor+Story" rel="stylesheet">
+    
+    <!-- sweetalert -->
+	<script src="<c:url value="/resources/js/exchange/sweetalert2.all.min.js"/>"></script>
+	<link rel="stylesheet" href="<c:url value="/resources/css/exchange/sweetalert2.min.css"/>">

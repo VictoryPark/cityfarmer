@@ -5,6 +5,10 @@ html, body {
   height: 100%;
 }
 
+a {
+	text-decoration: none;	
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -132,7 +136,7 @@ html, body {
   background: url("https://artsandculture.withgoogle.com/gcs/national-parks-service/en-us/Asset-Hawaii-desktop.jpg") center;
 }
 .container .section:nth-child(3) {
-  background: url("https://artsandculture.withgoogle.com/gcs/national-parks-service/en-us/de0b954d-ca76-41d3-ac3a-900c6bc25139.jpg") center;
+  background: url("https://res.cloudinary.com/bigboydesign1/image/upload/v1476647899/download_schjib.jpg") center;
 }
 .container .section:nth-child(4) {
   background: url("https://artsandculture.withgoogle.com/gcs/national-parks-service/en-us/Asset-Bryce-desktop.jpg") center;

@@ -10,5 +10,4 @@ public interface MemberService {
 	Member login(Login login);
 
 	boolean checkId(String id);
-
 }

@@ -33,6 +33,6 @@
 	
 	<!-- sweetalert -->
 	<script src="<c:url value="/resources/js/exchange/sweetalert2.all.min.js"/>"></script>
-	<link rel="stylesheet" href="<c:url value="/resources/css/exchange/sweet/sweetalert2.min.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/exchange/sweetalert2.min.css"/>">
     
     <link rel="stylesheet" href="<c:url value="/resources/css/exchange/detailexchange.css"/>">

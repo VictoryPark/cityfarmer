@@ -83,7 +83,7 @@
 	</delete>
 	
 	<!-- 게시글 조회수 증가를 위한 작성 비교 -->
-	<select id="selectBoardCountByWriter" parameterType="ViewCnt" resultType="int">
+	<select id="selectBoardCountByWriterAndExNo" parameterType="ViewCnt" resultType="int">
 		select count(*)
 		  from cf_exchange
 		 where ex_no = #{exNo}
@@ -96,17 +96,55 @@
 		 where ex_no = #{exNo}
 	</update>
 	
+	<!-- 거래완료 yes로 바꾸는 쿼리 -->
 	<update id="updateY" parameterType="int">
 		update cf_exchange
 		   set ex_complete = 'y'
 		 where ex_no = #{exNo}
 	</update>
 	
+	<!-- 거래완료 no로 바꾸는 쿼리 -->
 	<update id="updateN" parameterType="int">
 		update cf_exchange
 		   set ex_complete = 'n'
 		 where ex_no = #{exNo}
 	</update>
+	
+	<!-- 제목으로 검색 -->
+	<select id="selectBoardByTitle" parameterType="SearchVO" resultMap="boardMap">
+		select *
+  		from (select rownum rnum, a.* 
+		  		from (  select * 
+				  		  from cf_exchange 
+				  		 where ex_title like '%' || #{keyword} || '%'
+				  		order by ex_no desc) a
+				where rownum &lt;= #{end})
+		where rnum &gt;= #{begin}
+	</select>
+	<!-- 제목으로 검색 게시물 수 -->
+	<select id="selectBoardCountByTitle" parameterType="SearchVO" resultType="int">
+		select count(*)
+		  from cf_exchange
+		where ex_title like '%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 작성자로 검색 -->
+	<select id="selectBoardByWriter" parameterType="SearchVO" resultMap="boardMap">
+		select *
+  		from (select rownum rnum, a.* 
+		  		from (  select * 
+				  		  from cf_exchange 
+				  		 where writer like '%' || #{keyword} || '%'
+				  		order by ex_no desc) a
+				where rownum &lt;= #{end})
+		where rnum &gt;= #{begin}
+	</select>
+	
+	<select id="selectBoardCountByWriter" parameterType="SearchVO" resultType="int">
+		select count(*)
+		  from cf_exchange
+		where writer like '%' || #{keyword} || '%'
+	</select>
 	
 	<resultMap id="commentMap" type="ExchangeComment">
 		<result column="ex_no" property="exNo"/>
@@ -172,14 +210,25 @@
 		)
 	</insert>
 	
-	<!-- 댓글과 답글 모두 가져오기..(계층 쿼리 적용) -->
-	<select id="selectAllReply" parameterType="int" resultMap="commentMap">
+	<!-- 댓글과 답글 모두 가져오기..(계층 쿼리 적용) 등록순...-->
+	<select id="selectAllReplyOrderByRegister" parameterType="int" resultMap="commentMap">
 		select *
 		  from cf_exchange_comment
 		  where ex_no = #{exNo}
 		  start with exc_parent_no = 0		  
 		connect by prior exc_no = exc_parent_no
 		  order siblings by exc_ref desc
+		
+	</select>
+	
+	<!-- 댓글과 답글 모두 가져오기..(계층 쿼리 적용) 최신순...-->
+	<select id="selectAllReplyOrderByDate" parameterType="int" resultMap="commentMap">
+		select *
+		  from cf_exchange_comment
+		  where ex_no = #{exNo}
+		  start with exc_parent_no = 0		  
+		connect by prior exc_no = exc_parent_no
+		  order siblings by exc_reg_date desc
 		
 	</select>
 </mapper>

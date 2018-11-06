@@ -67,7 +67,8 @@
 									<c:when test="${nowDate > endDay}">
 										<td><img
 											src='<c:url value='/resources/img/groupbuy/expired.png' />'><span
-											style="color: gray;">만료된 공구입니다.</span><span class="cmtCount">[${comment[status.index]}]</span></td>
+											style="color: gray;">만료된 공구입니다.</span><span
+											class="cmtCount">[${comment[status.index]}]</span></td>
 									</c:when>
 									<c:when test="${nowDate == endDay}">
 										<c:choose>
@@ -94,7 +95,7 @@
 						</c:forEach>
 						<c:if test="${empty list}">
 							<tr>
-								<td colspan='4'>입력된 게시물이 없습니다.</td>
+								<td colspan='4'>검색결과가 없습니다.</td>
 							</tr>
 						</c:if>
 
@@ -149,13 +150,11 @@
 				<div style="float: right;"><button type="button" id="writeButton" class="btn btn-default">글쓰기</button></div>
 			</div>
 		</div>
-
 	</div>
 	<footer>
 	<h4>
 		Copyright ⓒ<span>낭만코양이</span> All rights reserved.
 	</h4>
-
 	<h4>with AR, CW, HK, SY, BG</h4>
 	</footer>
 	<script>
@@ -181,22 +180,25 @@
 //         		alert(pageNo)
         		if (pageNo == 0 || pageNo == '${pageResult.lastPage+1}') return false;
         		
-        	 	location.href = "gb_board.cf?pageNo=" + pageNo;
+        	 	location.href = "gb_search.cf?pageNo=" + pageNo;
         	});
             
-         	$(document).on("click", "#searchBtn" ,function(e) {
-         		if($("#searchType").val() == 0 && $("#keyword").val() != "") {
+            $(document).on("click", "#searchBtn" ,function(e) {
+            	if($("#searchType").val() == 0 && $("#keyword").val() != "") {
             		e.preventDefault()
             		alert("카테고리를 선택하세요");
          			return false;
             	}
-         		
+            	
          		if($("#searchType").val() != 0 && $("#keyword").val() == "") {
          			e.preventDefault()
          			alert("검색어를 입력해주세요");
          			return false;
          		}
          	});
+         
+            
+         
         </script>
 </body>
 </html>

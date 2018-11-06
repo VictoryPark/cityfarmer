@@ -2,6 +2,10 @@ package com.cityfarmer.repository.domain.exchange;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,7 +25,6 @@ public class ExchangeBoard {
 	private int reply;
 	private int begin;
 	private int end;
-	private String regDate;
 	
 	
 	public int getExNo() {
@@ -47,7 +50,9 @@ public class ExchangeBoard {
 	}
 	public void setExContent(String exContent) {
 		this.exContent = exContent;
-	}
+	}	
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	public Date getExRegDate() {
 		return exRegDate;
 	}
@@ -96,12 +101,6 @@ public class ExchangeBoard {
 	
 	public void setEnd(int end) {
 		this.end = end;
-	}
-	public String getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
 	}
 
 	

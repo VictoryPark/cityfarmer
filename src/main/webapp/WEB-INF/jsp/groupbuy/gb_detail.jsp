@@ -14,6 +14,10 @@
         crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="<c:url value="/resources/css/groupbuy/gb_detail.css" />">
+    
+    <link rel="stylesheet" href="<c:url value="/resources/css/groupbuy/flipTimer.css" />">
+    
+    <script src="<c:url value="/resources/js/groupbuy/jquery.flipTimer.js" />"></script>
 </head>
 <body>
    <header>
@@ -50,8 +54,13 @@
                     <div class="panel-body">
 <!--                             <img src="https://steptohealth.co.kr/wp-content/uploads/2017/09/consumir-tomate-500x332.jpeg" /> -->
                             ${gbb.gbContent}
-                            <div style="font-weight: bold;">공구종료날짜: ${gbb.gbEndDay} ${gbb.gbEndTime}</div>
-                            <div id="timeLimit" style="color: red;"></div>
+<%--                             <div style="font-weight: bold;">공구종료날짜: ${gbb.gbEndDay} ${gbb.gbEndTime}</div> --%>
+                            <div class="flipTimer" style="text-align: center;">
+						        <div class="days"></div>
+						        <div class="hours"></div>
+						        <div class="minutes"></div>
+						        <div class="seconds"></div>
+						     </div>
                     </div>
                     <div class="panel-footer">댓글 목록</div>
                     <div class="panel-body">
@@ -207,43 +216,26 @@
             });
             
             
-            
-           // 날짜 등록 
-           var countDownDate = new Date('${gbb.gbEndDay}' + ' ' + '${gbb.gbEndTime}').getTime();  
-           var checkExpire = false;
            
-           //1초마다 갱신되도록 함수 생성,실행 
-           var x = setInterval(function() { 
+         //-------------------------------------------------------------
+           // 타이머 플러그인
+           $(document).ready(function() {
+               $('.flipTimer').flipTimer({ 
 
-            // 오늘 날짜 등록 
-           var now = new Date().getTime(); 
-           
-           // 종료일자에서 현재일자를 뺀 시간 
-           var distance = countDownDate - now; 
-           
-           // 각 변수에 일, 시, 분, 초를 등록 
-           var d = Math.floor(distance / (1000 * 60 * 60 * 24)); 
-           var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); 
-           var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); 
-           var s = Math.floor((distance % (1000 * 60)) / 1000); 
-           
-           
-           if(d<=0&h<=0&m<=0&s<=0) {
-                    clearInterval(x);
-                    $("#timeLimit").html("날짜가 만료 되었습니다.");
-                    
-                    checkExpire = true;
+               // count up or countdown
+               direction: 'down', 
 
-                    if(checkExpire == true) return;
-                }
+               // the target <a href="https://www.jqueryscript.net/time-clock/">date</a>
+               date: '${gbb.gbEndDay} ${gbb.gbEndTime}', 
+
+               // callback works only with direction = "down"
+               callback: function() { alert('times up!'); }
+
+               });
+           });
            
-            if(h<10) h = "0" + h;
-            if(s<10) s = "0" + s;
-            if(m<10) m = "0" + m;
-            
-            //id가 d-day인 HTML코드에 내용 삽입 
-            $("#timeLimit").html(d +"일" + h + ":" + m + ":" + s + "남았습니다.");
-            });
+           //-------------------------------------------------------------
+           
             
             $("#deleteBtn").click(function() {
               if($(this).data("writer") != '${user.id}') {

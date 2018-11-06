@@ -16,7 +16,7 @@ public class ExPageResult {
 	 * @param count : 게시물 전체 갯수
 	 */
 	public ExPageResult(int pageNo, int count) {
-		this(pageNo, count, 6, 10);
+		this(pageNo, count, 6, 5);
 	}
 	
 	public ExPageResult(int pageNo, int count, int listSize, int tabSize) {

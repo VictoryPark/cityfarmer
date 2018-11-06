@@ -33,19 +33,22 @@ public class MemberController {
 		return service.checkId(id);
 	} //checkId
 	
-	@RequestMapping("/login.cf")
-	public String login(HttpSession session, Login login) {
+	
+	@PostMapping("/login.cf")
+	@ResponseBody
+	public boolean login(HttpSession session, Login login) {
 		System.out.println("login id : " + login.getId());
 		Member member = service.login(login);
-		
-		System.out.println("member id : "+ member.getId());
+	
+		//System.out.println("member id : "+ member.getId());
 		if(member != null) {
 			session.setAttribute("user", member);
-			return "redirect:/main.cf";
+			return true;
 		}
 		
-		return "redirect:/start.cf";
+		return false;
 	}
+	
 	
 	@RequestMapping("/logout.cf")
 	public String logout(HttpSession session) {

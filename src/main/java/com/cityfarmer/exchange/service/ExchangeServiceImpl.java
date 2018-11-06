@@ -13,6 +13,7 @@ import com.cityfarmer.repository.domain.exchange.ExPageResult;
 import com.cityfarmer.repository.domain.exchange.ExchangeBoard;
 import com.cityfarmer.repository.domain.exchange.ExchangeComment;
 import com.cityfarmer.repository.domain.exchange.ExchangeFile;
+import com.cityfarmer.repository.domain.exchange.SearchVO;
 import com.cityfarmer.repository.domain.exchange.ViewCnt;
 import com.cityfarmer.repository.mapper.ExchangeMapper;
 
@@ -56,7 +57,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 			//System.out.println("file : "+file);
 			if(file ==null) continue;
 			
-			System.out.println(file.getExfPath()+ "/" + file.getExfSysName());
+			//System.out.println(file.getExfPath()+ "/" + file.getExfSysName());
 			board.setUrl(file.getExfPath() + "/" + file.getExfSysName());
 			board.setReply(mapper.selectCommentCount(board.getExNo()));
 		}
@@ -77,14 +78,11 @@ public class ExchangeServiceImpl implements ExchangeService {
 		cnt.setExNo(exNo);
 		cnt.setId(id);
 		
-		if(mapper.selectBoardCountByWriter(cnt)==0) {
+		if(mapper.selectBoardCountByWriterAndExNo(cnt)==0) {
 			mapper.updateViewCnt(exNo);
 		}
 		
 		ExchangeBoard board =  mapper.selectBoardByExNo(exNo);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		
-		board.setRegDate(sdf.format(board.getExRegDate()));
 		Integer count = mapper.selectCommentCount(exNo);
 		
 		map.put("board", board);
@@ -112,36 +110,48 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 
 	@Override
-	public List<ExchangeComment> writeComment(ExchangeComment comment) {
+	public Map<String, Object> writeComment(ExchangeComment comment) {
 		mapper.insertNewComment(comment);
-		return mapper.selectCommentListByExNo(comment.getExNo());
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", mapper.selectCommentListByExNo(comment.getExNo()));
+		map.put("count", mapper.selectCommentCount(comment.getExNo()));
+		return map;
 	}
 
 
 	@Override
-	public List<ExchangeComment> listComment(int exNo) {
-		return mapper.selectAllReply(exNo);
+	public List<ExchangeComment> listCommentByRegister(int exNo) {
+		return mapper.selectAllReplyOrderByRegister(exNo);
 	}
 
 
 	@Override
-	public List<ExchangeComment> deleteComment(ExchangeComment comment) {
+	public Map<String, Object> deleteComment(ExchangeComment comment) {
 		mapper.deleteComment(comment.getExcNo());
-		return mapper.selectCommentListByExNo(comment.getExNo());
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", mapper.selectCommentListByExNo(comment.getExNo()));
+		map.put("count", mapper.selectCommentCount(comment.getExNo()));
+		return map;
 	}
 
 
 	@Override
-	public List<ExchangeComment> updateComment(ExchangeComment comment) {
+	public Map<String, Object> updateComment(ExchangeComment comment) {
 		mapper.updateComment(comment);
-		return mapper.selectCommentListByExNo(comment.getExNo());
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", mapper.selectCommentListByExNo(comment.getExNo()));
+		map.put("count", mapper.selectCommentCount(comment.getExNo()));
+		return map;
 	}
 
 
 	@Override
-	public List<ExchangeComment> writeReply(ExchangeComment comment) {
+	public Map<String, Object> writeReply(ExchangeComment comment) {
 		mapper.insertReply(comment);
-		return mapper.selectAllReply(comment.getExNo());
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", mapper.selectAllReplyOrderByRegister(comment.getExNo()));
+		map.put("count", mapper.selectCommentCount(comment.getExNo()));
+		return map;
 	}
 
 
@@ -153,6 +163,48 @@ public class ExchangeServiceImpl implements ExchangeService {
 	@Override
 	public int updateN(int exNo) {
 		return mapper.updateN(exNo);
+	}
+
+
+	@Override
+	public Map<String, Object> searchList(SearchVO search) {
+		Map<String, Object> map = new HashMap<>();
+		List<ExchangeBoard> boardList = null;
+		int count = 0;
+		//System.out.println("search : " + search);
+		
+		if(search.getType().equals("title")) {	
+			boardList = mapper.selectBoardByTitle(search);
+			count = mapper.selectBoardCountByTitle(search);
+		} else if(search.getType().equals("writer")) {
+			boardList = mapper.selectBoardByWriter(search);
+			count = mapper.selectBoardCountByWriter(search);
+		}
+		
+		//System.out.println("boardList : " + boardList);
+		
+		for(ExchangeBoard board : boardList) {
+			//System.out.println("board.getno : "+board.getExNo());
+			
+			ExchangeFile file = mapper.selectFileByExNo(board.getExNo());
+			//System.out.println("file : "+file);
+			if(file ==null) continue;
+			
+			//System.out.println(file.getExfPath()+ "/" + file.getExfSysName());
+			board.setUrl(file.getExfPath() + "/" + file.getExfSysName());
+			board.setReply(mapper.selectCommentCount(board.getExNo()));
+		}
+		
+		map.put("list", boardList);
+		map.put("pageResult", new ExPageResult(search.getPageNo(), count));
+		map.put("search", search);
+		return map;
+	}
+
+
+	@Override
+	public List<ExchangeComment> listCommentByDate(int exNo) {
+		return mapper.selectAllReplyOrderByDate(exNo);
 	}
 
 	

@@ -24,9 +24,7 @@
      <link href="<c:url value="/resources/css/groupbuy/tui-date-picker.css" />" rel="stylesheet">
      <script src="<c:url value="/resources/js/groupbuy/tui-code-snippet.js" />"></script>
      <script src="<c:url value="/resources/js/groupbuy/tui-date-picker.js" />"></script>
-    
-    
-    
+   
     <!-- 페이지css-->
      <link href="<c:url value="/resources/css/groupbuy/gb_write.css" />" rel="stylesheet">
     

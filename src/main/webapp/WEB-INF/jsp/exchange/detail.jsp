@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,7 +52,7 @@ $(document).ready(function(){
                     <th>작성자</th>
                     <td>${map.board.writer}</td>
                     <th>작성일</th>
-                    <td>${map.board.regDate}</td>
+                    <td><fmt:formatDate value="${map.board.exRegDate}" pattern="yyyy-MM-dd HH:mm"/></td>
                     <th>조회수</th>
                     <td>${map.board.exViewCnt}</td>
                 </tr>
@@ -75,15 +76,17 @@ $(document).ready(function(){
                 <div id="listreply">
                 	<div id="listsummary">
                 		<table id="replysummary">
+                		<form name="order">
                 			<tr>
-                				<th><span id="count">댓글 : ${map.count} </span></th>
+                				<th><span id="count1">댓글 : </span><span id="count2">${map.count} </span></th>
                 				<th>
-                					<select class="form-control input-sm">
+                					<select class="form-control input-sm" name="select">
                 					<option value="asc">등록순</option>
-                					<option value="decs">최신순</option>
+                					<option value="desc">최신순</option>
                 					</select>
                 				</th>
                 			</tr>
+                			</form>
                 		</table>
                 	</div>
                     <table id="reply">
