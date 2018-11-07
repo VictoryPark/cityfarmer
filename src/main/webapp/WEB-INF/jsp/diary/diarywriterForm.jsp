@@ -64,19 +64,7 @@
 </head>
 
 <body>
-    <header>
-        <h1><span>City</span> Farmer</h1>
-        <nav>
-            <a href="">About</a>
-            <a href="">물물교환</a>
-            <a href="">공동구매</a>
-            <a href="">꿀팁</a>
-            <a href="">식물일기</a>
-            <a href="">식물갤러리</a>
-            <a href="">로그인</a>
-            <a href="">회원가입</a>
-        </nav>
-    </header>
+    <c:import url="../common/header.jsp" />
 
     <div id="slideshow">
         <div id="i1">
@@ -102,6 +90,7 @@
         <button type="button" onclick="button1_click();" class="btn btn-default" id="sum2">취소</button>
     </div>
 	</form>
+	<c:import url="../common/footer.jsp" />
     <script>
         $(document).ready(function () {
             $('#summernote').summernote({

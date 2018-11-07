@@ -94,16 +94,7 @@ table, th {
 	</head>
 	
 	<body>
-		<header>
-			<h1>
-				<span>City</span> Farmer
-			</h1>
-			<nav>
-				<a href="">About</a> <a href="">물물교환</a> <a href="">공동구매</a> <a
-					href="">꿀팁</a> <a href="">식물일기</a> <a href="">식물갤러리</a> <a href="">로그인</a>
-				<a href="">회원가입</a>
-			</nav>
-		</header>
+		<c:import url="../common/header.jsp" />
 	
 		<!-------------------------------------검색창 html---------------------------------------------------->
 		<div class="wrap" id="searchAll">
@@ -246,6 +237,8 @@ table, th {
 							is May 30</span></span>
 				</div>
 			</div>
+			
+			<c:import url="../common/footer.jsp" />
 			<!---------------------------------------------- script 캘린더 부분--------------------------------------------------------->
 			<script type='text/javascript'
 				src="<c:url value="/resources/js/diary/calendar.js"/>"></script>

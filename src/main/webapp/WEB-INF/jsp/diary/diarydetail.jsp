@@ -54,10 +54,10 @@ h1 {
 
 #panel {
 	margin: auto;
-	position: absolute;
+	position: relative;
 	top: 435px;
-	width: 1200px;
-	height: 320px;
+	/* width: 1200px;
+	height: 320px; */
 }
 
 #update, #del, #list {
@@ -91,13 +91,7 @@ img {
 </head>
 
 <body>
-	<header>
-	<h1>
-		<span>City</span> Farmer
-	</h1>
-	<nav> <a href="">About</a> <a href="">물물교환</a> <a href="">공동구매</a>
-	<a href="">꿀팁</a> <a href="">식물일기</a> <a href="">식물갤러리</a> <a href="">로그인</a>
-	<a href="">회원가입</a> </nav> </header>
+	<c:import url="../common/header.jsp" />
 
 	<div id="slideshow">
 		<div id="i1">
@@ -193,8 +187,9 @@ img {
 			<div id="commentList"></div>
 		</form>
 	</div>
-
-
+	
+	
+	<c:import url="../common/footer.jsp" />
 
 	<script>
 	        $("#slideshow > div:gt(0)").hide();
