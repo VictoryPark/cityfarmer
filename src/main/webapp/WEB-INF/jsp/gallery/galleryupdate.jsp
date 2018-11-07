@@ -18,18 +18,8 @@
     	<link href="<c:url value="/resources/css/gallery/gallerywrite.css" />" rel="stylesheet">
 </head>
 <body>
-     
-        <header id="header">
-            <h1><span>City</span>Farmer</h1>
-            <nav>
-                <a href="">About</a>
-                <a href="">물물교환</a>
-                <a href="">꿀팁</a>
-                <a href="">공동구매</a>
-                <a href="">갤러리</a>
-                <a href="">나만의 갤러리</a>
-            </nav>
-        </header>
+               <c:import url="../common/header.jsp" />
+
         <div class="top-section">
             <div class="main-image">   
                 <!--
@@ -61,6 +51,8 @@
                     <button class="btn btn-primary1" id="">이전으로</button>
             
         </div><br>
+           <c:import url="../common/footer.jsp" />
+        
         <script>
         $(document).ready(function() {
             $('#summernote').summernote({

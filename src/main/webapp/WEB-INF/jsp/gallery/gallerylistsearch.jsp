@@ -17,17 +17,8 @@
     	<link href="<c:url value="/resources/css/gallery/gallerylist.css" />" rel="stylesheet">
 </head>
 <body>
-       <header id="header">
-            <h1><span>City</span>Farmer</h1>
-            <nav>
-                <a href="">About</a>
-                <a href="">¹°¹°±³È¯</a>
-                <a href="">²ÜÆÁ</a>
-                <a href="">°øµ¿±¸¸Å</a>
-                <a href="gallerylist1.cf">°¶·¯¸®</a>
-                <a href="">³ª¸¸ÀÇ °¶·¯¸®</a>
-            </nav>
-        </header>
+                 <c:import url="../common/header.jsp" />
+       
         <div class="top-section">
             <div class="main-image">
                 <div class="main-title">
@@ -162,6 +153,7 @@
           
 
         </div>
+       <c:import url="../common/footer.jsp" />
     
   
 
