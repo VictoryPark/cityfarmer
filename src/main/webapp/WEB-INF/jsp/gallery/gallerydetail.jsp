@@ -251,7 +251,7 @@
  */		
 		$(".rec-button").click(function(){
 			var rUrl = "insertRec";
-		if (gaRecCnt == 1) {
+		if (recExist == 1) {
 			rUrl = "deleteRec";
 		}
 		
@@ -260,13 +260,13 @@
 			data : {"gaNo" : "${map.b.gaNo}","id":"${user.id}"}
 		
 		}).done(function(){
-			if (gaRecCnt == 0){
+			if (recExist == 0){
 				alert("추천되었습니다.");
-				gaRecCnt = 1;
+				recExist = 1;
 				$(".rec-button").html("<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>");
 			} else {
 				alert("추천이 취소되었습니다.")
-				gaRecCnt = 0;
+				recExist = 0;
 				$(".rec-button").html("<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>");
 			}
 			rec();
@@ -282,12 +282,16 @@
 		}
 		
 	});
+ 
+ 		var recExist;
+ 
 		function recCount(){
 			$.ajax({
 				url: "<c:url value='/gallery/recount.cf'/>",
 				data : {"gaNo" : "${map.b.gaNo}","id":"${user.id}"}
 			}).done(function(result){
-				if (result == 1){
+				recExist = result;
+				if (recExist == 1){
 					$(".rec-button").html("<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>")
 				} else {
 					$(".rec-button").html("<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>")
