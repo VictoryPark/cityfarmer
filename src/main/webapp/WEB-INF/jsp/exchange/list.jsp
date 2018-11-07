@@ -82,8 +82,6 @@
 	           </div>
        		</c:forEach>
            
-           
-               
        </div>
    </div>
    <c:if test="${map.pageResult.count != 0}">
@@ -133,10 +131,6 @@
 	</c:if>
    <c:import url="../common/footer.jsp" />
    <c:import url="./listJS.jsp" />
-<script>
-	/* $(document).ready(function(){
-		alert("${map.pageResult.next}")
-	}) */
-</script>
+
 </body>
 </html>

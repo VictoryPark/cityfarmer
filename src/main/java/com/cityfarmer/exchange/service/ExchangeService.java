@@ -10,7 +10,9 @@ import com.cityfarmer.repository.domain.exchange.SearchVO;
 
 public interface ExchangeService {
 
-	void write(ExchangeBoard ex, ExchangeFile file);
+	void writeAll(ExchangeBoard ex, ExchangeFile file);
+	
+	void write(ExchangeBoard board);
 
 	void uploadFile(ExchangeFile file);
 

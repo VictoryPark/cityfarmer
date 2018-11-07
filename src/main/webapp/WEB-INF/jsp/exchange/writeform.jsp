@@ -44,7 +44,7 @@
     	<input id="imageoriname" name="exfOriName" type="hidden"/>
     	<input id="imagesysname" name="exfSysName" type="hidden"/>
     	<input id="imagepath" name="exfPath" type="hidden"/>
-    	<input id="imagesize" name="exfSize" type="hidden"/>
+    	<input id="imagesize" name="exfSize" type="hidden" value="0"/>
     	
     		<%-- <c:forEach items="${files}" var="file">
     			<li><img src="<c:url value='/resources/file/${file}'/>" width="480" height="auto"/>"></li>
@@ -57,7 +57,6 @@
     $(document).ready(function() {
         $('#summernote').summernote({
             height : 350,
-            focus: true,
             tabsize : 2,
 			focus : true,
             placeholder : '내용을 입력하여 주세요',
@@ -69,7 +68,7 @@
           			console.log(this);
           			for(let i=files.length -1; i>=0; i--){
           				sendFile(files[i], this);
-          			} 
+          			}  
           		}
           	} // callbacks
                 

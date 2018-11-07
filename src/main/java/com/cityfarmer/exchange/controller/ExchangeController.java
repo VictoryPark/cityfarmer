@@ -61,7 +61,12 @@ public class ExchangeController {
 	
 	@RequestMapping("/write.cf")
 	public String write(ExchangeBoard board, ExchangeFile file) {
-		service.write(board, file);
+		if(file.getExfOriName() =="") {
+			service.write(board);
+		} else {
+			service.writeAll(board, file);			
+		}
+		
 		return "redirect:list.cf";
 	}
 	

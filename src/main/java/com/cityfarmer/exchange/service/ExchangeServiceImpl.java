@@ -25,7 +25,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 	
 	
 	@Override
-	public void write(ExchangeBoard board, ExchangeFile file) {
+	public void writeAll(ExchangeBoard board, ExchangeFile file) {
 		mapper.insertNewBoard(board);
 		System.out.println("board ex_no : " + board.getExNo());
 		
@@ -33,6 +33,10 @@ public class ExchangeServiceImpl implements ExchangeService {
 		mapper.insertNewFile(file);
 	}
 
+	@Override
+	public void write(ExchangeBoard board) {
+		mapper.insertNewBoard(board);
+	}
 
 	@Override
 	public void uploadFile(ExchangeFile file) {

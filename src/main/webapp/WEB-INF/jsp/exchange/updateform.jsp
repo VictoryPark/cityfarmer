@@ -58,7 +58,6 @@
     $(document).ready(function() {
         $('#summernote').summernote({
             height : 350,
-            focus: true,
             tabsize : 2,
 			focus : true,
             /* placeholder : '내용을 입력하여 주세요', */
