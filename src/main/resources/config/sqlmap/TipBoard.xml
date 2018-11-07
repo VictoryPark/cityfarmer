@@ -83,10 +83,11 @@
 		from
 		cf_tip
 	</select>
+	
 	<!-- 게시글 조회수 -->
 	<update id = "updateBoardViewCnt" parameterType = "int">
 	update cf_tip
-	set tip_reg_date = tip_reg_date+1
+	set tip_view_cnt = tip_view_cnt+1
 	where tip_no = #{tipNo}
 	</update>
 	<!-- parameterType으로 int를 안준 이유 -->

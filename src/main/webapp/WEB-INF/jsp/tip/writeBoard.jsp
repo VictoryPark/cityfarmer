@@ -198,7 +198,7 @@ header nav a {
 	<form action="write.cf" method="post">
 		<div class="top-section">
 			<div class="main-image">
-				<img src="<c:url value="./hummel-1353423_1920.jpg"/>" width="1200"
+				<img src="<c:url value ="/publishing/bg/img/1.jpg"/>" width="1200"
 					height="300" />
 			</div>
 			<div class="main-title">
@@ -207,7 +207,7 @@ header nav a {
 					<input type="text" id="name" name="tipTitle" class="form-control"
 						placeholder="제목을 입력하세요.">
 				</h3>
-				<!-- 				<input type="hidden" name="writer" value="aaa" /> -->
+							<input type="hidden" name="writer" value="${user.id}" />
 				<p></p>
 			</div>
 		</div>

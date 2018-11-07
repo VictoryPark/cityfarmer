@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -244,6 +245,9 @@ header nav a {
 .dropdown:hover .dropbtn {
 	background-color: #3e8e41;
 }
+.forspan{
+margin-left:80%;
+}
 </style>
 <body>
 	<%-- <header>
@@ -291,12 +295,12 @@ header nav a {
 	</nav> </header>
 	<div class="top-section">
 		<div class="main-image">
-			<img src="./img/hummel-1353423_1920.jpg" width="1200" height="300" />
+			<img src="<c:url value ="/publishing/bg/img/1.jpg"/>" width="1200" height="300" />
 		</div>
 		<div class="main-title">
 			<!--여기 제목-->
 			<h3>${tipBoard.tipTitle}</h3>
-			<p></p>
+			<p><i src="glyphicon glyphicon-eye-open"></i></p>
 		</div>
 	</div>
 	<div class="bottom-section">
@@ -304,7 +308,8 @@ header nav a {
 			<div class="panel panel-default">
 				<div class="panel-heading" id="forHeding">
 					<i class="glyphicon glyphicon-user"></i>
-					<span>&nbsp&nbsp${tipBoard.writer}</span> <span>${tipBoard.tipRegDate}</span>
+				
+					<span>&nbsp&nbsp${tipBoard.writer}</span><span id="reg_time" class = "forspan"><fmt:formatDate value="${tipBoard.tipRegDate}" pattern="yyyy-MM-dd HH:mm:ss" /></span>
 				</div>
 				<div class="panel-body">${tipBoard.tipContent}</div>
 			</div>
@@ -337,7 +342,7 @@ header nav a {
 	<form id="insertForm" method="POST">
 		<div class="forall2">
 			<input type="hidden" name="tipNo" value="${tipboard.tipNo}" /> <input
-				type="hidden" name="tipcWriter" value="아란이누나" />
+				type="hidden" name="tipcWriter" value="${user.id}" />
 			<textarea class="forCommentsSize" name="tipcContent"></textarea>
 			<button type="button" class="btn btn-primary btn-lg forbutton2"
 				id="insertComment">등록</button>
@@ -350,26 +355,17 @@ header nav a {
 	<script>
 		//댓글 조회
 		function commentList() {
-			$
-					.ajax({
+			$.ajax({
 						url : "<c:url value='/tip/listComment.cf'/>",
 						type : "POST",
 						data : "no=${tipBoard.tipNo}"
 
-					})
-					.done(
-							function(result) {
+					}).done(function(result) {
 								console.log(result)
-								if (result == null) {
-									$(".forCommentsContainer").append(
-											"<div>등록된 댓글이 없습니다.</div>")
-								}
-
+								var text="";
 								for (let i = 0; i < result.length; i++) {
 
-									$(".diplay")
-											.append(
-													"<div class = 'forCommentsContainer'>"
+								text+= "<div class = 'forCommentsContainer'>"
 															+ "<div class  = 'row'>"
 															+ "<div class='col-md-2'><i class='far fa-user'></i>&nbsp&nbsp"
 															+ result[i].tipcWriter
@@ -383,8 +379,11 @@ header nav a {
 															+ "<i class='glyphicon glyphicon-option-horizontal dropbtn' aria-hidden='true'></i>"
 															+ "<div class='dropdown-content'>"
 															+ "<a href='#' id = 'deleteComment' class = "+result[i].tipcNo+" '>삭제</a>"
-															+ "</div></div></div></div></div>");
-								}
+															+ "</div></div></div></div></div>";
+								} //for
+								
+								$(".diplay")
+								.html(text)
 
 							})
 		};
@@ -425,7 +424,7 @@ header nav a {
 											{
 												url : "<c:url value='/tip/insertComment.cf'/>",
 												type : "POST",
-												data : "tipNo=${tipBoard.tipNo}&tipcWriter=aaa&tipcContent="
+												data : "tipNo=${tipBoard.tipNo}&tipcWriter=${user.id}&tipcContent="
 														+ tipcContent
 											//난 분명이 아란누나로 aaa로 지정을했고 컨트롤러에서 아란누나로 지정을 했긴했는데 아란누나로 덮어 쓰여진건가 그런건가
 

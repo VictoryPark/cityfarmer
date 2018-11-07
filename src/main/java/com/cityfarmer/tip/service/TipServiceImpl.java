@@ -18,6 +18,7 @@ public class TipServiceImpl implements TipService {
 
 	@Override
 	public List<TipBoard> selectBoard(TipBoard board) {
+	
 		return mapper.selectBoard(board);
 	}
 
@@ -28,19 +29,31 @@ public class TipServiceImpl implements TipService {
 	}
 
 	@Override
-	public void insertBoard(TipBoard board, TipFile file) {
+	public void insertBoardAll(TipBoard board, TipFile file) {
 		
 		mapper.insertBoard(board);
 		file.setTipNo(board.getTipNo());
 		mapper.insertTipFile(file);
+	}
+	@Override
+	public void insertBoard(TipBoard board) {
+		mapper.insertBoard(board);
 	}
 
 
 
 	@Override
 	public TipBoard selectBoardByNo(int no) {
+		// 리턴되는 값이 조회수인데 자동으로 board의 tipViewCnt에 들어가는지
 		mapper.updateBoardViewCnt(no);
-		return mapper.selectBoardByNo(no);
+//		System.out.println("------------------------");
+//		System.out.println(tipViewCnt);
+//		System.out.println("------------------------");
+		
+		TipBoard board = mapper.selectBoardByNo(no);
+	
+		
+		return board;
 	}
 
 	@Override
@@ -56,11 +69,7 @@ public class TipServiceImpl implements TipService {
 	}
 	
 
-	@Override
-	public int updateBoardViewCnt(int no) {
-		return mapper.updateBoardViewCnt(no);
-	}
-
+	
 	@Override
 	public List<TipBoardComment> selectComment(int no) {
 	

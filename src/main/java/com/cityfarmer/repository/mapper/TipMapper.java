@@ -15,7 +15,7 @@ public interface TipMapper {
 	void insertBoard(TipBoard board);
 	void deleteBoard(int no);
 	void updateBoard(TipBoard board);
-	int updateBoardViewCnt(int no);
+	int updateBoardViewCnt(int no);// 추천수 증가
 	
 
 	List<TipBoardComment> selectComment(int no);

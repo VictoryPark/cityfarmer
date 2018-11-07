@@ -1,6 +1,7 @@
 package com.cityfarmer.tip.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cityfarmer.repository.domain.tip.TipBoard;
 import com.cityfarmer.repository.domain.tip.TipBoardComment;
@@ -10,12 +11,13 @@ public interface TipService {
 	
 	List<TipBoard> selectBoard(TipBoard board);
 	int selectBoardCount();
-
-	void insertBoard(TipBoard board, TipFile file);
+	void insertBoard(TipBoard board);
+	void insertBoardAll(TipBoard board, TipFile file);
 	TipBoard selectBoardByNo(int no);
+	/*TipBoard selectBoardByNo(int no);*/
 	void deleteBoard(int no);
 	void update(TipBoard board);
-	int updateBoardViewCnt(int no);
+//	int updateBoardViewCnt(int no);
 	
 	
 

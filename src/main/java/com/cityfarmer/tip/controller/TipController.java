@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,15 +56,38 @@ public class TipController {
 	public void wirteForm() throws Exception{
 		
 	}
+	
+	
 	@RequestMapping("/write.cf")
-	public String write(TipBoard tipboard, TFormVO form, TipFile file) throws Exception{
+	public String write(TipBoard tipboard, TipFile file) throws Exception{
+	if(file.getTipfOriName()=="") {
+		service.insertBoard(tipboard);
+	
+	}else {
+		System.out.println(form.getTipTitle());
+		System.out.println(form.getTipContent());
+
+			tipboard.setTipTitle(form.getTipTitle());
+			tipboard.setTipContent(form.getTipContent());
+			
+
+		file.setTipfOriName(form.getOriName());
+		file.setTipfSysName(form.getSysName());
+		file.setTipfPath(form.getPath());
 		
-	System.out.println(form.getTipTitle());
+			file.setTipfSize(form.getSize());
+			System.out.println(file.getTipfSize());
+			
+		service.insertBoardAll(tipboard, file);
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "MainPage.cf";
+	}
+		
+/*	System.out.println(form.getTipTitle());
 	System.out.println(form.getTipContent());
 
 		tipboard.setTipTitle(form.getTipTitle());
 		tipboard.setTipContent(form.getTipContent());
-		tipboard.setWriter("aaa");
+		
 
 	file.setTipfOriName(form.getOriName());
 	file.setTipfSysName(form.getSysName());
@@ -73,14 +97,15 @@ public class TipController {
 		System.out.println(file.getTipfSize());
 		
 		
-		service.insertBoard(tipboard, file);
+		service.insertBoard(tipboard, file);*/
 	
-		
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "MainPage.cf";
+
 		
 	}
 	@RequestMapping("/detailBoard.cf")
 	public void detail(int no, Model model)throws Exception{
+		System.out.println("컨트롤러까지 들어옴을 확인");
+		System.out.println(no);
 		
 		model.addAttribute("tipBoard", service.selectBoardByNo(no));
 	}
@@ -113,7 +138,7 @@ public class TipController {
 	@RequestMapping("/insertComment.cf")
 	@ResponseBody
 	public void writeComment(TipBoardComment tipBoardComment) {
-		tipBoardComment.setTipcWriter("아란누나");
+	/*	tipBoardComment.setTipcWriter("아란누나");*/
 		service.insertComment(tipBoardComment);
 		
 	}
