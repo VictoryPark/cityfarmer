@@ -30,17 +30,7 @@
     
 </head>
 <body>
-	  <header>
-        <h1><span>City</span>Farmer</h1>
-        <nav>
-            <a href="">About</a>
-            <a href="">물물교환</a>
-            <a href="">공동구매</a>
-            <a href="">꿀팁</a>
-            <a href="">갤러리</a>
-            <a href="">나만의 일기</a>
-        </nav>
-    </header>
+	  <c:import url="../common/header.jsp" />
   
     <div class="top-section">
         <div class="main-image"><img src="https://res.cloudinary.com/bigboydesign1/image/upload/v1476647899/download_schjib.jpg" /></span>
@@ -90,11 +80,7 @@
     	
     </form>
     
-        <footer>
-            <h4>Copyright ⓒ<span>낭만코양이</span> All rights reserved.</h4>
-
-            <h4>with AR, CW, HK, SY, BG</h4>
-        </footer>
+        <c:import url="../common/footer.jsp" />
         <script>
         $(document).ready(function () {
             $('#summernote').summernote({
