@@ -64,22 +64,10 @@ public class TipController {
 		service.insertBoard(tipboard);
 	
 	}else {
-		System.out.println(form.getTipTitle());
-		System.out.println(form.getTipContent());
-
-			tipboard.setTipTitle(form.getTipTitle());
-			tipboard.setTipContent(form.getTipContent());
-			
-
-		file.setTipfOriName(form.getOriName());
-		file.setTipfSysName(form.getSysName());
-		file.setTipfPath(form.getPath());
 		
-			file.setTipfSize(form.getSize());
-			System.out.println(file.getTipfSize());
 			
 		service.insertBoardAll(tipboard, file);
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "MainPage.cf";
+	
 	}
 		
 /*	System.out.println(form.getTipTitle());

@@ -208,13 +208,13 @@ a:hover {
 </head>
 <body>
 
-	<header>
-	<h1>
+	<c:import url="../common/header.jsp" />
+<!-- 	<h1>
 		<span>City</span>Farmmer
-	</h1>
-	<nav> <a href="">꿀팁게시판</a> <a href="">공구게시판</a> <a href="">물물교환
+	</h1> -->
+	<!-- <nav> <a href="">꿀팁게시판</a> <a href="">공구게시판</a> <a href="">물물교환
 		게시판</a> <a href="">식물자랑 갤러리</a> <a href="">달력게시판</a> <a href="">로그인/마이페이지</a>
-	</nav> </header>
+	</nav> </header> -->
 	<div class="top-section">
 		<div class="main-image">
 			<img src="<c:url value ="/publishing/bg/img/1.jpg"/>" width="1200"
@@ -290,11 +290,7 @@ a:hover {
 	</div>
 
 
-	<footer>
-	<h4>
-		협찬 <span>낭만 코양이</span> 팀.
-	</h4>
-	</footer>
+	 <c:import url="../common/footer.jsp" />
 
 </body>
 </html>

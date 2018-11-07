@@ -187,13 +187,7 @@ header nav a {
 }
 </style>
 <body>
-	<header>
-	<h1>
-		<span>City</span>Farmmer
-	</h1>
-	<nav> <a href="">꿀팁게시판</a> <a href="">공구게시판</a> <a href="">물물교환
-		게시판</a> <a href="">식물자랑 갤러리</a> <a href="">달력게시판</a> <a href="">로그인/마이페이지</a>
-	</nav> </header>
+	   <c:import url="../common/header.jsp" />
 
 	<form action="write.cf" method="post">
 		<div class="top-section">
@@ -234,6 +228,7 @@ header nav a {
 			name="size" type="hidden" />
 
 	</form>
+	 
 
 	<script>
 		/* $(document).ready(function() {

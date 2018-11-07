@@ -286,13 +286,7 @@ margin-left:80%;
 	
 	 --%>
 
-	<header>
-	<h1>
-		<span>City</span>Farmmer
-	</h1>
-	<nav> <a href="">꿀팁게시판</a> <a href="">공구게시판</a> <a href="">물물교환
-		게시판</a> <a href="">식물자랑 갤러리</a> <a href="">달력게시판</a> <a href="">로그인/마이페이지</a>
-	</nav> </header>
+	   <c:import url="../common/header.jsp" />
 	<div class="top-section">
 		<div class="main-image">
 			<img src="<c:url value ="/publishing/bg/img/1.jpg"/>" width="1200" height="300" />
@@ -335,10 +329,7 @@ margin-left:80%;
 	<br>
 
 	<!--  댓글 등록 !!  나중 writer 세션받아와서 바꿔주기 -->
-	<footer>
-
-
-
+	<div>
 	<form id="insertForm" method="POST">
 		<div class="forall2">
 			<input type="hidden" name="tipNo" value="${tipboard.tipNo}" /> <input
@@ -348,9 +339,9 @@ margin-left:80%;
 				id="insertComment">등록</button>
 		</div>
 	</form>
-
-
-	</footer>
+	
+	</div>
+	
 
 	<script>
 		//댓글 조회
@@ -460,5 +451,6 @@ margin-left:80%;
 
 		});
 	</script>
+	
 </body>
 </html>
