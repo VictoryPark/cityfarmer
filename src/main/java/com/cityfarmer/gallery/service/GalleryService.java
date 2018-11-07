@@ -3,6 +3,7 @@ package com.cityfarmer.gallery.service;
 import java.util.List;
 import java.util.Map;
 
+import com.cityfarmer.repository.domain.exchange.SearchVO;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
@@ -43,4 +44,7 @@ public interface GalleryService {
 	void updateRec(int gaNo); //게시글 총 추천수 증가
 	void deleteRec(RecVO recVO); //게시글 추천 취소
 	void cancelRec(int gaNo);  // 게시글 총 추천수 감소
+	
+	Map<String, Object> searchList(SearchVO search); //댓글
+
 }

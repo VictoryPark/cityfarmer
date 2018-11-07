@@ -2,6 +2,7 @@ package com.cityfarmer.repository.mapper;
 
 import java.util.List;
 
+import com.cityfarmer.repository.domain.exchange.SearchVO;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryComment;
 import com.cityfarmer.repository.domain.gallery.GalleryFile;
@@ -42,5 +43,15 @@ public interface GalleryMapper {
 	void updateRec(int gaNo); //게시글 총 추천수 증가
 	void deleteRec(RecVO recVO); //게시글 추천 취소
 	void cancelRec(int gaNo);  // 게시글 총 추천수 감소
+	
+	//----------------------------------검색
+
+	List<GalleryBoard> selectBoardByTitle(SearchVO search);
+	
+	int selectBoardCountByTitle(SearchVO search);
+	
+	List<GalleryBoard> selectBoardByWriter(SearchVO search);
+	
+	int selectBoardCountByWriter(SearchVO search);
 	
 }

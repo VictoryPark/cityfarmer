@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cityfarmer.repository.domain.exchange.SearchVO;
 import com.cityfarmer.repository.domain.gallery.GaPageResult;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryComment;
@@ -134,6 +135,41 @@ public class GalleryServiceImpl implements GalleryService {
 	public void cancelRec(int gaNo) {
 
 		gaMapper.cancelRec(gaNo);
+	}
+	
+	@Override
+	public Map<String, Object> searchList(SearchVO search) {
+
+		Map<String, Object> map = new HashMap<>();
+		List<GalleryBoard> boardList = null;
+		int count = 0;
+		//System.out.println("search : " + search);
+		
+		if(search.getType().equals("title")) {	
+			boardList = gaMapper.selectBoardByTitle(search);
+			count = gaMapper.selectBoardCountByTitle(search);
+		} else if(search.getType().equals("writer")) {
+			boardList = gaMapper.selectBoardByWriter(search);
+			count = gaMapper.selectBoardCountByWriter(search);
+		}
+		
+		System.out.println("boardList : " + boardList);
+		
+		for(GalleryBoard b : boardList) {
+			//System.out.println("board.getno : "+board.getExNo());
+			
+			GalleryFile file = gaMapper.selectFileByGaNo(b.getGaNo());
+			//System.out.println("file : "+file);
+			if(file ==null) continue;
+			
+			//System.out.println(file.getExfPath()+ "/" + file.getExfSysName());
+			b.setUrl(file.getGafPath() + "/" + file.getGafSysName());
+		}
+		
+		map.put("list", boardList);
+		map.put("pageResult", new GaPageResult(search.getPageNo(), count));
+		map.put("search", search);
+		return map;
 	}
 	
 

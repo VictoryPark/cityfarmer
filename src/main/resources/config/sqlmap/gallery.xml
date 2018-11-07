@@ -52,6 +52,47 @@
 		where rnum &gt;= #{begin}
 	</select>
 	
+	<!-- 검색 -->
+	
+	<!-- 제목으로 검색 -->
+	<select id="selectBoardByTitle" parameterType="SearchVO" resultMap="galleryMap">
+		select *
+  		from (select rownum rnum, a.* 
+		  		from (  select * 
+				  		  from cf_gallery 
+				  		 where ga_title like '%' || #{keyword} || '%'
+				  		order by ga_no desc) a
+				where rownum &lt;= #{end})
+		where rnum &gt;= #{begin}
+	</select>
+	
+	<!-- 제목으로 검색 게시물 수 -->
+	<select id="selectBoardCountByTitle" parameterType="SearchVO" resultType="int">
+		select count(*)
+		  from cf_gallery
+		where ga_title like '%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 작성자로 검색 -->
+	<select id="selectBoardByWriter" parameterType="SearchVO" resultMap="galleryMap">
+		select *
+  		from (select rownum rnum, a.* 
+		  		from (  select * 
+				  		  from cf_gallery 
+				  		 where writer like '%' || #{keyword} || '%'
+				  		order by ga_no desc) a
+				where rownum &lt;= #{end})
+		where rnum &gt;= #{begin}
+	</select>
+	
+	<select id="selectBoardCountByWriter" parameterType="SearchVO" resultType="int">
+		select count(*)
+		  from cf_gallery
+		where writer like '%' || #{keyword} || '%'
+	</select>
+	
+	
+	
 	<!-- 전페 게시물의 수 -->
     <select id = "seLectGalleryBoardCount" resultType ="int">
    		    select count(*) 

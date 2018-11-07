@@ -113,23 +113,30 @@
                     </div>
                     <button type="submit" class="btn btn-default">검색</button>
                     </form>-->
-         <form method="POST"  role="search"action="<c:url value='/gallery/gallerylistsearch.cf'/>" class="navbar-form" name="searchForm" > 
-         	<input type="hidden" name="pageNo" value="1"> 
+                           <form method="POST"  role="search"action="<c:url value='/gallery/listsearch.cf'/>" class="navbar-form" name="searchForm" > 
            <div class="form-group" id="search">
-               <select id="searchsel" name="type" class="searchselect">
-                   <option value="title">제목</option>
+              <select id="searchsel" name="type" class="searchselect">
+	           <c:choose>
+	           <c:when test="${map.search.type == 'title'}">
+                   <option value="title" selected="selected">제목</option>
                    <option value="writer">작성자</option>
+               </c:when>
+               <c:otherwise>
+               	   <option value="title" >제목</option>
+                   <option value="writer" selected="selected">작성자</option>
+               </c:otherwise>
+               </c:choose>
                </select>
-               <input type="text" name="keyword" class="form-control"/>
-               <button type="submit" class="btn btn-default" id="search">검색</button>
+               <input type="text" name="keyword" class="form-control" value="${map.search.keyword }"/>
+               <button type="button" class="btn btn-default" id="search">검색</button>
            </div>
           </form> 
                 
-	<c:if test="${map.pageResult.count != 0 }">
+		<c:if test="${map.pageResult.count != 0 }">
 				<div id="paging" class="text-center">
   				<ul class="pagination">
 			        <li<c:if test="${map.pageResult.prev eq false }"> class="disabled"</c:if>>
-			          <a href="gallerylist1.cf?pageNo=${map.pageResult.beginPage-1 }" aria-label="Previous">
+			          <a href="gallerylistsearch.cf?pageNo=${map.pageResult.beginPage - 1}&type=${map.search.type}" aria-label="Previous">
 			            <span aria-hidden="true">&laquo;</span>
 			          </a>
 			        </li>
@@ -140,14 +147,13 @@
 			        		</li>
 			    </c:forEach>
 			        <li <c:if test="${map.pageResult.next eq false}"> class="disabled"</c:if>>
-			          <a href="gallerylist1.cf?pageNo=${map.pageResult.endPage+1 }" aria-label="Next">
+			          <a href="gallerylistsearch.cf?pageNo=${map.pageResult.endPage+1 }" aria-label="Next">
 			            <span aria-hidden="true">&raquo;</span>
 			          </a>
 			        </li>
   				</ul>
 				</div>
-		</c:if>  
-		             
+		</c:if>               
   				<div id="wirte"> 
                     <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
                     <button type="button" class="btn btn-primary" id="write">글작성</button>
@@ -160,7 +166,9 @@
   
 
     <script>
-    
+    $(document).ready(function(){
+    	console.log("${map}")
+    })
 	        var elem = document.querySelector('.m-p-g');
 
              document.addEventListener('DOMContentLoaded', function() {
@@ -191,22 +199,25 @@
 					if(pageNo == 0) return false;
 					location.href = "gallerylist1.cf?pageNo="+pageNo; //넘어온 페이지를 스크립에서 처리
 				}
-           
 				
-				
-				
-				$("button#search").click(function(){
-					
-					var f = document.searchForm;
-					
-					if(f.keyword.value == "") {
-						alert("검색할 키워드를 입력해주세요.")
-					} else {
-						f.submit();
-					}
-				}) //buttonclick
+		//---------------------------------------------------------------------------
+		$(".pagination a").click(function(e){
+		e.preventDefault();
+		location.href= $(this).attr("href") + "&type=${map.search.type}&keyword=${map.search.keyword}"
+	})
+	
+	$("button#search").click(function(){
+		
+		var f = document.searchForm;
+		
+		if(f.keyword.value == "") {
+			alert("검색할 키워드를 입력해주세요.")
+		} else {
+			f.submit();
+		}
+	}) //buttonclick
 
-			           
+           
     </script>
 </body>
 </html>

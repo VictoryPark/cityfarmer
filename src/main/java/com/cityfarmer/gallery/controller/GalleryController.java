@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.cityfarmer.gallery.service.GalleryService;
+import com.cityfarmer.repository.domain.exchange.SearchVO;
 import com.cityfarmer.repository.domain.gallery.GFormVO;
 import com.cityfarmer.repository.domain.gallery.GalleryBoard;
 import com.cityfarmer.repository.domain.gallery.GalleryComment;
@@ -41,6 +42,13 @@ public class GalleryController {
 		Map<String,Object> map = gaService.list(pageNo);
 		model.addAttribute("map",map);
 	}
+	
+	@RequestMapping("/gallerylistsearch.cf")
+	public void searchList(SearchVO search, Model model) {
+		model.addAttribute("map", gaService.searchList(search));
+		
+		System.out.println("제발" + search);
+	} //searchList
 	
 	//등록 폼
 	@RequestMapping("/gallerywrite.cf")

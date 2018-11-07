@@ -9,9 +9,9 @@ public class GaPageResult {
 	 private int endPage;
 	 private boolean prev;
 	 private boolean next;
-	 
-	 
-	 /**
+	
+
+	/**
 	  * 
 	  * @param count  : 게ㅅㅣ물 전체 개수
 	  */
