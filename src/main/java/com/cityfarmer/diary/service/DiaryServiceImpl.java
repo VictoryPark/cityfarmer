@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cityfarmer.repository.domain.Page;
 import com.cityfarmer.repository.domain.diary.DiaryBoard;
 import com.cityfarmer.repository.domain.diary.DiaryComment;
+import com.cityfarmer.repository.domain.diary.DiaryFile;
 import com.cityfarmer.repository.domain.diary.drPage;
 import com.cityfarmer.repository.mapper.DiaryMapper;
 
@@ -18,14 +19,34 @@ public class DiaryServiceImpl implements DiaryService {
 	private DiaryMapper drmapper;
 	
 	@Override
+	public void writer(DiaryBoard board, List<DiaryFile> fileList) {
+		 drmapper.insertDiaryBoard(board);
+		 if(fileList != null) {
+			 for(DiaryFile f : fileList) {
+				 uploadFile(f);
+			 }
+		 }
+		
+	}
+	
+	@Override
+	public void uploadFile(DiaryFile file) {
+		drmapper.insertDiaryFile(file);
+	}
+	
+	@Override
+	public void updateDiaryFile(DiaryFile file) {
+		drmapper.updateDiaryFile(file);
+	}
+	
+	@Override
+	public List<DiaryFile> listFile(int drNo) {
+		return drmapper.selectDiaryFileByNo(drNo);
+	}
+	
+	@Override
 	public List<DiaryBoard> list(drPage page) {
 		return drmapper.selectDiaryBoard(page);
-	}
-
-	@Override
-	public void writer(DiaryBoard board) {
-		 drmapper.insertDiaryBoard(board);
-		
 	}
 
 	@Override
@@ -34,8 +55,14 @@ public class DiaryServiceImpl implements DiaryService {
 	}
 
 	@Override
-	public void update(DiaryBoard board) {
+	public void update(DiaryBoard board, List<DiaryFile> fileList) {
 		 drmapper.updateDiaryBoard(board);
+		 
+		 if(fileList != null) {
+			 for(DiaryFile f : fileList) {
+				 updateDiaryFile(f);
+			 }
+		 }
 		
 	}
 
@@ -54,7 +81,8 @@ public class DiaryServiceImpl implements DiaryService {
 	public int count() {
 		return drmapper.selectDiaryBoardCount();
 	}
-
+	
+	// 코멘트
 	@Override
 	public void writerComment(DiaryComment comment) {
 		drmapper.drcInsertComment(comment);
@@ -82,7 +110,6 @@ public class DiaryServiceImpl implements DiaryService {
 	public int selectDiaryCommentCount(int drNo) {
 		return drmapper.selectDiaryCommentCount(drNo);
 	}
-	
-	
+
 
 }

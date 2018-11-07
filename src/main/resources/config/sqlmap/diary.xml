@@ -27,6 +27,15 @@
 		<result column="file_name" property="fileName" />
 	</resultMap>
 	
+	<resultMap id="fileMap" type="DiaryFile" >
+		<result column="drf_no" property="drfNo"/>
+		<result column="dr_no" property="drNo"/>
+		<result column="drf_ori_name" property="drfOriName"/>
+		<result column="drf_sys_name" property="drfSysName"/>
+		<result column="drf_path" property="drfPath"/>
+		<result column="drf_size" property="drfSize"/>
+	</resultMap>
+	
 	<!-- 전체 목록 가져오기 -->
 	<select id="selectDiaryBoard" parameterType="Page" resultMap="diaryMap">
 		select *
@@ -42,6 +51,29 @@
 	<select id="selectDiaryBoardCount" resultType="int">
 		select count(*)
 		from cf_diary
+	</select>
+	
+	<insert id="insertDiaryFile" parameterType="DiaryFile">
+		<selectKey keyProperty="drNo" resultType="int" order="BEFORE">
+			select cf_s_diary_no.currval from dual
+		</selectKey>
+		insert into cf_dr_file(drf_no, dr_no, drf_ori_name, drf_sys_name, drf_path, drf_size)
+		values(cf_s_drf_no.nextval, #{drNo}, #{drfOriName}, #{drfSysName}, #{drfPath}, #{drfSize})
+	</insert>
+	
+	<update id="updateDiaryFile" parameterType="DiaryFile">
+		update cf_dr_file
+			set drf_ori_name = #{drfOriName},
+				drf_sys_name = #{drfSysName},
+				drf_path = #{drfPath},
+				drf_size = #{drfSize},
+			where drf_no = #{drfNo}
+	</update>
+	
+	<select id="selectDiaryFileByNo" parameterType="int" resultMap="fileMap">
+		select *
+		from cf_dr_file
+		where dr_no = #{drNo}
 	</select>
 	
 	<!-- 게시물 등록하기 : insertBoard -->
@@ -60,7 +92,8 @@
     	select *
     	  from cf_diary
     	 where dr_no = #{drNo} 
-    </select>		
+    </select>	
+    	
     <update id="updateDiaryBoard" parameterType="DiaryBoard">
     	update cf_diary
     	   set dr_title = #{drTitle},
