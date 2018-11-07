@@ -11,11 +11,15 @@ $("button.list").click(function() {
 	location.href = "<c:url value='/exchange/list.cf'/>" +"?pageNo=1"
 })
 $("button.delete").click(function() {
-	location.href = "<c:url value='/exchange/delete.cf'/>" +"?exno="+$(this).val()
+	var check = confirm("정말 게시글을 삭제하시겠습니까?")
+	if(check ==true) {
+		location.href = "<c:url value='/exchange/delete.cf'/>" +"?exno="+$(this).val();	
+	}
 })
 
+
 $("input[type='checkbox']").click(function(){
-	if($(this).is(":checked")){
+	if($(this).is(":checked")){ //체크햇을때..if
 		//alert("거래 완료되었습니다.")
 		swal({
 			  type: 'success',
@@ -64,7 +68,7 @@ $("select").change(function(){
 		}).done(function(list) {
 			showcommentList(list)
 		}) //done
-	} else {ㅂ
+	} else {
 		$.ajax({
 			url : "<c:url value='/exchange/comment/list.cf'/>",
 			data : "exno=${map.board.exNo}", 
@@ -75,6 +79,8 @@ $("select").change(function(){
 	}
 	
 })
+
+
 
 $("a.submit").click(function() {
 	$.ajax({
@@ -242,7 +248,52 @@ function insertformReply(excNo, exNo, list) {
 		showcommentList(list);
 	})
 	
-} // insertReply
+} // insertformReply
+
+function insertformReplyRe(excNo, refNo, exNo, list, aObject){
+	//alert(excNo)
+	//alert(refNo)
+	//alert(exNo)
+	//alert(excNo)
+	var text = '<div id="rere">';
+	text += '<input id="reWriter" type="hidden" value="${user.id}"/>'
+	text += '<textarea id="reContent" class="form-control" name="excContent" rows="2">답글을 입력해주세요.</textarea>'
+	text += '<button type="button" id="cancelreRepl" class="btn btn-default btn-xs" value="'+excNo+'">취소</button>'
+	text += '<button type="button" id="writereRepl" class="btn btn-default btn-xs" value="'+excNo+'">답글 등록하기</button>'
+	text += '</div>'
+	$("a#commupdate").html("");
+	$("a#commdelete").html("");
+	$("a#reply").html("");
+	$("a#replyre").html("");
+	
+	aObject.parent().after(text)
+	/* $("td#re"+refNo).append(text) */
+	//$("tr#content"+excNo).addClass("rere")
+	
+	$("button#writereRepl").click(function (){
+		insertReplyre(excNo, refNo, exNo);
+	})
+	$("button#cancelreRepl").click(function (){
+		showcommentList(list);
+	})
+}
+
+function insertReplyre(excParentNo, refNo, exNo){
+	$.ajax({
+		url : "<c:url value='/exchange/comment/writerepl.cf'/>",
+		data : {
+				"excRef" : refNo,
+				"excParentNo" : excParentNo,
+				"exNo" : exNo,
+				"excContent" : $("textarea#reContent").val(),
+				"excWriter" : $("input#reWriter").val()
+				},
+		type : "POST"
+	}).done(function(map){
+		$("span#count2").html(map.count)
+		showcommentList(map.list)
+	}) //done
+}
 
 function insertReply(excNo, exNo) {
 	$.ajax({
@@ -467,7 +518,7 @@ function showcommentList(list) {
 	//아이콘 갖다 댈때 툴팁
 	$('[data-toggle="tooltip"]').tooltip()
 	
-	//답글 form 버튼
+	//댓글의 답글 insert form 버튼
 	$("a#reply").click(function() {
 		insertformReply($(this).attr("href").substring(1), "${map.board.exNo}", list);
 	})
@@ -484,6 +535,16 @@ function showcommentList(list) {
 		updateformReply($(this).attr("href").substring(1), "${map.board.exNo}"/* , $(this).attr("value") */);
 	})
 	
+	//댓글의 답글의 답글 버튼 클릭
+	$("a#replyre").click(function() {
+		//alert($(this).attr("href").substring(1))
+		//alert($(this).attr("value"))
+		//alert("${map.board.exNo}")
+		insertformReplyRe($(this).attr("href").substring(1), 
+				$(this).attr("value"), "${map.board.exNo}", 
+				list, 
+				$(this))
+	})
 } //showcommentList
 
 
