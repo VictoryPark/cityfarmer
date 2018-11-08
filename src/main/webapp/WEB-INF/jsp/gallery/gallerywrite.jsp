@@ -21,7 +21,7 @@
                <c:import url="../common/header.jsp" />
 
         <div class="top-section">
-            <div class="main-image">   
+            <%-- <div class="main-image">   
                 <!--
                     
                     <iframe width="100%" height="600px" src="https://www.youtube.com/embed/rRzxEiBLQCA?rel=0;amp;autoplay=1?rel=0;amp;autoplay=1"
@@ -29,7 +29,7 @@
                 --> 
                     <img id="writeimg"src='<c:url value='/resources/img/gallery/ecology-2985781_1920.jpg'/>' />
                
-            </div>
+            </div> --%>
             <div class="main-title">
                 <h2>게시글 작성</h2>
             </div>

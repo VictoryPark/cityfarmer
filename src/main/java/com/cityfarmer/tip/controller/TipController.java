@@ -198,7 +198,7 @@ public class TipController {
 			}
 			file.transferTo(img);
 			//service.uploadFile(ef);
-			tipFile.setUrl("http://192.168.0.63:8000/cityFarmer/start.cf"+ uploadPath + datePath +"/"+ fileSysName);
+			tipFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
 
 			
 		}

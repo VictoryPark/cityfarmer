@@ -11,7 +11,7 @@ body {
   background-position: left;
   -webkit-animation: slide 40s ease;
   transform: translate3d(0,0,0);
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .hero:before {

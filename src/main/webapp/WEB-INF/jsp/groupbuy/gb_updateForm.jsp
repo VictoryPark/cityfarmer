@@ -141,6 +141,7 @@
             
             var datepicker2 = new tui.DatePicker('#wrapper-2', {
                 date: new Date(year, month, day, hours, minutes),
+                language: 'ko',
                 input: {
                     element: '#datepicker-input-2',
                     format: 'yyyy-MM-dd HH:mm A'

@@ -131,7 +131,7 @@ function deleteComment(excNo, exNo){
 	//alert(excNo);
 } // deleteComment
 
-function updateform(excNo, exNo){
+function updateform(excNo, exNo, list){
 	//alert(excNo);
 	$.ajax({
 			url : "<c:url value='/exchange/comment/updateform.cf'/>",
@@ -153,11 +153,12 @@ function updateform(excNo, exNo){
 	    			text += '<span id="regDate">'+comment.excRegDate+'</span></td></tr>'
 	    			text += '<tr id="content'+comment.excNo+'">'
 	    			
-	    				if(comment.excNo == excNo){	//수정하는 댓글에 textarea 뿌려주는 조건..
-   	    				text += '<td id="content"><textarea class="form-control" id="excContent" rows="3">'+comment.excContent+'</textarea></td>'
-   	    				text += '<td id="updatebutton">'
-  							text += '<button type="button" id="update" class="btn btn-default btn-xs" value="'+comment.excNo+'">수정하기</button>'
-  	    	    			text += '</td></tr>'
+    				if(comment.excNo == excNo){	//수정하는 댓글에 textarea 뿌려주는 조건..
+  	    				text += '<td id="content"><textarea class="form-control" id="excContent" rows="3">'+comment.excContent+'</textarea></td>'
+  	    				text += '<td id="updatebutton">'
+						text += '<button type="button" id="cancle" class="btn btn-default btn-xs" value="'+comment.excNo+'">취소</button>'
+						text += '<button type="button" id="update" class="btn btn-default btn-xs" value="'+comment.excNo+'">수정하기</button>'
+    	    			text += '</td></tr>'
    	    			} else {
 	    	    			text += '<td id="content">'+comment.excContent+'</td>'
 	    	    			text += '<td id="updatebutton"><td></tr>'
@@ -171,7 +172,9 @@ function updateform(excNo, exNo){
 			//console.log(text);
     		//console.log($("table#reply"))
 			$("table#reply").html(text); //ref =0 인 댓글들 html 삽입..
-    		
+    		$("button#cancle").click(function(){
+    			showcommentList(list)
+    		})
     		
     		for(let comment of list) {
     			
@@ -337,7 +340,7 @@ function deleteReply(excNo, exNo) {
 	}
 } //deleteReply
 
-function updateformReply(excNo, exNo) {
+function updateformReply(excNo, exNo, list) {
 	$.ajax({
 		url : "<c:url value='/exchange/comment/updateformrepl.cf'/>",
 		data : "exno=" +exNo,
@@ -395,6 +398,7 @@ function updateformReply(excNo, exNo) {
 		 		    	if(comment.excNo == excNo) {
 		 		    		text += '<div id="reContent'+comment.excNo+'">'
 		 		    		text += '<textarea class="form-control" id="reContent" rows="3">'+comment.excContent+'</textarea>'
+   	   						text += '<button type="button" id="cancleRepl" class="btn btn-default btn-xs" value="'+comment.excNo+'">취소</button></div>'
    	   						text += '<button type="button" id="updateRepl" class="btn btn-default btn-xs" value="'+comment.excNo+'">수정하기</button></div>'
    	   						
 		 		    	} else {
@@ -415,6 +419,10 @@ function updateformReply(excNo, exNo) {
 			alert(exNo) */
 			updateRepl(excNo, exNo);
 		})
+		
+		$("button#cancleRepl").click(function(){
+    			showcommentList(list)
+    	})
 	})//done
 } //updateformReply
 
@@ -520,7 +528,7 @@ function showcommentList(list) {
 	//댓글 수정 버튼
 	$("a#commupdate").click(function(){
 		//alert($(this).attr("href").substring(1))
-		updateform($(this).attr("href").substring(1), "${map.board.exNo}")
+		updateform($(this).attr("href").substring(1), "${map.board.exNo}", list)
 	})
 	
 	//아이콘 갖다 댈때 툴팁
@@ -540,7 +548,7 @@ function showcommentList(list) {
 	
 	//답글의 수정 버튼
 	$("a#replupdatere").click(function() {
-		updateformReply($(this).attr("href").substring(1), "${map.board.exNo}"/* , $(this).attr("value") */);
+		updateformReply($(this).attr("href").substring(1), "${map.board.exNo}",list);
 	})
 	
 	//댓글의 답글의 답글 버튼 클릭

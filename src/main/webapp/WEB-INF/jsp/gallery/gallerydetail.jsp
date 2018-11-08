@@ -11,7 +11,7 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
          <link href="<c:url value="/resources/css/gallery/gallerydetail.css"/>" rel="stylesheet">
-        
+      
 </head>
 <body>
                <c:import url="../common/header.jsp" />
@@ -84,8 +84,8 @@
             </div>
             
             </div>
-        </div><br>
-                   <c:import url="../common/footer.jsp" />
+        
+          <c:import url="../common/footer.jsp" />
         
         <script>
                        var angle = 0;
