@@ -89,6 +89,7 @@
        		  
        		  $title = $("input[name='gaTitle']").val();
        		  $content = $("textarea").val();
+       					
        		  
        		  if($title==""){
        		      alert("제목을 입력하세요")
@@ -103,10 +104,16 @@
        		      e.preventDefault()
        		      return;
        		  }
+       		  if($("input#imageBoard").val()==""){
+       			  alert("파일을 첨부해주세요")
+       			  e.preventDefault()
+       			  return ;
+       		  }
        		  f.submit();
-       	  }) //click
+       	  	}) //click
              
             });
+        
         function sendFile(file, ele) {
         	var form_data = new FormData();
         	console.log("form_data", form_data)
@@ -132,6 +139,7 @@
         	})//ajax
         }
        	
+        
         $("#cblist").click(function () {
 			location.href="/cityFarmer/gallery/gallerylist1.cf"	
 		})

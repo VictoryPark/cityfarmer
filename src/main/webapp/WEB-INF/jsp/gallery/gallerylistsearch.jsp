@@ -128,7 +128,7 @@
 				<div id="paging" class="text-center">
   				<ul class="pagination">
 			        <li<c:if test="${map.pageResult.prev eq false }"> class="disabled"</c:if>>
-			          <a href="gallerylistsearch.cf?pageNo=${map.pageResult.beginPage - 1}&type=${map.search.type}" aria-label="Previous">
+			          <a href="${map.pageResult.beginPage - 1}" data-type="${map.search.type}" aria-label="Previous">
 			            <span aria-hidden="true">&laquo;</span>
 			          </a>
 			        </li>
@@ -139,7 +139,7 @@
 			        		</li>
 			    </c:forEach>
 			        <li <c:if test="${map.pageResult.next eq false}"> class="disabled"</c:if>>
-			          <a href="gallerylistsearch.cf?pageNo=${map.pageResult.endPage+1 }" aria-label="Next">
+			          <a href="${map.pageResult.endPage+1 }" aria-label="Next">
 			            <span aria-hidden="true">&raquo;</span>
 			          </a>
 			        </li>
@@ -184,20 +184,18 @@
 				e.preventDefault();
 		
 				var pageNo = $(this).attr("href")
+				var type = $(this).data("type")
 				if(pageNo == 0) return false;
-				location.href = "gallerylist1.cf?pageNo="+pageNo; //넘어온 페이지를 스크립에서 처리
+				location.href = "gallerylist1.cf?pageNo="+pageNo + "&type="+type ; //넘어온 페이지를 스크립에서 처리
 				});
 	
-				function goPage(pageNo) {
-					if(pageNo == 0) return false;
-					location.href = "gallerylist1.cf?pageNo="+pageNo; //넘어온 페이지를 스크립에서 처리
-				}
-				
-		//---------------------------------------------------------------------------
-		$(".pagination a").click(function(e){
-		e.preventDefault();
-		location.href= $(this).attr("href") + "&type=${map.search.type}&keyword=${map.search.keyword}"
-	})
+			
+         	
+     		//---------------------------------------------------------------------------
+     /* 		$(".pagination a").click(function(e){
+     		e.preventDefault();
+     		location.href= $(this).attr("href") + "&type=${map.search.type}&keyword=${map.search.keyword}"
+     	}) */
 	
 	$("button#search").click(function(){
 		
