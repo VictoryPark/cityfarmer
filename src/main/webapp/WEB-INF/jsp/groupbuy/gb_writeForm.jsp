@@ -67,7 +67,7 @@
                       </div>
               
             <div id="writebtn">
-                    <button type="submit" class="btn btn-default">글 작성</button>
+                    <button type="submit" id="writeButton" class="btn btn-default">글 작성</button>
                     &nbsp;&nbsp;
                     <button type="button" id="cancelBtn" class="btn btn-default">취소</button>
             </div>
@@ -112,6 +112,17 @@
             		}
             	})//ajax
             }
+            
+            $("#writeButton").click(function() {
+            	if($("input[name='gbTitle']").val()=="") {
+            		alert("제목을 입력해주세요")
+            		return false;
+            	}
+            	if($("#summernote").val()=="") {
+            		alert("내용을 입력해주세요")
+            		return false;
+            	}
+            })
         </script>
 
         <script>

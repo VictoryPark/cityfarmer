@@ -215,7 +215,7 @@
                date: '${gbb.gbEndDay} ${gbb.gbEndTime}', 
 
                // callback works only with direction = "down"
-               callback: function() { alert('times up!'); }
+               callback: function() { alert('공구기간이 만료되었습니다!'); }
 
                });
            });

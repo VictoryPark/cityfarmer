@@ -185,9 +185,9 @@ footer span {
     clear: both;
     content:'';
 } */
-.pagination {
+/* .pagination {
 	margin-left: 32%
-}
+} */
 
 
 
@@ -259,7 +259,7 @@ a:hover {
 
 			</table>
 			
-			
+			<div class="text-center" >
 
               	<c:if test="${pageResult.count != 0}">
 					<nav>
@@ -283,7 +283,7 @@ a:hover {
 					</nav>
 				</c:if>
              
-			
+			</div>
 		
 
 		</div>

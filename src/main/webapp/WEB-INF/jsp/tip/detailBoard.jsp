@@ -353,24 +353,24 @@ color : black;
 		commentList();
 
 		//댓글 삭제
-		$(document).on("click", "#deleteComment", function(e) {
-			e.preventDefault();
+	      $(document).on("click", "#deleteComment", function(e) {
+	         e.preventDefault();
+	         var writer = $(this).attr("name");
+	         var cNo = $(this).attr("class");
+	         if ('${user.id}' !== writer) {
+	            alert("본인이 작성한 댓글만 삭제 가능합니다.")
+	            return;
+	         }
+	         $.ajax({
+	            url : "<c:url value='/tip/deleteComment.cf'/>",
+	            type : "POST",
+	            data : "cNo=" + cNo
 
-			var cNo = $(this).attr("class");
-if('${user.id}'!==$(this).data("writer")){
-	alert("본인이 작성한 댓글만 삭제 가능합니다.")
-	return;
-}
-			$.ajax({
-				url : "<c:url value='/tip/deleteComment.cf'/>",
-				type : "POST",
-				data : "cNo=" + cNo
-
-			}).done(function(result) {
-				console.log(result);
-				commentList();
-			});
-		});
+	         }).done(function(result) {
+	            console.log(result);
+	            commentList();
+	         });
+	      });
 
 		// 댓글 입력, tipcwriter에 로그인시 작성자 세션 추가하기
 		$(document)
