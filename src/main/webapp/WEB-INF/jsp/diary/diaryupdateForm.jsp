@@ -85,7 +85,8 @@
     <div class="summernote">
         <div><input id="sumtitle" type="text" placeholder="제목" name="drTitle" value="${board.drTitle}"></div><br>
         <div><input id="sumwriter" type="text" placeholder="작성자" name="writer" value="${board.writer}"></div>
-        <textarea id="summernote" value="${board.drContent}" name="drContent"></textarea>
+        <textarea id="summernote" value="" name="drContent">${board.drContent}</textarea>
+        <input id="imageBoard" name="url" type="hidden"/>
         <button type="submit"  class="btn btn-default" id="sum1">수정</button>
         <button type="button" onclick="button1_click();" class="btn btn-default" id="sum2">취소</button>
     </div>
@@ -95,11 +96,36 @@
         $(document).ready(function () {
             $('#summernote').summernote({
                 height: 300,                 // set editor height
-                minHeight: null,             // set minimum height of editor
-                maxHeight: null,             // set maximum height of editor
-                focus: true                  // set focus to editable area after initializing summernote
+                placeholder: "내용을 입력하시오",
+                focus: true,                 // set focus to editable area after initializing summernote
+                callbacks: {
+                	onImageUpload: function(files, editor, welEditable) {
+                		for(var i = files.length - 1; i >= 0; i--) {
+                			sendFile(files[i], this);
+                		}
+                	}
+                }
             });
         });
+        
+        function sendFile(file, ele) {
+        	var form_data = new FormData();
+        	console.log("form_data", form_data)
+        	form_data.append('file', file);
+        	$.ajax({
+        		data : form_data, 
+        		type : "POST",
+        		url : "<c:url value='/diary/diaryuploadfile.cf'/>",
+        		cache : false,
+        		contentType : false,
+        		enctype : "multipart/form_data",
+        		processData : false,
+        		success : function(drFile) {
+        			console.log(drFile.url);
+        			$(ele).summernote("editor.insertImage", drFile.url);
+        		}
+        	})//ajax
+        }
 	
     </script>
     <script>

@@ -186,7 +186,7 @@ footer span {
     content:'';
 } */
 .pagination {
-	margin-left: 35%
+	margin-left: 32%
 }
 
 

@@ -87,6 +87,7 @@ public class DiaryController {
 	
 	@RequestMapping("/diaryupdate.cf")
 	public String update(DiaryBoard board) throws Exception {
+		System.out.println(board.getDrContent());
 		drservice.update(board, fileList);
 		fileList = new ArrayList<>();
 		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "diarylist.cf"; 
@@ -162,7 +163,7 @@ public class DiaryController {
 				img.mkdirs();
 			}
 			file.transferTo(img);
-			drFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
+			drFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
 		}
 		
 		fileList.add(drFile);

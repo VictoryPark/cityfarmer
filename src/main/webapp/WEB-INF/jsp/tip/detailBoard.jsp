@@ -279,6 +279,7 @@ color : black;
 
 		</div>
 		<div id="writebtn" class="pull-right">
+		<button type="button" class="btn btn-default MainPage">목록</button>
 			<button type="button" class="btn btn-default updateForm">수정</button>
 
 			<button type="button" class="btn btn-default delete">삭제</button>
@@ -353,9 +354,13 @@ color : black;
 
 		//댓글 삭제
 		$(document).on("click", "#deleteComment", function(e) {
+			e.preventDefault();
 
 			var cNo = $(this).attr("class");
-
+if('${user.id}'!==$(this).data("writer")){
+	alert("본인이 작성한 댓글만 삭제 가능합니다.")
+	return;
+}
 			$.ajax({
 				url : "<c:url value='/tip/deleteComment.cf'/>",
 				type : "POST",
@@ -408,17 +413,31 @@ color : black;
 		    		 commentList();
 		    	 });
 		  }) */
+		  $(".MainPage").click(function() {
+
+				location.href = "MainPage.cf";
+
+			});
 
 		$(".updateForm").click(function() {
+			 if('${tipBoard.writer}'!='${user.id}'){
+					alert("글작성자만 수정 가능합니다.")
+					return;	
+				}
 
 			location.href = "updateBoard.cf?no=${tipBoard.tipNo}";
 
 		});
-		$(".delete").click(function() {
+		
+		  $(".delete").click(function() {
+			  if('${tipBoard.writer}'!='${user.id}'){
+					alert("글작성자만 삭제 가능합니다.")
+					return;	
+				}
+			  location.href = "deleteBoard.cf?no=${tipBoard.tipNo}";
+         });
+		  
 
-			location.href = "deleteBoard.cf?no=${tipBoard.tipNo}";
-
-		});
 	</script>
 	
 </body>
