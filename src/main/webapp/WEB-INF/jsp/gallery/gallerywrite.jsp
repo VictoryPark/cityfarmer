@@ -27,7 +27,7 @@
                     <iframe width="100%" height="600px" src="https://www.youtube.com/embed/rRzxEiBLQCA?rel=0;amp;autoplay=1?rel=0;amp;autoplay=1"
                     frameborder="1" gesture="media" allow="encrypred-media" allowfullscreen></iframe>
                 --> 
-                    <img src="https://res.cloudinary.com/bigboydesign1/image/upload/v1476647899/download_schjib.jpg" />
+                    <img id="writeimg"src='<c:url value='/resources/img/gallery/ecology-2985781_1920.jpg'/>' />
                
             </div>
             <div class="main-title">

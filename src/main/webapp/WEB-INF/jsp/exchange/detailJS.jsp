@@ -83,21 +83,29 @@ $("select").change(function(){
 
 
 $("a.submit").click(function() {
-	$.ajax({
-		url : "<c:url value='/exchange/comment/write.cf'/>",
-		data : {
-			"excContent" : $("textarea#writereply").val(),
-			"excWriter" : "${user.id}",
-			"exNo" : "${map.board.exNo}"
-			   },
-		type : "POST"
-	}).done(function(map){
-		//console.log(list)
-		if(map != null) {
-			$("span#count2").html(map.count)
-			showcommentList(map.list);
-		} //not null
-	}) //done
+	
+	if($("textarea#writereply").val() == "") {
+		alert("댓글 내용을 입력해주세요.")
+		$("textarea#writereply").focus()
+		return;
+	} else {
+		$.ajax({
+			url : "<c:url value='/exchange/comment/write.cf'/>",
+			data : {
+				"excContent" : $("textarea#writereply").val(),
+				"excWriter" : "${user.id}",
+				"exNo" : "${map.board.exNo}"
+				   },
+			type : "POST"
+		}).done(function(map){
+			//console.log(list)
+			if(map != null) {
+				$("span#count2").html(map.count)
+				showcommentList(map.list);
+			} //not null
+		}) //done
+		
+	} //if-else
 	
 	
 }) //a.submit.click

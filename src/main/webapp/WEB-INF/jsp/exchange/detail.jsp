@@ -93,7 +93,7 @@ $(document).ready(function(){
                        
                     </table>
                 </div>
-                <form id="reply" method="POST">
+                <form id="reply" method="POST" name="comment">
                 
                     <table>
                         <tr>

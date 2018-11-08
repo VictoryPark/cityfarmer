@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>°¶·¯¸® °Ô½ÃÆÇ</title>
+<title>ê°¤ëŸ¬ë¦¬ ê²Œì‹œíŒ</title>
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,7 +22,7 @@
         <div class="top-section">
             <div class="main-image">
                 <div class="main-title">
-                    <h2>½Ä¹° ÀÚ¶û °¶·¯¸®</h2>
+                    <h2>ì‹ë¬¼ ìë‘ ê°¤ëŸ¬ë¦¬</h2>
                 </div>
             </div>
                                 <div class="row">
@@ -34,11 +34,11 @@
                     <div class="content">
                         <!--  <ol class="breadcrumb" S>
                     	<li><a href="#1">Home</a></li>
-                    	<li class="active">ÀÚÀ¯°Ô½ÃÆÇ</li>
+                    	<li class="active">ììœ ê²Œì‹œíŒ</li>
                 		</ol> -->
                 		<hr>		
                     <div class="col-md-2" style="text-align: left">
-                        		ÀüÃ¼ ${map.pageResult.count}°³
+                        		ì „ì²´ ${map.pageResult.count}ê°œ
                     </div>
                 </div>
                 <div class="table-responsive" style="width:100%;">
@@ -70,12 +70,12 @@
                 <table class="table table-hover" style="width: 50%;" >
                             <thead>
                     <tr>
-                        <th>¹øÈ£</th>
-                        <th>Á¦¸ñ</th>
-                        <th>±Û¾´ÀÌ</th>
-                        <th>µî·ÏÀÏ</th>
-                        <th>Á¶È¸¼ö</th>
-                        <th>ÃßÃµ¼ö</th>
+                        <th>ë²ˆí˜¸</th>
+                        <th>ì œëª©</th>
+                        <th>ê¸€ì“´ì´</th>
+                        <th>ë“±ë¡ì¼</th>
+                        <th>ì¡°íšŒìˆ˜</th>
+                        <th>ì¶”ì²œìˆ˜</th>
                     </tr>
                     </thead>
                     
@@ -100,19 +100,19 @@
                 <!-- <form class="navbar-form" role="search" style="margin-right: 70px">
                     
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="±ÛÁ¦¸ñÀ» °Ë»öÇÏ¼¼¿ä" style="font-size: 15px ;">
+                        <input type="text" class="form-control" placeholder="ê¸€ì œëª©ì„ ê²€ìƒ‰í•˜ì„¸ìš”" style="font-size: 15px ;">
                     </div>
-                    <button type="submit" class="btn btn-default">°Ë»ö</button>
+                    <button type="submit" class="btn btn-default">ê²€ìƒ‰</button>
                     </form>-->
          <form method="POST"  role="search"action="<c:url value='/gallery/gallerylistsearch.cf'/>" class="navbar-form" name="searchForm" > 
          	<input type="hidden" name="pageNo" value="1"> 
            <div class="form-group" id="search">
                <select id="searchsel" name="type" class="searchselect">
-                   <option value="title">Á¦¸ñ</option>
-                   <option value="writer">ÀÛ¼ºÀÚ</option>
+                   <option value="title">ì œëª©</option>
+                   <option value="writer">ì‘ì„±ì</option>
                </select>
                <input type="text" name="keyword" class="form-control"/>
-               <button type="submit" class="btn btn-default" id="search">°Ë»ö</button>
+               <button type="submit" class="btn btn-default" id="search">ê²€ìƒ‰</button>
            </div>
           </form> 
                 
@@ -141,7 +141,7 @@
 		             
   				<div id="wirte"> 
                     <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button type="button" class="btn btn-primary" id="write">±ÛÀÛ¼º</button>
+                    <button type="button" class="btn btn-primary" id="write">ê¸€ì‘ì„±</button>
                   </div>
             </div>
           
@@ -176,12 +176,12 @@
 		
 				var pageNo = $(this).attr("href")
 				if(pageNo == 0) return false;
-				location.href = "gallerylist1.cf?pageNo="+pageNo; //³Ñ¾î¿Â ÆäÀÌÁö¸¦ ½ºÅ©¸³¿¡¼­ Ã³¸®
+				location.href = "gallerylist1.cf?pageNo="+pageNo; //ë„˜ì–´ì˜¨ í˜ì´ì§€ë¥¼ ìŠ¤í¬ë¦½ì—ì„œ ì²˜ë¦¬
 				});
 	
 				function goPage(pageNo) {
 					if(pageNo == 0) return false;
-					location.href = "gallerylist1.cf?pageNo="+pageNo; //³Ñ¾î¿Â ÆäÀÌÁö¸¦ ½ºÅ©¸³¿¡¼­ Ã³¸®
+					location.href = "gallerylist1.cf?pageNo="+pageNo; //ë„˜ì–´ì˜¨ í˜ì´ì§€ë¥¼ ìŠ¤í¬ë¦½ì—ì„œ ì²˜ë¦¬
 				}
            
 				
@@ -192,7 +192,7 @@
 					var f = document.searchForm;
 					
 					if(f.keyword.value == "") {
-						alert("°Ë»öÇÒ Å°¿öµå¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+						alert("ê²€ìƒ‰í•  í‚¤ì›Œë“œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 					} else {
 						f.submit();
 					}

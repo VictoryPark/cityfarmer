@@ -30,6 +30,10 @@
 		<result column="tipf_path" property="tipfPath" />
 		<result column="tipf_size" property="tipfSize" />
 	</resultMap>
+	<resultMap id = "likeMap" type = "likeTip">
+	<result column = "like_no" property = "likeNo"/>
+	<result column = "user_id" property = "userId"/>
+	</resultMap>
 
 
 
@@ -138,13 +142,13 @@
 
 
 
-
-
-
-
-
-
-
+	<!-- 좋아요count -->
+	<select id = "CountLike" resultType="int" parameterType ="likeTip">
+	select
+	count(*)
+	from liketip
+	where tip_no = #{tipno} and user_id=${userId}
+	</select>
 
 
 

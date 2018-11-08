@@ -36,7 +36,7 @@ public interface GalleryService {
 	List<GalleryComment> listComment(int gaNo);
 	
 	List<GalleryComment> deleteComment(GalleryComment comment);
-	
+//---------------------------------------------------------------------------------
 	int rec(int gaNo); // 게시글 추천수
 	
 	int recCount(RecVO recVO); // 게시글 추천여부 확인
