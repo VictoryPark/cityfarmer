@@ -46,6 +46,7 @@
       		<mvc:exclude-mapping path="/member/login.cf"/>
       		<mvc:exclude-mapping path="/start.cf"/>
       		<mvc:exclude-mapping path="/member/checkid.cf"/>
+      		<mvc:exclude-mapping path="/member/signup.cf"/>
       		<!-- <mvc:exclude-mapping path="/loginform.do"/>
       		<mvc:exclude-mapping path="/login.do"/> -->
       		<!-- 어느 interceptor 클래스를 사용할지 빈 객체 설정  -->

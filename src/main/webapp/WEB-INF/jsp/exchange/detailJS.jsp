@@ -25,7 +25,7 @@ $("input[type='checkbox']").click(function(){
 			  type: 'success',
 			  title: '거래가 완료 되었습니다.',
 			  showConfirmButton: false,
-			  timer: 1500
+			  timer: 3000
 			})
 		setTimeout(function (){
 			$.ajax({
@@ -38,7 +38,7 @@ $("input[type='checkbox']").click(function(){
 				}
 			})
 			
-		}, 1500);
+		}, 3000);
 		
 	} else {
 		$.ajax({

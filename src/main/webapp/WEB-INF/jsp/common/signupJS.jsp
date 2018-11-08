@@ -49,6 +49,9 @@ $("input[name='passcheck']").blur(function(){
 		
 		return;
 	} //비밀번호와 확인과 서로 다른지 확인
+	else {
+		$("span#warnpasscheck").text("")
+	}
 })
 
 $("button#newmember").click(function(){
@@ -76,8 +79,11 @@ $("button#newmember").click(function(){
         f.passcheck.focus()
         return;
     }
-    
-    f.submit();
+  
+    alert("회원가입이 완료되었습니다.")
+	
+	f.submit()
+
 })
 
 function isValidName(name) {	//이름 유효성 확인..정규식으로

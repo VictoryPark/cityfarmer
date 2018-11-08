@@ -279,7 +279,7 @@ table#replysummary {
 	border : none;
 	margin-bottom : 0;
 	float : left;
-	width : 150px;
+	width : 180px;
 }
 table#replysummary th, table#replysummary tr {
 	padding:0;
@@ -313,7 +313,9 @@ div[id^='rere'] {
 	margin : 10px;
 	border-bottom : 0.5px solid rgb(128, 128, 128, 0.5)
 }
-
+select.input-sm {
+	width : 70px;
+}
 button[id$='Repl'] {
 	margin : 10px 5px;
 }

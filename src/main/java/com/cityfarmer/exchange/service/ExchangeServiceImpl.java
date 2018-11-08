@@ -1,7 +1,6 @@
 package com.cityfarmer.exchange.service;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +25,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 	
 	@Override
 	public void writeAll(ExchangeBoard board, ExchangeFile file) {
+		board.setExRegDate(new Date());
 		mapper.insertNewBoard(board);
 		System.out.println("board ex_no : " + board.getExNo());
 		
@@ -35,6 +35,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 	@Override
 	public void write(ExchangeBoard board) {
+		board.setExRegDate(new Date());
 		mapper.insertNewBoard(board);
 	}
 
@@ -115,6 +116,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
 	@Override
 	public Map<String, Object> writeComment(ExchangeComment comment) {
+		comment.setExcRegDate(new Date());
 		mapper.insertNewComment(comment);
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", mapper.selectCommentListByExNo(comment.getExNo()));

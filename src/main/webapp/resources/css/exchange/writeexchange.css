@@ -202,3 +202,7 @@ div#buttonbox {
 	margin : 20px 0;
 	float: right;
 }
+
+button.btn {
+	margin-left : 20px;
+}
