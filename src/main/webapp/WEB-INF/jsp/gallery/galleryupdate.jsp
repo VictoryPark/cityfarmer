@@ -45,10 +45,10 @@
                     <textarea name="gaContent" id="summernote">${b.gaContent}</textarea>
             </div>
             <div id="update" >
-           				 <button type="submit" class="btn btn-primary">수정</button>
+           				 <button type="submit" class="btn btn-primary" style="float: right;">수정</button>
+                    <button class="btn btn-primary1" id="cblist">이전으로</button>
             </div>
             </form>
-                    <button class="btn btn-primary1" id="">이전으로</button>
             
         </div><br>
            <c:import url="../common/footer.jsp" />
@@ -99,10 +99,10 @@
         }
        	
        	
-     /*    $("#cblist").click(function () {
+         $("#cblist").click(function () {
 			location.href="/cityFarmer/gallery/gallerylist.cf"	
 		})
- */
+ 
         
         </script>
 </body>

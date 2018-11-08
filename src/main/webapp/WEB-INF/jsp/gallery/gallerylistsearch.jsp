@@ -12,8 +12,8 @@
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css"></script>
+<!--         <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css"></script> -->
     	<link href="<c:url value="/resources/css/gallery/gallerylist.css" />" rel="stylesheet">
 </head>
 <body>
@@ -104,7 +104,8 @@
                     </div>
                     <button type="submit" class="btn btn-default">°Ë»ö</button>
                     </form>-->
-                           <form method="POST"  role="search"action="<c:url value='/gallery/listsearch.cf'/>" class="navbar-form" name="searchForm" > 
+         <form method="POST" role="search" action="<c:url value='/gallery/gallerylistsearch.cf'/>" class="navbar-form" name="searchForm" > 
+                  	<input type="hidden" name="pageNo" value="1"> 
            <div class="form-group" id="search">
               <select id="searchsel" name="type" class="searchselect">
 	           <c:choose>
@@ -164,8 +165,8 @@
 	        var elem = document.querySelector('.m-p-g');
 
              document.addEventListener('DOMContentLoaded', function() {
-                var gallery = new MaterialPhotoGallery(elem);
-             });
+/*                 var gallery = new MaterialPhotoGallery(elem);
+ */             });
 
              $(document).ready(function () {
                 $(".gallery-img").click(function(){
