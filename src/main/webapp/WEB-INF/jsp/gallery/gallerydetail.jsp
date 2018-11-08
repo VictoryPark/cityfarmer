@@ -14,17 +14,8 @@
         
 </head>
 <body>
- <header id="header">
-            <h1><span>City</span>Farmer</h1>
-            <nav>
-                <a href="">About</a>
-                <a href="">물물교환</a>
-                <a href="">꿀팁</a>
-                <a href="">공동구매</a>
-                <a href="">갤러리</a>
-                <a href="">나만의 갤러리</a>
-            </nav>
-        </header>
+               <c:import url="../common/header.jsp" />
+
         <div class="top-section">
             <div class="main-image">   
                 <!--
@@ -94,6 +85,8 @@
             
             </div>
         </div><br>
+                   <c:import url="../common/footer.jsp" />
+        
         <script>
                        var angle = 0;
                function galleryspin(sign) {
