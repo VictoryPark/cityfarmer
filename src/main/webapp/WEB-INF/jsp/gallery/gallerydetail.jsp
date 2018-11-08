@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,11 +18,11 @@
             <h1><span>City</span>Farmer</h1>
             <nav>
                 <a href="">About</a>
-                <a href="">¹°¹°±³È¯</a>
-                <a href="">²ÜÆÁ</a>
-                <a href="">°øµ¿±¸¸Å</a>
-                <a href="">°¶·¯¸®</a>
-                <a href="">³ª¸¸ÀÇ °¶·¯¸®</a>
+                <a href="">ë¬¼ë¬¼êµí™˜</a>
+                <a href="">ê¿€íŒ</a>
+                <a href="">ê³µë™êµ¬ë§¤</a>
+                <a href="">ê°¤ëŸ¬ë¦¬</a>
+                <a href="">ë‚˜ë§Œì˜ ê°¤ëŸ¬ë¦¬</a>
             </nav>
         </header>
         <div class="top-section">
@@ -36,8 +36,8 @@
                
             </div>
             <div class="main-title"> 
-                <h3>±ÛÁ¦¸ñ : ${map.b.gaTitle} <button class="rec-button" aria-hidden="true" style="float: right;"></button><span id="rc" style="float:right;">${map.b.gaRecCnt}</span></h3><br>
-                <p>ÀÛ¼ºÀÚ : ${map.b.writer}</p>
+                <h3>ê¸€ì œëª© : ${map.b.gaTitle} <button class="rec-button" aria-hidden="true" style="float: right;"></button><span id="rc" style="float:right;">${map.b.gaRecCnt}</span></h3><br>
+                <p>ì‘ì„±ì : ${map.b.writer}</p>
                 <div id="carousel" >
                     <figure id="spinner" >
 						${map.b.gaContent}
@@ -67,11 +67,11 @@
                  
                 </div>
                 
-                <button type="button" class="btn" id="blist" style="float: left;">¸ñ·Ï</button>
+                <button type="button" class="btn" id="blist" style="float: left;">ëª©ë¡</button>
                 <div style="float: right;">
                 
-                <button type="button" class="btn btn-warning" id="update" >¼öÁ¤</button> 
-                <button type="button" class="btn btn-danger" id="delete">»èÁ¦ </button> 
+                <button type="button" class="btn btn-warning" id="update" >ìˆ˜ì •</button> 
+                <button type="button" class="btn btn-danger" id="delete">ì‚­ì œ </button> 
                 
                 </div>
 
@@ -118,21 +118,21 @@
               );
             }
                
-            //----------»èÁ¦------------------
+            //----------ì‚­ì œ------------------
              $("#delete").click(function() {
          	  location.href="gallerydelete.cf?no=${map.b.gaNo}" 
             });
-            //-------------¸ñ·Ï---------------------
+            //-------------ëª©ë¡---------------------
               $("#blist").click(function () {
 				location.href="/cityFarmer/gallery/gallerylist1.cf"	
               })
-			//----------¼öÁ¤-----------------------------
+			//----------ìˆ˜ì •-----------------------------
               $("#update").click(function () {
 				location.href="galleryupdate.cf?no=${map.b.gaNo}"	
               })
      
                
-            // ´ñ±Û
+            // ëŒ“ê¸€
                       var main = function() {
               $('#post').click(function() {
                 var post = $('.status-box').val();
@@ -157,7 +157,7 @@
             $('#post').addClass('dis abled');
             $(document).ready(main)
 	//--------------------------------------------------------------------------
-	//-----»çÁø »ó¼¼ -------------------------------------------------------
+	//-----ì‚¬ì§„ ìƒì„¸ -------------------------------------------------------
 	   var elem = document.querySelector('.m-p-g');
 
              document.addEventListener('DOMContentLoaded', function() {
@@ -176,7 +176,7 @@
              
    //--------------------------------------------------------------------------
   		  
-   		//´ñ±ÛÀÛ¼º
+   		//ëŒ“ê¸€ì‘ì„±
    		$("#post").click(function() {
     		$.ajax({
     			url : "<c:url value='/gallery/comment/write.cf'/>",
@@ -191,12 +191,12 @@
 
     		});
   		 });
-   		//´ñ±Û»èÁ¦
+   		//ëŒ“ê¸€ì‚­ì œ
    		 $(document).on("click", "ul > a" , function(e) {
             	e.preventDefault();
             	var gacNo = $(this).attr("href");
             	if('${user.id}' !== $(this).data("writer")) {
-            		alert("º»ÀÎÀÌ ÀÛ¼ºÇÑ ´ñ±Û¸¸ »èÁ¦ÇÒ ¼ö ÀÖ½À´Ï´Ù.")
+            		alert("ë³¸ì¸ì´ ì‘ì„±í•œ ëŒ“ê¸€ë§Œ ì‚­ì œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.")
         			return;
             	}
             	
@@ -210,7 +210,7 @@
 	            });
             })
    
-   			//´ñ±Û Á¶È¸
+   			//ëŒ“ê¸€ ì¡°íšŒ
     		var commentList = function(){
     			$.ajax({
     				url : "<c:url value='/gallery/comment/list.cf'/>",
@@ -222,9 +222,9 @@
     				for(let i=0; i<result.length; i++){
   			  				$("ul.posts").append(
 								"<li class='comment' data-writer=" + result[i].gacWriter + " data-no=" + result[i].gacNo +">"
-								+"ÀÛ¼ºÀÚ:"+ result[i].gacWriter 
+								+"ì‘ì„±ì:"+ result[i].gacWriter 
 								+"<br>"+
-								"³»¿ë:"+ result[i].gacContent+"</li>"+
+								"ë‚´ìš©:"+ result[i].gacContent+"</li>"+
 	                           	"<a href=" + result[i].gacNo + " data-writer=" + result[i].gacWriter + "><img id='deleteicon' src='<c:url value='/resources/img/groupbuy/v-42-512.png'/>' /></a>"
 
   			  				);
@@ -234,7 +234,7 @@
     			
     		};
     		
-    		//´ñ±Û»Ñ·ÁÁÖ±â
+    		//ëŒ“ê¸€ë¿Œë ¤ì£¼ê¸°
          	commentList();
          	recCount();
     		
@@ -261,11 +261,11 @@
 		
 		}).done(function(){
 			if (recExist == 0){
-				alert("ÃßÃµµÇ¾ú½À´Ï´Ù.");
+				alert("ì¶”ì²œë˜ì—ˆìŠµë‹ˆë‹¤.");
 				recExist = 1;
 				$(".rec-button").html("<span class='glyphicon glyphicon-heart' aria-hidden='true'></span>");
 			} else {
-				alert("ÃßÃµÀÌ Ãë¼ÒµÇ¾ú½À´Ï´Ù.")
+				alert("ì¶”ì²œì´ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤.")
 				recExist = 0;
 				$(".rec-button").html("<span class='glyphicon glyphicon-heart-empty' aria-hidden='true'></span>");
 			}

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,11 +10,11 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <!--¼¶¸Ó³ëÆ®-->
+        <!--ì„¬ë¨¸ë…¸íŠ¸-->
         <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
         
-        <!-- ¸ŞÀÎ css -->
+        <!-- ë©”ì¸ css -->
     	<link href="<c:url value="/resources/css/gallery/gallerywrite.css" />" rel="stylesheet">
 </head>
 <body>
@@ -31,22 +31,22 @@
                
             </div>
             <div class="main-title">
-                <h2>°Ô½Ã±Û ¼öÁ¤</h2>
+                <h2>ê²Œì‹œê¸€ ìˆ˜ì •</h2>
             </div>
             
 			<form action="update.cf" method="post">
 			    <input type="hidden" name="gaNo" value="${b.gaNo}" />
 			
             	<div>
-                	<input type="text" class="form-control" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇÏ¿©ÁÖ¼¼¿ë" style="width:99%" name="gaTitle" value="${b.gaTitle}"><br>
+                	<input type="text" class="form-control" placeholder="ì œëª©ì„ ì…ë ¥í•˜ì—¬ì£¼ì„¸ìš©" style="width:99%" name="gaTitle" value="${b.gaTitle}"><br>
                 	<input type="text" class="form-control" placeholder="${user.id}" style="width:99%" name="writer">
             	</div><br>
             <div class="smt">
                     <textarea name="gaContent" id="summernote">${b.gaContent}</textarea>
             </div>
             <div id="update" >
-           				 <button type="submit" class="btn btn-primary" style="float: right;">¼öÁ¤</button>
-                    <button class="btn btn-primary1" id="cblist">ÀÌÀüÀ¸·Î</button>
+           				 <button type="submit" class="btn btn-primary" style="float: right;">ìˆ˜ì •</button>
+                    <button class="btn btn-primary1" id="cblist">ì´ì „ìœ¼ë¡œ</button>
             </div>
             </form>
             
@@ -61,7 +61,7 @@
             minHeight: null,             // set minimum height of editor
             maxHeight: null,             // set maximum height of editor
             focus: true,
-            placeholder : '³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ¼¼¿ä',
+            placeholder : 'ë‚´ìš©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì„¸ìš”',
             callbacks: {
           		onImageUpload : function(files, editor, welEditable) {
           			console.log(files);
