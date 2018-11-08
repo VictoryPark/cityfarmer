@@ -28,6 +28,9 @@ public interface DiaryMapper {
 	List<DiaryFile> selectDiaryFileByNo(int drNo); // 파일리스트
 	void insertDiaryFile(DiaryFile file); // 파일첨부
 	
+	/*****************검색******************/
+	List<DiaryBoard> searchDiaryBoard(DiaryBoard diary);
+	int searchDiaryCount(DiaryBoard diary);
 	}
 
 	

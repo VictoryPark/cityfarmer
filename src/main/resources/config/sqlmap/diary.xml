@@ -47,6 +47,45 @@
 		where rnum &gt;= #{begin}
 	</select>
 	
+	<select id="searchDiaryBoard" parameterType="DiaryBoard" resultMap="diaryMap">
+		select *
+		from (select rownum rnum, a.*
+				from (select * 
+						from cf_diary
+						<where>
+							<if test="searchType == 1">
+								and dr_title like '%'||#{keyword}||'%'
+							</if>
+							<if test="searchType == 2">
+								and dr_content like '%'||#{keyword}||'%'
+							</if>
+							<if test="searchType == 3">
+								and dr_title like '%'||#{keyword}||'%'
+								 or dr_content like '%'||#{keyword}||'%'
+							</if>
+						</where>
+						order by dr_no desc) a
+					where rownum &lt;= #{end})
+				where rnum &gt;= #{begin}
+		</select>
+		
+		<select id="searchDiaryCount" parameterType="DiaryBoard" resultType="int">
+			select count(*)
+			 from cf_diary
+			 <where>
+			 	<if test="searchType == 1">
+			 		dr_title like '%'||#{keyword}||'%'
+			 	</if>
+			 	<if test="searchType == 2">
+			 		and dr_content like '%'||#{keyword}||'%'
+			 	</if>
+			 	<if test="searchType == 3">
+			 		and dr_title like '%'||#{keyword}||'%'
+			 		 or dr_content like '%'||#{keyword}||'%'
+			 	</if>
+			 </where>
+		</select>
+	
 	<!-- 전체 게시물의 수(조건에 맞는) -->
 	<select id="selectDiaryBoardCount" resultType="int">
 		select count(*)

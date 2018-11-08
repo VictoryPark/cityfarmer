@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import com.cityfarmer.common.PageResult;
 import com.cityfarmer.diary.service.DiaryService;
 import com.cityfarmer.repository.domain.diary.DiaryBoard;
 import com.cityfarmer.repository.domain.diary.DiaryComment;
@@ -31,6 +32,8 @@ public class DiaryController {
 
 	@Autowired
 	public DiaryService drservice;
+	private String keyword ="";
+	private String searchType ="";
 	
 	private List<DiaryFile> fileList = new ArrayList<>();
 	
@@ -41,6 +44,25 @@ public class DiaryController {
 		
 		model.addAttribute("list", drservice.list(drpage));
 		model.addAttribute("pageResult", new drPageResult(pageNo, drservice.count()));
+	}
+	
+	@RequestMapping("/diarysearch.cf")
+	public void search(Model model, DiaryBoard diary, @RequestParam(value="pageNo", defaultValue="1") int pageNo) {
+		
+		if(diary.getKeyword() != null && diary.getKeyword() != null) {
+			keyword = diary.getKeyword();
+			searchType = diary.getSearchType();
+		} else {
+			diary.setKeyword(keyword);
+			diary.setSearchType(searchType);
+		}
+		
+		diary.setPageNo(pageNo);
+		
+		List<DiaryBoard> drList = drservice.searchDiaryBoard(diary);
+		
+		model.addAttribute("list", drservice.searchDiaryBoard(diary));
+		model.addAttribute("pageResult", new PageResult(diary.getPageNo(), drservice.searchDiaryCount(diary)));
 	}
 	
 	@RequestMapping("/diarywriterForm.cf") // value 속성을 사용

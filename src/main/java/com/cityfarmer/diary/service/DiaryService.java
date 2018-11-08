@@ -29,5 +29,9 @@ public interface DiaryService {
 	List<DiaryFile> listFile(int drNo); // 파일리스트
 	void updateDiaryFile(DiaryFile file); // 파일 수정
 	
+	// 검색 부분
+	List<DiaryBoard> searchDiaryBoard(DiaryBoard diary);
+	int searchDiaryCount(DiaryBoard diary);
+	
 	
 }

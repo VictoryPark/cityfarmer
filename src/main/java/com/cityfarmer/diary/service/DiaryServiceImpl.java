@@ -111,5 +111,15 @@ public class DiaryServiceImpl implements DiaryService {
 		return drmapper.selectDiaryCommentCount(drNo);
 	}
 
+	@Override
+	public List<DiaryBoard> searchDiaryBoard(DiaryBoard diary) {
+		return drmapper.searchDiaryBoard(diary);
+	}
+
+	@Override
+	public int searchDiaryCount(DiaryBoard diary) {		
+		return drmapper.searchDiaryCount(diary);
+	}
+
 
 }

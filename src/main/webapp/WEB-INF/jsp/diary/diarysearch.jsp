@@ -127,6 +127,11 @@ table, th {
 									pattern="yyyy-MM-dd" /></td>
 						</tr>
 					</c:forEach>
+					<c:if test="${empty list}">
+							<tr>
+								<td colspan='4'>검색결과가 없습니다.</td>
+							</tr>
+					</c:if>
 				</tbody>
 			</table>
 			<div>
@@ -253,10 +258,7 @@ table, th {
 			</div>
 			
 			<c:import url="../common/footer.jsp" />
-			<!---------------------------------------------- script 캘린더 부분--------------------------------------------------------->
-			<script type='text/javascript'
-				src="<c:url value="/resources/js/diary/calendar.js"/>"></script>
-			<!---------------------------------------------------- script----------------------------------- -->
+			
 			<script>
 	    function button_click() {
 	    	location.href = "diarywriterForm.cf";
@@ -270,7 +272,7 @@ table, th {
 	 
 			if (pageNo == 0 || pageNo == '${pageResult.lastPage+1}') return false;
 			
-			location.href = "diarylist.cf?pageNo=" + pageNo;
+			location.href = "diarysearch.cf?pageNo=" + pageNo;
 		});
 	    
 	    $(document).on("click", "#searchBtn" , function(e) {
@@ -287,5 +289,5 @@ table, th {
 	    	}
 	    });
 	    </script>
-	</body>
-	</html>
+</body>
+</html>
