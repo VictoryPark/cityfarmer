@@ -45,7 +45,7 @@
             <div id="wirte" > 
                 
                     <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                    <button class="btn btn-primary">글작성</button>
+                    <button class="btn btn-primary" id="submit">글작성</button>
 
             </div>
    					<input id="imageBoard" name="fileUrl" type="hidden"/>
@@ -82,6 +82,30 @@
            		}
            	} // callbacks
                 });
+             
+             $("#submit").click(function(e){	  
+       		  
+       		  var f = $("form");
+       		  
+       		  $title = $("input[name='gaTitle']").val();
+       		  $content = $("textarea").val();
+       		  
+       		  if($title==""){
+       		      alert("제목을 입력하세요")
+       		      $("input[name='gaTitle']").focus()
+       		      e.preventDefault()
+       		      return;
+       		  }
+       			
+       		  if($content==""){
+       		      alert("내용을 입력하세요")
+       		      $("input[name='gaTitle']").focus()
+       		      e.preventDefault()
+       		      return;
+       		  }
+       		  f.submit();
+       	  }) //click
+             
             });
         function sendFile(file, ele) {
         	var form_data = new FormData();

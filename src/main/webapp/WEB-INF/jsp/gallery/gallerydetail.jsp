@@ -120,6 +120,10 @@
                
             //----------삭제------------------
              $("#delete").click(function() {
+            	 if('${map.b.writer}'!= '${user.id}') {
+               	  alert("글 작성자만 삭제할 수 있습니다.")
+               	  return;
+                 }
          	  location.href="gallerydelete.cf?no=${map.b.gaNo}" 
             });
             //-------------목록---------------------
@@ -128,9 +132,13 @@
               })
 			//----------수정-----------------------------
               $("#update").click(function () {
+            	  if('${map.b.writer}' != '${user.id}') {
+                  	  alert("글 작성자만 수정할 수 있습니다.")
+                  	  return;
+                    }
 				location.href="galleryupdate.cf?no=${map.b.gaNo}"	
               })
-     
+              
                
             // 댓글
                       var main = function() {
@@ -224,7 +232,9 @@
 								"<li class='comment' data-writer=" + result[i].gacWriter + " data-no=" + result[i].gacNo +">"
 								+"작성자:"+ result[i].gacWriter 
 								+"<br>"+
-								"내용:"+ result[i].gacContent+"</li>"+
+								"내용:"+ result[i].gacContent
+								+"<br>"+
+								"작성일:"+result[i].gacRegDate+"</li>"+
 	                           	"<a href=" + result[i].gacNo + " data-writer=" + result[i].gacWriter + "><img id='deleteicon' src='<c:url value='/resources/img/groupbuy/v-42-512.png'/>' /></a>"
 
   			  				);

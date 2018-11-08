@@ -2,6 +2,8 @@ package com.cityfarmer.repository.domain.gallery;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class GalleryComment {
 	
 	
@@ -9,6 +11,7 @@ public class GalleryComment {
 	private int gacNo;
 	private String gacWriter;
 	private String gacContent;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date gacRegDate;
 	private String regDateString;
 
