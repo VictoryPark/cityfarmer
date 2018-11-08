@@ -6,7 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 <!-- include libraries(jQuery, bootstrap) -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -23,7 +26,7 @@
     </div>
     <br>
     <div class="bottom-section">
-        <form id="write" method="post" action="<c:url value="/exchange/write.cf"/>">
+        <form id="write" method="post" name="writeBoard" action="<c:url value="/exchange/write.cf"/>">
        <input type="hidden" name="writer" value="${user.id}"/>
         <table id="content" > 
             <tr>
@@ -38,7 +41,7 @@
         </table>
 
         <div id="buttonbox">
-            <button class="btn btn-success btn-lg" id="submit">등록하기</button>
+            <button class="btn btn-success btn-lg" id="submit" >등록하기</button>
         </div>
     	<input id="imageBoard" name="url" type="hidden"/>
     	<input id="imageoriname" name="exfOriName" type="hidden"/>
@@ -54,7 +57,11 @@
     </div>
     <c:import url="../common/footer.jsp" />
   <script>
+	 
+  
     $(document).ready(function() {
+    	
+    	
         $('#summernote').summernote({
             height : 350,
             tabsize : 2,
@@ -64,8 +71,8 @@
            /*  paragraph : 'justifyLeft' */
           	callbacks: {
           		onImageUpload : function(files, editor, welEditable) {
-          			console.log(files);
-          			console.log(this);
+          			//console.log(files);
+          			//console.log(this);
           			for(let i=files.length -1; i>=0; i--){
           				sendFile(files[i], this);
           			}  
@@ -73,7 +80,31 @@
           	} // callbacks
                 
         });
-    });
+        
+        $("button#submit").click(function(e){	  
+  		  
+  		  var f = $("form");
+  		  
+  		  $title = $("input[name='exTitle']").val();
+  		  $content = $("textarea").val();
+  		  
+  		  if($title==""){
+  		      alert("제목을 입력하세요")
+  		      $("input[name='exTitle']").focus()
+  		      e.preventDefault()
+  		      return;
+  		  }
+  			
+  		  if($content==""){
+  		      alert("내용을 입력하세요")
+  		      $("input[name='exTitle']").focus()
+  		      e.preventDefault()
+  		      return;
+  		  }
+  		  f.submit();
+  	  }) //click
+        
+    }); //document ready
     
     function sendFile(file, ele) {
     	var count = 0;
@@ -89,21 +120,20 @@
     		enctype : "multipart/form_data",
     		processData : false,
     		success : function(exFile) {
-    			manageFile(exFile, ele);
-    			//console.log(exFile.url);
+    			$("input#imageBoard").val(exFile.url)
+    			$("input#imageoriname").val(exFile.exfOriName)
+    			$("input#imagesysname").val(exFile.exfSysName)
+    			$("input#imagepath").val(exFile.exfPath)
+    			$("input#imagesize").val(exFile.exfSize)
+    			/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
+    			$(ele).summernote("editor.insertImage", exFile.url);
     		}
     	})//ajax
     } //sendFile
 
-    function manageFile(exFile, ele){
-    	$("input#imageBoard").val(exFile.url)
-		$("input#imageoriname").val(exFile.exfOriName)
-		$("input#imagesysname").val(exFile.exfSysName)
-		$("input#imagepath").val(exFile.exfPath)
-		$("input#imagesize").val(exFile.exfSize)
-		/* append('<li><img src="'+url+'" width="480" height="auto"/></li>') */
-		$(ele).summernote("editor.insertImage", exFile.url);
-    }
+   /*  function manageFile(exFile, ele){
+    	
+    } */
     /* $("button#submit").click(function(){
     	var result = $("form#write").serializeArray();
     	console.log("result", result)

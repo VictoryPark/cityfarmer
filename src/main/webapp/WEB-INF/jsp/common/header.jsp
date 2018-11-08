@@ -6,6 +6,7 @@
     <h1><span>City</span>Farms</h1>
     <nav>
         <a href="<c:url value="/main.cf"/>">메인 메뉴</a>
+        <a href="<c:url value="/tip/MainPage.cf"/>">꿀팁 게시판</a>
         <a href="<c:url value="/groupbuy/gb_board.cf"/>">공동구매 하실 분?</a>
         <a href="<c:url value="/exchange/list.cf"/>">물물교환 합시다</a>
         <a href="<c:url value="/gallery/gallerylist1.cf"/>">갤러리</a>

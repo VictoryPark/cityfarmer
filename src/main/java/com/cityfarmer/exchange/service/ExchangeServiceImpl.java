@@ -57,13 +57,13 @@ public class ExchangeServiceImpl implements ExchangeService {
 		for(ExchangeBoard board : boardList) {
 			//System.out.println("board.getno : "+board.getExNo());
 			
+			board.setReply(mapper.selectCommentCount(board.getExNo()));
 			ExchangeFile file = mapper.selectFileByExNo(board.getExNo());
 			//System.out.println("file : "+file);
-			if(file ==null) continue;
+			if(file == null) continue;
 			
 			//System.out.println(file.getExfPath()+ "/" + file.getExfSysName());
 			board.setUrl(file.getExfPath() + "/" + file.getExfSysName());
-			board.setReply(mapper.selectCommentCount(board.getExNo()));
 		}
 		
 		int count = mapper.selectBoardCount();
