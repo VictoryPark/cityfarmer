@@ -219,6 +219,7 @@ header nav a {
 			<button class="btn btn-default">
 				글쓰기</a>
 			</button>
+			
 
 		</div>
 		<input id="imageBoard" name="fileUrl" type="hidden" /> <input
@@ -228,7 +229,7 @@ header nav a {
 			name="size" type="hidden" />
 
 	</form>
-	 
+
 
 	<script>
 		/* $(document).ready(function() {
@@ -284,7 +285,8 @@ header nav a {
 				}
 			})//ajax
 		}
-
+		
+		
 		/* $("button:eq(0)").click(function(){
 		location.href="MainPage.html";
 		 });

@@ -217,9 +217,14 @@ header nav a {
 		</div>
 
 		<div class="btn-group" role="group" aria-label="...">
+		
 			<button class="btn btn-default updateBoard">
 				글수정</a>
 			</button>
+				<button class="btn btn-default MainPage">
+				취소</a>
+			</button>
+			
 
 		</div>
 
@@ -236,6 +241,11 @@ header nav a {
 				focus : true
 			});
 		});
+		  $(".MainPage").click(function() {
+
+				location.href = "MainPage.cf";
+
+			});
 	/* 	$(".updateBoard").click(function() {
 			
 			location.href = "update.cf?no="+${tipBoard.tipNo};
