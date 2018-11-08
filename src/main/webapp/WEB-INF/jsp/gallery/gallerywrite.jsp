@@ -71,7 +71,7 @@
              minHeight: null,             // set minimum height of editor
              maxHeight: null,             // set maximum height of editor
              focus: true,
-             placeholder : '내용을 입력하여 주세요',
+             placeholder : '사진을 등록해 주세요',
              callbacks: {
            		onImageUpload : function(files, editor, welEditable) {
            			console.log(files);

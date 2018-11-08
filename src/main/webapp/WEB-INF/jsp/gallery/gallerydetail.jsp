@@ -61,11 +61,8 @@
                             </div>
                 <span style="float:left" class="ss-icon" onclick="galleryspin('-')">&lt;</span>
                 <span style="float:right" class="ss-icon" onclick="galleryspin('')">&gt;</span>
-                
-                <div>
-               		<div class="form-control" rows="10" readonly></div><br>
-                 
-                </div>
+               	
+               	<br>
                 
                 <button type="button" class="btn" id="blist" style="float: left;">목록</button>
                 <div style="float: right;">
@@ -146,7 +143,7 @@
                 var post = $('.status-box').val();
                 $('<li class="comment">').text(post).prependTo('.posts');
                 $('.status-box').val('');
-                $('.counter').text('250');
+                $('.counter').text('250'); 
                 $('#post').addClass('disabled');
               });
               $('.status-box').keyup(function() {
@@ -162,7 +159,7 @@
                 }
               });
             }
-            $('#post').addClass('dis abled');
+            $('#post').addClass('disabled');
             $(document).ready(main)
 	//--------------------------------------------------------------------------
 	//-----사진 상세 -------------------------------------------------------
