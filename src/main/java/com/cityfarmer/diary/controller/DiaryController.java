@@ -112,7 +112,6 @@ public class DiaryController {
 	@RequestMapping("/diarycommentwriter.cf")
 	@ResponseBody
 	public void writerComment(DiaryComment comment) throws Exception {
-		comment.setDrcWriter("test1");
 		drservice.writerComment(comment);
 	}
 	

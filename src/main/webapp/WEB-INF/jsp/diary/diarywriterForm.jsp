@@ -83,7 +83,8 @@
 	<form action="writer.cf" method="post">
     <div class="summernote">
         <div><input id="sumtitle" type="text" placeholder="제목" name="drTitle"></div><br>
-        <div><input id="sumwriter" type="text" placeholder="작성자" name="writer"></div>
+        <div id=writer>${user.id}</div>
+        <input type="hidden" name="writer" value="${user.id}" />
         <textarea id="summernote" value="" name="drContent"></textarea>
         <input id="imageBoard" name="url" type="hidden"/>
         <button type="submit"  class="btn btn-default" id="sum1">작성</button>
