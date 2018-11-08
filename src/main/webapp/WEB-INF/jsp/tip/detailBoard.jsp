@@ -248,43 +248,12 @@ header nav a {
 .forspan{
 margin-left:80%;
 }
+.glyphicon-eye-open{
+color : black;
+}
 </style>
 <body>
-	<%-- <header>
-	<h1>
-		<span>City</span>Farmmer
-	</h1>
-	<nav> <a href="">꿀팁게시판</a> <a href="">공구게시판</a> <a href="">물물교환
-		게시판</a> <a href="">식물자랑 갤러리</a> <a href="">달력게시판</a> <a href="">로그인/마이페이지</a>
-	</nav> </header>
-	<div class="top-section">
-		<div class="main-image">
-			<img src="/img/hummel-1353423_1920.jpg" width="1200" height="300" />
-		</div>
-		<div class="main-title">
-			<!--여기 제목-->
-			<h3>${tipBoard.tipTitle}</h3>
-			<p></p>
-		</div>
-	</div>
-	<div class="bottom-section">
-		<div class="section-one">
-			<div class="panel panel-default">
-				<div class="panel-heading" id="forHeding">${tipBoard.writer},
-					댓글 몇개인지, 좋아요 갯수, ${tipBoard.tipRegDate}</div>
-				<div class="panel-body">${tipBoard.tipContent}</div>
-			</div>
 
-		</div>
-		<span class="forComments">Comments</span>
-	</div>
-	<br>
-
-	<textarea></textarea>
-	
-	
-	
-	 --%>
 
 	   <c:import url="../common/header.jsp" />
 	<div class="top-section">
@@ -293,7 +262,7 @@ margin-left:80%;
 		</div>
 		<div class="main-title">
 			<!--여기 제목-->
-			<h3>${tipBoard.tipTitle}</h3>
+			<h3>${tipBoard.tipTitle}<span class = "pull-right"><i class = "glyphicon glyphicon-eye-open"> ${tipBoard.tipViewCnt}</i></span></h3>
 			<p><i src="glyphicon glyphicon-eye-open"></i></p>
 		</div>
 	</div>
@@ -318,7 +287,7 @@ margin-left:80%;
 
 	<br>
 	<div class="forall1">
-		<span class="forComments">Comments</span> <br> <br> <br>
+		<span class="forComments">Comments</span><span>(${commentCount})</span> <br> <br> <br>
 		<div class="diplay"></div>
 
 		<br>

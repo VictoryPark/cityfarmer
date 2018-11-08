@@ -25,8 +25,12 @@ public class TipServiceImpl implements TipService {
 
 	@Override
 	public int selectBoardCount() {
-
 		return mapper.selectBoardCount();
+	}
+
+	@Override
+	public int selectCommentCountNo(int no) {
+		return mapper.selectCommentCountNo(no);
 	}
 
 	@Override

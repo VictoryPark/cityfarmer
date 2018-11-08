@@ -37,7 +37,7 @@ public class TipController {
 		TipBoard board = new TipBoard();
 		board.setPageNo(pageNo);
 		/*List<TipBoard> selectBoard = service.selectBoard(board);*/
-	
+		model.addAttribute("selectCount", service.selectBoardCount());
 		model.addAttribute("pageResult", new TipPageResult(pageNo, service.selectBoardCount()));
 		model.addAttribute("list", service.selectBoard(board));
 		
@@ -111,7 +111,7 @@ public class TipController {
 	
 	
 	@RequestMapping("/detailBoard.cf")
-	public void detail(int no, Model model, HttpServletRequest request)throws Exception{
+	public void detail(int no, Model model)throws Exception{
 		System.out.println("컨트롤러까지 들어옴을 확인");
 		System.out.println(no);
 	/*	HttpSession session = request.getSession();
@@ -121,6 +121,7 @@ public class TipController {
 		liketip.setUserId(m.getId());
 		model.addAttribute("like", service.CountLike(liketip));
 		*/
+		model.addAttribute("commentCount", service.selectCommentCountNo(no));
 		model.addAttribute("tipBoard", service.selectBoardByNo(no));
 	}
 	@RequestMapping("/deleteBoard.cf")

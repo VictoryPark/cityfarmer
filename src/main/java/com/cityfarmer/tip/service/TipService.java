@@ -21,6 +21,7 @@ public interface TipService {
 	void deleteBoard(int no);
 	void update(TipBoard board);
 //	int updateBoardViewCnt(int no);
+	int selectCommentCountNo(int no);
 	
 	
 

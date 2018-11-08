@@ -10,7 +10,8 @@ import com.cityfarmer.repository.domain.tip.TipFile;
 public interface TipMapper {
 	
 	List<TipBoard> selectBoard(TipBoard board);
-	int selectBoardCount();
+	
+	int selectBoardCount();//전체게시물 수
 	
 	TipBoard selectBoardByNo(int no);
 	void insertBoard(TipBoard board);
@@ -26,9 +27,9 @@ public interface TipMapper {
 	void insertTipFile(TipFile tipFile);
 	TipFile selectTipFile(int no);
 	
-	
-	// 추천수조회
+	// 추천수조회- 아직구현 아니됨
 	int CountLike(LikeTip likeTip);
+	int selectCommentCountNo(int no);
 
 	
 }

@@ -127,7 +127,7 @@
 		resultType="int">
 		select count(*)
 		from cf_tip_comment
-		where tipc_no = #{tipcNo}
+		where tip_no = #{tipNo}
 
 	</select>
 

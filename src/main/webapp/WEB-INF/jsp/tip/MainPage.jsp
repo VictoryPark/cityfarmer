@@ -222,7 +222,7 @@ a:hover {
 		</div>
 		<div class="main-title">
 			<h3>
-				꿀팁 게시판(1000)
+				꿀팁 게시판(${selectCount})
 				<button type="button" class="btn btn-default pull-right">
 					<a href="<c:url value="/tip/writeBoard.cf"/>">글쓰기</a>
 				</button>
