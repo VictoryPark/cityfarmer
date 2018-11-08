@@ -15,8 +15,10 @@
    
    <div class="top-section">
        <div class="main-image"><img id="title-img" src="<c:url value="/resources/img/exchange/exchange3_1.jpg"/>" /></div>
+       <div class="title-section">
        <form method="POST" action="<c:url value='/exchange/listsearch.cf'/>" name="searchForm"> 
        <input type="hidden" name="pageNo" value="1"/>
+           <span id="exchangetitle">물물 교환합시다</span>
            <a class="btn btn-default" href="<c:url value="/exchange/writeform.cf"/>" role="button">글쓰기</a>
            <div class="col-xs-3 form-inline" id="search">
                <select id="searchsel" name="type" class="searchselect">
@@ -27,12 +29,13 @@
                <button type="button" class="btn btn-default" id="search">검색</button>
            </div>
        </form>
+       </div>
    </div>
    <div class="bottom-section">
        <div class="container-fluid">
        		<c:forEach var="board" items="${map.list}">
-       			<div class="col-md-4">    
-                	<div class="col-md-12">
+       			<div class="col-md-4" >    
+                	<div class="col-md-12" id="boarditem">
 	                   <!-- 거래 완료 되었는지 아닌지 확인 -->
 	                   <div id="blur" 
 		                   <c:choose>
@@ -66,7 +69,7 @@
 	                   <br>
 	                   <div id="title" >
 	                       <span id="title">
-	                           <a href="detail.cf?exno=${board.exNo}" >${board.exTitle} </a>
+	                           <a href="detail.cf?exno=${board.exNo}" id="title">${board.exTitle} </a>
 	                       </span><br>
 	                   </div>
 	                   <div id="writer">

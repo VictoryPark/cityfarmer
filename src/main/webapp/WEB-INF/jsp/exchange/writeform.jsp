@@ -41,6 +41,7 @@
         </table>
 
         <div id="buttonbox">
+            <button class="btn btn-success btn-lg" id="cancle" type="button" >취소</button>
             <button class="btn btn-success btn-lg" id="submit" >등록하기</button>
         </div>
     	<input id="imageBoard" name="url" type="hidden"/>
@@ -81,6 +82,8 @@
                 
         });
         
+        
+        
         $("button#submit").click(function(e){	  
   		  
   		  var f = $("form");
@@ -105,6 +108,10 @@
   	  }) //click
         
     }); //document ready
+    
+    $("button#cancle").click(function(){
+    	location.href = "<c:url value='/exchange/list.cf'/>" +"?pageNo=1";
+    })
     
     function sendFile(file, ele) {
     	var count = 0;
