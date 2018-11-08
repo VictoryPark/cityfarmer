@@ -26,9 +26,9 @@
 			select cf_s_exchange_no.nextval from dual
 		</selectKey>
 		insert into cf_exchange (
-			ex_no, writer, ex_title, ex_content
+			ex_no, writer, ex_title, ex_content, ex_reg_date
 		) values (
-			#{exNo}, #{writer}, #{exTitle}, #{exContent} 
+			#{exNo}, #{writer}, #{exTitle}, #{exContent} , #{exRegDate}
 		)
 	</insert>
 	
@@ -159,9 +159,9 @@
 	<!-- 댓글 작성 -->
 	<insert id="insertNewComment" parameterType="ExchangeComment">
 		insert into cf_exchange_comment (
-			exc_no, ex_no, exc_writer, exc_content
+			exc_no, ex_no, exc_writer, exc_content, exc_reg_date
 		) values (
-			cf_s_exc_no.nextval, #{exNo}, #{excWriter}, #{excContent}
+			cf_s_exc_no.nextval, #{exNo}, #{excWriter}, #{excContent}, #{excRegDate}
 		)
 	</insert>
 	

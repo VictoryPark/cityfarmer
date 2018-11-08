@@ -105,7 +105,7 @@
 			set drf_ori_name = #{drfOriName},
 				drf_sys_name = #{drfSysName},
 				drf_path = #{drfPath},
-				drf_size = #{drfSize},
+				drf_size = #{drfSize}
 			where drf_no = #{drfNo}
 	</update>
 	

@@ -15,8 +15,10 @@
    
    <div class="top-section">
        <div class="main-image"><img id="title-img" src="<c:url value="/resources/img/exchange/exchange3_1.jpg"/>" /></div>
+       <div class="title-section">
        <form method="POST" action="<c:url value='/exchange/listsearch.cf'/>" name="searchForm"> 
        <input type="hidden" name="pageNo" value="1"/>
+           <span id="exchangetitle">물물 교환합시다</span>
            <a class="btn btn-default" href="<c:url value="/exchange/writeform.cf"/>" role="button">글쓰기</a>
            <div class="col-xs-3 form-inline" id="search">
                <select id="searchsel" name="type" class="searchselect">
@@ -35,6 +37,7 @@
                <button type="button" class="btn btn-default" id="search">검색</button>
            </div>
        </form>
+       </div>
    </div>
    <div class="bottom-section">
        <div class="container-fluid">

@@ -180,7 +180,7 @@ table, th {
 				</div>
 			</form>
 			<!--------------------------------------------------------------------- 밑에부터 캘린더 html  -------------------------------------------->
-			<div class="calendar pull-right" id="calendar-app">
+			<!-- <div class="calendar pull-right" id="calendar-app">
 				<div class="calendar--day-view" id="day-view">
 					<span class="day-view-exit" id="day-view-exit">&times;</span> <span
 						class="day-view-date" id="day-view-date">MAY 29 2016</span>
@@ -255,7 +255,7 @@ table, th {
 					<span><span id="footer-date" class="footer__link">Today
 							is May 30</span></span>
 				</div>
-			</div>
+			</div> -->
 			
 			<c:import url="../common/footer.jsp" />
 			

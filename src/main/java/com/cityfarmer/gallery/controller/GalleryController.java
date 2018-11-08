@@ -160,7 +160,7 @@ public class GalleryController {
 			}
 			file.transferTo(img);
 			//service.uploadFile(ef);
-			gaFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
+			gaFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
 
 		}
 		//source="org.eclipse.jst.jee.server:cityFarmer"
