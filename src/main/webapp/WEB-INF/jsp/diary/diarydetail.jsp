@@ -7,6 +7,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
 <link rel='stylesheet' type='text/css'
 	href="<c:url value="/resources/css/diary/main2.css"/>">
 <!-- include libraries(jQuery, bootstrap) -->
@@ -141,9 +146,9 @@ img {
 		</div>
 	</div>
 	<div id="btn">
-		<button type="button" id="del" onclick="button1_click();"
+		<button type="button" id="del" data-writer="${board.writer}" onclick="button1_click();"
 			class="btn pull-right btn-default">삭제</button>
-		<button type="button" id="update" onclick="button2_click();"
+		<button type="button" id="update" data-writer="${board.writer}" onclick="button2_click();"
 			class="btn pull-right btn-default">수정</button>
 		<button type="button" id="list" onclick="button3_click();"
 			class="btn pull-right btn-default">목록</button>
@@ -207,13 +212,22 @@ img {
 	                .appendTo('#slideshow');
 	        }, 3000);
 	        
-	        function button1_click() {
+	        $("#del").click(function() {
+	        	if($(this).data("writer") != '${user.id}') {
+	        		alert("작성자만 삭제 가능합니다.")
+	        		return;
+	        	}
 	        	location.href = "diarydelete.cf?no=${board.drNo}";
-	        }
+	        });
 	        
-	        function button2_click() {
+	        $("#update").click(function() {
+	        	if($(this).data("writer") != '${user.id}') {
+	        		console.log($(this).data("writer"))
+	        		alert("작성자만 수정 할 수 있습니다.")
+	        		return;
+	        	}
 	        	location.href = "diaryupdateForm.cf?no=${board.drNo}";
-	        }
+	        });
 	        
 	        function button3_click() {
 	        	location.href = "diarylist.cf";
@@ -296,10 +310,10 @@ img {
 	           	$(document).on("click", "div.comm_btn > a", function(e){
 	           		e.preventDefault();
 	           		var drcNo = $(this).attr("href");
-	           		/* if('${user.id}' !== $(this).data("drcWriter")) {
+	           		if('${user.id}' !== $(this).data("writer")) {
 	           			alert("본인의 댓글만 삭제할수 있습니다.")
 	           			return;
-	           		} */
+	           		} 
 	           	$.ajax({
 	           		url: "<c:url value='/diary/diarydeletecomment.cf'/>",
 	           		type: "post",
