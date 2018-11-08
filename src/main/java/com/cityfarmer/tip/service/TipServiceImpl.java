@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cityfarmer.repository.domain.tip.LikeTip;
 import com.cityfarmer.repository.domain.tip.TipBoard;
 import com.cityfarmer.repository.domain.tip.TipBoardComment;
 import com.cityfarmer.repository.domain.tip.TipFile;
@@ -93,6 +94,12 @@ public class TipServiceImpl implements TipService {
 	public void insertTipFile(TipFile file) {
 	mapper.insertTipFile(file);
 	}
+
+	@Override
+	public int CountLike(LikeTip likeTip) {
+		
+		return mapper.CountLike(likeTip);
+	}
 	
 //파일 갖고오기
 
@@ -117,6 +124,7 @@ public class TipServiceImpl implements TipService {
 		System.out.println(mapper.selectCommentCountNo(no));
 		return mapper.selectCommentCountNo(no);
 	}*/
+	
 	
 
 

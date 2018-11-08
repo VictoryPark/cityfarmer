@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,43 +59,68 @@ public class TipController {
 	}
 	
 	
-	@RequestMapping("/write.cf")
-	public String write(TipBoard tipboard, TipFile file) throws Exception{
+/*	@RequestMapping("/write.cf")
+	public String write(TipBoard tipboard, TFormVO form, TipFile file) throws Exception{
+		file.setTipfOriName(form.getOriName());
+
 	if(file.getTipfOriName()=="") {
 		service.insertBoard(tipboard);
-	
 	}else {
-		
-			
-		service.insertBoardAll(tipboard, file);
-	
-	}
-		
-/*	System.out.println(form.getTipTitle());
-	System.out.println(form.getTipContent());
-
 		tipboard.setTipTitle(form.getTipTitle());
 		tipboard.setTipContent(form.getTipContent());
-		
-
-	file.setTipfOriName(form.getOriName());
-	file.setTipfSysName(form.getSysName());
-	file.setTipfPath(form.getPath());
-	
+		file.setTipfOriName(form.getOriName());
+		file.setTipfSysName(form.getSysName());
+		file.setTipfPath(form.getPath());
 		file.setTipfSize(form.getSize());
 		System.out.println(file.getTipfSize());
 		
 		
-		service.insertBoard(tipboard, file);*/
+		service.insertBoardAll(tipboard, file);
+	}
+	return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "MainPage.cf";
+	
+	}*/
+	
+	@RequestMapping("/write.cf")
+	public String write(TipBoard tipboard, TipFile file) throws Exception{
+		System.out.println("-----------------");
+		System.out.println(file.getTipfOriName());	
+		System.out.println("-----------------");
+		
+	/*	
+		tipboard.setTipTitle(form.getTipTitle());
+		tipboard.setTipContent(form.getTipContent());
+		file.setTipfOriName(form.getOriName());
+		file.setTipfSysName(form.getSysName());
+		file.setTipfPath(form.getPath());
+		file.setTipfSize(form.getSize());
+		System.out.println(file.getTipfSize());*/
 	
 
+	if(file.getTipfOriName()==null) {
+		service.insertBoard(tipboard);
+	}else {
 		
+		
+		
+		service.insertBoardAll(tipboard, file);
 	}
+	return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "MainPage.cf";
+	
+	}
+	
+	
 	@RequestMapping("/detailBoard.cf")
-	public void detail(int no, Model model)throws Exception{
+	public void detail(int no, Model model, HttpServletRequest request)throws Exception{
 		System.out.println("컨트롤러까지 들어옴을 확인");
 		System.out.println(no);
-		
+	/*	HttpSession session = request.getSession();
+		Member m =(Member) session.getAttribute("user");
+		LikeTip liketip = new LikeTip();
+		liketip.setLikeNo(no);
+		liketip.setUserId(m.getId());
+		model.addAttribute("like", service.CountLike(liketip));
+		*/
 		model.addAttribute("tipBoard", service.selectBoardByNo(no));
 	}
 	@RequestMapping("/deleteBoard.cf")
