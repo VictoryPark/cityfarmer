@@ -1,7 +1,7 @@
 package com.cityfarmer.repository.domain.diary;
 
 public class DiaryFile {
-	private int drcNo;
+	private int drfNo;
 	private int drNo;
 	private String drfOriName;
 	private String drfSysName;
@@ -9,10 +9,10 @@ public class DiaryFile {
 	private long drfSize;
 	private String url;
 	public int getDrcNo() {
-		return drcNo;
+		return drfNo;
 	}
 	public void setDrcNo(int drcNo) {
-		this.drcNo = drcNo;
+		this.drfNo = drcNo;
 	}
 	public int getDrNo() {
 		return drNo;

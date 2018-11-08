@@ -27,6 +27,11 @@ body {
 	margin: 0 auto;
 }
 
+.panel-body {
+    padding: 15px;
+    clear: both;
+}
+
 h1 {
 	font-size: 30px;
 	text-align: left;
@@ -37,7 +42,7 @@ h1 {
 
 #slideshow {
 	margin: 0% auto;
-	position: absolute;
+	position: relative;
 	width: 1200px;
 	height: 300px;
 	padding: 13%;
@@ -55,7 +60,8 @@ h1 {
 #panel {
 	margin: auto;
 	position: relative;
-	top: 435px;
+/* 	top: 435px; */
+	clear:both;
 	/* width: 1200px;
 	height: 320px; */
 }
@@ -63,18 +69,19 @@ h1 {
 #update, #del, #list {
 	margin: 5px;
 	position: relative;
-	top: 660px;
-	float: right;
+/* 	top: 510px; */
+	/* float: right; */
 }
 
 .container {
-	position: relative;
-	top: 680px;
+ 	position: relative;
+	/* top: 532px; */
+	clear: both;
 }
 
 .container2 {
-	position: relative;
-	top: 690px;
+	position: relative; 
+	/* top: 487px; */
 }
 
 .comm_btn{
@@ -86,6 +93,12 @@ img {
 	width: 100%;
 	height: 100%;
 }
+
+#btn {
+	position: relative;
+	
+}
+
 
 </style>
 </head>
@@ -111,7 +124,7 @@ img {
 				height="100%">
 		</div>
 	</div>
-
+	<br>
 	<div class="panel panel-default" id="panel">
 		<div class="panel-heading">
 			<p class="panel-title">제목 : ${board.drTitle}</p>
@@ -127,7 +140,7 @@ img {
 			<div class="panel-content">${board.drContent}</div>
 		</div>
 	</div>
-	<div>
+	<div id="btn">
 		<button type="button" id="del" onclick="button1_click();"
 			class="btn pull-right btn-default">삭제</button>
 		<button type="button" id="update" onclick="button2_click();"
@@ -135,7 +148,6 @@ img {
 		<button type="button" id="list" onclick="button3_click();"
 			class="btn pull-right btn-default">목록</button>
 	</div>
-	<hr>
 
 		<div class="container">
 			<div id="container">
@@ -167,29 +179,21 @@ img {
 										<button type="button"  id="combtn" class="btn pull-right btn-success">등록</button>
 								</div></td>
 					</table>
-					<div id="box-footer">
-						<ul id="repl">
-						
-						</ul>
-					</div>
-					<%-- <div class="modal-footer">
-						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-						<button type="button" id="updateBtn" data-drcNo="${comment.drcNo}" class="btn btn-success modalModBtn">수정</button>
-						<button type="button" id="deleteBtn" data-drcNo="${comment.drcNo}" class="btn btn-danger modalDelBtn">삭제</button>
-					</div> --%>
+					
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
+
 	<div class="container2">
 		<form id="commentListForm" method="post">
 			<div id="commentList"></div>
 		</form>
 	</div>
 	
+	 <c:import url="../common/footer.jsp" />
 	
-	<c:import url="../common/footer.jsp" />
 
 	<script>
 	        $("#slideshow > div:gt(0)").hide();
@@ -307,5 +311,6 @@ img {
 	            
 	        
 	    </script>
+	   
 </body>
 </html>
