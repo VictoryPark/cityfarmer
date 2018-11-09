@@ -162,7 +162,8 @@ public class DiaryController {
 				img.mkdirs();
 			}
 			file.transferTo(img);
-			drFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
+//			drFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
+			drFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
 		}
 		
 		fileList.add(drFile);

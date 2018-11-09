@@ -146,7 +146,8 @@ public class ExchangeController {
 			attach.transferTo(img);
 			//service.uploadFile(ef);
 			//<Context docBase="/app/upload" path="/app/upload" reloadable="true"/>
-			exFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
+//			exFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
+			exFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
 		} //enhanced for문
 		
 		//source="org.eclipse.jst.jee.server:cityFarmer"

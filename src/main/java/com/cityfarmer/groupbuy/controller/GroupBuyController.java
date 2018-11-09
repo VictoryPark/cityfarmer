@@ -205,7 +205,8 @@ public class GroupBuyController {
 				img.mkdirs();
 			}
 			file.transferTo(img);
-			gbFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
+//			gbFile.setUrl("http://192.168.0.63:8000"+ uploadPath + datePath +"/"+ fileSysName);
+			gbFile.setUrl("http://localhost:8000"+ uploadPath + datePath +"/"+ fileSysName);
 		}
 		//source="org.eclipse.jst.jee.server:cityFarmer"
 			fileList.add(gbFile);
