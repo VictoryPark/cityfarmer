@@ -127,6 +127,17 @@
         		}
         	})//ajax
         }
+        
+        $("#sum1").click(function() {
+        	if($("input[name='drTitle']").val() == "") {
+        		alert("제목을 입력하세요")
+        		return false;
+        	}
+        	if($("#summernote").val() == "") {
+        		alert("내용을 입력해주세요")
+        		return false;
+        	}
+        })
 
     </script>
     <script>

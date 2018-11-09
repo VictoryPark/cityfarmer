@@ -237,7 +237,7 @@ img {
 	         * 댓글 등록하기(Ajax)
 	         */
 	        
-	     $("#combtn").click(function () {
+	     $("#combtn").click(function (e) {
 			
 				$.ajax({
 					url: "<c:url value='/diary/diarycommentwriter.cf'/>",
@@ -248,13 +248,20 @@ img {
 						"drNo": "${board.drNo}"
 					},
 				}).done(function(result) {
+					if($("#comment").val() == "") {
+		        		e.preventDefault();
+		        		alert("내용을 입력하세요")
+		        		return false;
+		        	}
 					/* commentList(); */
 					getCommentList();
 					$("#commentList").val("");
 					$('[name=drcContent]').val("");
 					
 				});
-			}); 
+			});
+	        
+	      
 	        
 	         
 	        /**
