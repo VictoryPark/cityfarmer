@@ -39,6 +39,7 @@
         </table>
 
         <div id="buttonbox">
+        	<button class="btn btn-success btn-lg" id="cancle" type="button" >취소</button>
             <button class="btn btn-success btn-lg" id="submit">수정하기</button>
         </div>
     	<input id="imageBoard" name="fileUrl" type="hidden"/>
@@ -56,6 +57,7 @@
     <c:import url="../common/footer.jsp" />
   <script>
     $(document).ready(function() {
+    	
         $('#summernote').summernote({
             height : 350,
             tabsize : 2,
@@ -74,7 +76,34 @@
           	} // callbacks
                 
         });
+        
+        $("button#submit").click(function(e){	  
+    		  
+    		  var f = $("form");
+    		  
+    		  $title = $("input[name='exTitle']").val();
+    		  $content = $("textarea").val();
+    		  
+    		  if($title==""){
+    		      alert("제목을 입력하세요")
+    		      $("input[name='exTitle']").focus()
+    		      e.preventDefault()
+    		      return;
+    		  }
+    			
+    		  if($content==""){
+    		      alert("내용을 입력하세요")
+    		      $("input[name='exTitle']").focus()
+    		      e.preventDefault()
+    		      return;
+    		  }
+    		  f.submit();
+    	  }) //click
     });
+    
+    $("button#cancle").click(function(){
+    	location.href = "<c:url value='/exchange/list.cf'/>" +"?pageNo=1";
+    })
     
     function sendFile(file, ele) {
     	var form_data = new FormData();

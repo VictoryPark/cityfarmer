@@ -316,39 +316,40 @@ color : black;
 	<script>
 		//댓글 조회
 		function commentList() {
-			$.ajax({
-						url : "<c:url value='/tip/listComment.cf'/>",
-						type : "POST",
-						data : "no=${tipBoard.tipNo}"
+         $
+               .ajax({
+                  url : "<c:url value='/tip/listComment.cf'/>",
+                  type : "POST",
+                  data : "no=${tipBoard.tipNo}"
 
-					}).done(function(result) {
-								console.log(result)
-								var text="";
-								for (let i = 0; i < result.length; i++) {
+               })
+               .done(
+                     function(result) {
+                        console.log(result)
+                        var text = "";
+                        for (let i = 0; i < result.length; i++) {
 
-								text+= "<div class = 'forCommentsContainer'>"
-															+ "<div class  = 'row'>"
-															+ "<div class='col-md-2'><i class='far fa-user'></i>&nbsp&nbsp"
-															+ result[i].tipcWriter
-															+ "</div>"
-															+ "<div class='col-md-8'>"
-															+ result[i].tipcContent
-															+ "</div>"
-															+ "<div class='col-md-2'>"
-															+ result[i].tipcRegDate
-															+ "<div class='dropdown pull-right'>"
-															+ "<i class='glyphicon glyphicon-option-horizontal dropbtn' aria-hidden='true'></i>"
-															+ "<div class='dropdown-content'>"
-															+ "<a href='#' id = 'deleteComment' class = "+result[i].tipcNo+" '>삭제</a>"
-															+ "</div></div></div></div></div>";
-								} //for
-								
-								$(".diplay")
-								.html(text)
+                           text += "<div class = 'forCommentsContainer'>"
+                                 + "<div class  = 'row'>"
+                                 + "<div class='col-md-2'><i class='far fa-user'></i>&nbsp&nbsp"
+                                 + result[i].tipcWriter
+                                 + "</div>"
+                                 + "<div class='col-md-8'>"
+                                 + result[i].tipcContent
+                                 + "</div>"
+                                 + "<div class='col-md-2'>"
+                                 + result[i].tipcRegDate
+                                 + "<div class='dropdown pull-right'>"
+                                 + "<i class='glyphicon glyphicon-option-horizontal dropbtn' aria-hidden='true'></i>"
+                                 + "<div class='dropdown-content'>"
+                                 + "<a href='#' id = 'deleteComment' class = "+result[i].tipcNo+" name = "+result[i].tipcWriter+">삭제</a>"
+                                 + "</div></div></div></div></div>";
+                        } //for
 
-							})
-		};
-		//댓글 화면에 나타내기
+                        $(".diplay").html(text)
+
+                     })
+      };
 
 		commentList();
 

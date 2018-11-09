@@ -186,6 +186,9 @@ div#blur {
 div#paging {
 	margin-top : 60px;
 }
+a#now {
+	background-color : #8ccfa3;
+}
 /*The widths are in a percentage!*/
 .top-section, 
 .bottom-section {

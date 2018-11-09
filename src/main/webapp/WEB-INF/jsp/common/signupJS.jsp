@@ -61,12 +61,22 @@ $("button#newmember").click(function(){
         f.name.focus()
         return;
     }
+	if(isValidName(f.name.value)==false) {
+		alert("형식에 맞는 이름을 입력해주세요.")
+		f.name.focus()
+        return;
+	}
 	
 	if(f.id.value==""){
         alert("아이디를 입력하세요")
         f.id.focus()
         return;
     }
+	if(isValidId(f.id.value) == false) {
+		alert("형식에 맞는 아이디를 입력해주세요.")
+		f.id.focus()
+        return;
+	}
 	
     if(f.pass.value==""){
         alert("비밀번호를 입력하세요")

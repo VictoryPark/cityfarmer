@@ -83,7 +83,6 @@
         });
         
         
-        
         $("button#submit").click(function(e){	  
   		  
   		  var f = $("form");

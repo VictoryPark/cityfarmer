@@ -92,8 +92,10 @@
 	       <div class="pagination">
 	           <a <c:if test="${map.pageResult.prevAll eq false}"> class="disabled"</c:if>
 	          		 <c:choose>
-			      		<c:when test="${map.pageResult.prevAll eq true}">href="list.cf?pageNo=${map.pageResult.beginPage}" </c:when>
-			      		<c:otherwise>href="#${map.pageResult.beginPage}"</c:otherwise>
+			      		<c:when test="${map.pageResult.prevAll eq true}">href="list.cf?pageNo=1" </c:when>
+<%-- 			      		<c:when test="${map.pageResult.prevAll eq true}">href="list.cf?pageNo=${map.pageResult.beginPage}" </c:when> --%>
+			      		<c:otherwise>href="#1"</c:otherwise>
+			      		<%-- <c:otherwise>href="#${map.pageResult.beginPage}"</c:otherwise> --%>
 			      	</c:choose>
 			      		 aria-label="PreviousAll">
 	           <span aria-hidden="true">&laquo;</span></a>
@@ -107,7 +109,7 @@
 	           <c:forEach var="i" begin="${map.pageResult.beginPage}" end="${map.pageResult.endPage}">
 	           	<c:choose>
 				    <c:when test="${i eq map.pageResult.pageNo}">
-	           			<a href="#1">${i}</a>
+	           			<a href="#1" id="now">${i}</a>
 	           		</c:when>
 	           		<c:otherwise>
 	           			<a href="list.cf?pageNo=${i}">${i}</a>
@@ -124,8 +126,8 @@
 			      	<span aria-hidden="true">&gt;</span></a>
 	           <a <c:if test="${map.pageResult.nextAll eq false}"> class="disabled"</c:if>
 	           		<c:choose>
-			      		<c:when test="${map.pageResult.nextAll eq true}">href="list.cf?pageNo=${map.pageResult.endPage}" </c:when>
-			      		<c:otherwise>href="#${map.pageResult.endPage}"</c:otherwise>
+			      		<c:when test="${map.pageResult.nextAll eq true}">href="list.cf?pageNo=${map.pageResult.lastPage}" </c:when>
+			      		<c:otherwise>href="#${map.pageResult.lastPage}"</c:otherwise>
 			      	</c:choose>
 			      		aria-label="NextAll">
 	           <span aria-hidden="true">&raquo;</span></a>

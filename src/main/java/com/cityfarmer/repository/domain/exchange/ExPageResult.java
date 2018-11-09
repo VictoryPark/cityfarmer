@@ -32,7 +32,7 @@ public class ExPageResult {
 		prevAll = pageNo != 1;
 		nextAll = pageNo != lastPage;
 		prev = pageNo != 1;
-		next = pageNo != endPage;
+		next = pageNo != lastPage;
 	}
 
 	public int getCount()     { return count; }
